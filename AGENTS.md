@@ -13,7 +13,7 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
 1. **`recon-hunter` (Master 16-Phase Pipeline)** — `.agents/skills/recon-hunter/SKILL.md`
    - *Architecture:* Continuous end-to-end unauthenticated recon-to-bug pipeline coordinating all Phase 1-3 skills with strict Severity Kill Rules, 60s PoC curls, and Coverage Ledger.
 2. **`subdomainenum` (50 Checks)** — `.agents/skills/subdomainenum/SKILL.md`
-   - *Subagents (6):* Passive Scraping, Search Dorking, Active DNS Bruting & Wildcards, JS/Mobile Assets, Cloud Infra & SPF/DMARC, Subdomain Takeover Verification.
+   - *Subagents (8):* Passive Scraping, Search Dorking, Active DNS Bruting & Wildcards, JS/Mobile Assets, Cloud Infra & SPF/DMARC, Subdomain Takeover Verification, SecLists DNS Fuzzing, and calibrated Virtual Host Discovery.
 3. **`techfingerprint` (40 Checks)** — `.agents/skills/techfingerprint/SKILL.md`
    - *Subagents (5):* Core Profilers & Cookies, Edge CDN & WAF, Frontend SPAs & Frameworks, Backend Runtimes & Debuggers, CMS & API Architecture.
 4. **`contentdiscovery` (50 Checks)** — `.agents/skills/contentdiscovery/SKILL.md`

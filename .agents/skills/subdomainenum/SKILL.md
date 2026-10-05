@@ -1,14 +1,15 @@
 ---
 name: subdomainenum
 description: Master reconnaissance skill for exhaustive 50-point subdomain enumeration, passive OSINT scraping, active multi-resolver brute-forcing, wildcard handling, and takeover auditing based on Jason Haddix's TBHM v4.
-version: "1.0.0"
-author: "Bug Bounty Multi-Agent Skills Framework"
-compatibility:
-  - Antigravity / Gemini CLI
-  - Claude Code
-  - Cursor IDE
-  - OpenAI Codex / OpenCode
-  - DeepSeek
+metadata:
+  version: "1.0.0"
+  author: "Bug Bounty Multi-Agent Skills Framework"
+  compatibility:
+    - Antigravity / Gemini CLI
+    - Claude Code
+    - Cursor IDE
+    - OpenAI Codex / OpenCode
+    - DeepSeek
 ---
 
 # `subdomainenum` — Universal Subdomain Enumeration Skill
@@ -62,9 +63,9 @@ compatibility:
 
 ---
 
-## The 6 Specialized Subagents
+## The 8 Specialized Subagents
 
-To maintain maximum depth, accuracy, and operational granularity, tasks are partitioned into 6 focused subagents:
+To maintain maximum depth, accuracy, and operational granularity, tasks are partitioned into 8 focused subagents:
 
 1. **[Subagent 01: Passive OSINT & Certificate Transparency](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_01_passive_scraping.md)**
    *Checks: 01, 02, 03, 04, 06, 07, 08, 09, 10, 11, 12, 13, 24, 34, 39, 43, 44, 47*
@@ -78,6 +79,10 @@ To maintain maximum depth, accuracy, and operational granularity, tasks are part
    *Checks: 22, 23, 29, 36, 37, 38, 40, 46*
 6. **[Subagent 06: Subdomain Takeover & Dangling Resource Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_06_takeover_verification.md)**
    *Checks: 25, 28*
+7. **[Subagent 07: DNS Fuzzing with SecLists](subagents/subagent_07_dns_fuzzing.md)**
+   *Supplemental coverage: checks 17, 18, and 19 with explicit SecLists progression and wildcard validation.*
+8. **[Subagent 08: Virtual Host Discovery with SecLists](subagents/subagent_08_vhost_discovery.md)**
+   *Supplemental coverage: shared-origin Host-header discovery with learned response baselines and SNI-aware verification.*
 
 For methodology and reference playbooks, consult:
 - [API Keys Configuration Reference](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/references/api_keys_config.md)
@@ -133,6 +138,12 @@ cat artifacts/subagent_01_passive_results.txt \
 
   jq -r '.host' artifacts/resolved_subdomains.json | sort -u > artifacts/live_subdomains.txt
   ```
+
+For dedicated SecLists-based DNS fuzzing, invoke Subagent 07 and merge only independently resolved, wildcard-filtered names.
+
+### Phase 3B: Virtual Host Discovery (Subagent 08, when authorized)
+
+Run only when the destination IP/origin is explicitly in scope. Learn the default response from multiple random Host headers, derive FFUF match/filter settings from stable response signatures, and verify outliers with SNI-aware requests. Keep DNS-dark vhosts separate from DNS-resolved subdomains.
 
 ---
 

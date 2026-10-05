@@ -4,7 +4,9 @@
 # Supported Platforms: Ubuntu / Debian / Kali Linux / WSL2
 # ==============================================================================
 
-set -e
+set -Eeuo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Terminal colors
 RED='\033[0;31m'
@@ -14,6 +16,8 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
+
+trap 'echo -e "\n${RED}[ERROR] Setup stopped at line ${LINENO}: ${BASH_COMMAND}${NC}" >&2' ERR
 
 echo -e "${CYAN}${BOLD}"
 echo "================================================================================"
@@ -112,7 +116,7 @@ GO_TOOLS=(
   "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"
   "github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest"
   "github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest"
-  "github.com/projectdiscovery/chaos-client/cmd/chaos-client@latest"
+  "github.com/projectdiscovery/chaos-client/cmd/chaos@latest"
 
   # Fast Crawlers, Historical & URL Harvesters
   "github.com/lc/gau/v2/cmd/gau@latest"
@@ -133,6 +137,13 @@ GO_TOOLS=(
 
 for tool in "${GO_TOOLS[@]}"; do
   binary=$(basename "$tool" | cut -d'@' -f1)
+  case "$tool" in
+    github.com/ffuf/ffuf/v2@*) binary="ffuf" ;;
+  esac
+  if command -v "$binary" &>/dev/null; then
+    echo -e "${GREEN}  -> ${binary} is already installed; skipping.${NC}"
+    continue
+  fi
   echo -e "${BLUE}  -> Installing ${binary}...${NC}"
   go install -v "$tool" 2>&1 | tail -n 1
 done
@@ -142,35 +153,66 @@ done
 # ------------------------------------------------------------------------------
 echo -e "\n${YELLOW}[Step 4/8] Installing Python security auditing tools...${NC}"
 
-# Pipx installations for isolated, modern dependencies
+# Use one project-local virtual environment. This avoids Kali/Debian's PEP 668
+# restriction while keeping Python packages isolated from the system interpreter.
+PYTHON_VENV="$SCRIPT_DIR/.venv"
+if [ ! -x "$PYTHON_VENV/bin/python" ]; then
+  echo -e "${BLUE}  -> Creating Python virtual environment at ${PYTHON_VENV}...${NC}"
+  python3 -m venv "$PYTHON_VENV"
+fi
+export PATH="$PYTHON_VENV/bin:$PATH"
+"$PYTHON_VENV/bin/python" -m pip install --upgrade pip
+
 PYTHON_TOOLS=(
   "arjun"
   "wafw00f"
   "waymore"
   "dnsvalidator"
+  "knockpy"
 )
 
 for ptool in "${PYTHON_TOOLS[@]}"; do
-  echo -e "${BLUE}  -> Installing ${ptool} via pipx...${NC}"
-  pipx install "$ptool" --force 2>/dev/null || pip install --user "$ptool"
+  if command -v "$ptool" &>/dev/null; then
+    echo -e "${GREEN}  -> ${ptool} is already installed; skipping.${NC}"
+    continue
+  fi
+  echo -e "${BLUE}  -> Installing ${ptool} in project virtual environment...${NC}"
+  case "$ptool" in
+    dnsvalidator)
+      "$PYTHON_VENV/bin/python" -m pip install \
+        "git+https://github.com/vortexau/dnsvalidator.git"
+      ;;
+    knockpy)
+      # The `knockpy` PyPI name belongs to an unrelated statistics package.
+      "$PYTHON_VENV/bin/python" -m pip install \
+        "git+https://github.com/guelfoweb/KnockPy.git"
+      ;;
+    *)
+      "$PYTHON_VENV/bin/python" -m pip install "$ptool"
+      ;;
+  esac
 done
 
 # ParamSpider installation (clone if not packaged)
 if ! command -v paramspider &>/dev/null; then
   echo -e "${BLUE}  -> Installing ParamSpider from source...${NC}"
-  if [ ! -d "$HOME/tools/ParamSpider" ]; then
-    mkdir -p "$HOME/tools"
-    git clone https://github.com/devanshbatham/ParamSpider.git "$HOME/tools/ParamSpider"
-    pipx install "$HOME/tools/ParamSpider" --force 2>/dev/null || pip install -e "$HOME/tools/ParamSpider"
+  PARAMSPIDER_DIR="$SCRIPT_DIR/.tools/ParamSpider"
+  if [ -e "$PARAMSPIDER_DIR" ] && [ ! -d "$PARAMSPIDER_DIR/.git" ]; then
+    echo -e "${RED}[!] $PARAMSPIDER_DIR exists but is not a valid Git checkout.${NC}" >&2
+    echo -e "${YELLOW}    Move that directory aside, then rerun setup.sh.${NC}" >&2
+    exit 1
   fi
+  if [ ! -d "$PARAMSPIDER_DIR/.git" ]; then
+    mkdir -p "$SCRIPT_DIR/.tools"
+    git clone https://github.com/devanshbatham/ParamSpider.git "$PARAMSPIDER_DIR"
+  fi
+  "$PYTHON_VENV/bin/python" -m pip install "$PARAMSPIDER_DIR"
 fi
 
-# JS Beautify (Node/Python)
-if command -v npm &>/dev/null; then
-  echo -e "${BLUE}  -> Installing js-beautify via npm...${NC}"
-  npm install -g js-beautify 2>/dev/null || true
-else
-  pip install --user jsbeautifier 2>/dev/null || true
+# JS Beautify (Python package exposes the js-beautify CLI)
+if ! command -v js-beautify &>/dev/null; then
+  echo -e "${BLUE}  -> Installing js-beautify in project virtual environment...${NC}"
+  "$PYTHON_VENV/bin/python" -m pip install jsbeautifier
 fi
 
 # ------------------------------------------------------------------------------
@@ -234,6 +276,21 @@ if [ ! -f "$RESOLVERS_FILE" ] || [ ! -s "$RESOLVERS_FILE" ]; then
 EOF
   }
 fi
+# Public lists can temporarily yield very few usable servers. Always retain a
+# small trusted baseline so shuffledns/dnsx have a viable resolver pool.
+if [ "$(wc -l < "$RESOLVERS_FILE")" -lt 5 ]; then
+  cat << 'EOF' >> "$RESOLVERS_FILE"
+1.1.1.1
+1.0.0.1
+8.8.8.8
+8.8.4.4
+9.9.9.9
+149.112.112.112
+208.67.222.222
+208.67.220.220
+EOF
+  sort -u -o "$RESOLVERS_FILE" "$RESOLVERS_FILE"
+fi
 echo -e "${GREEN}[+] Public resolvers configured at: $RESOLVERS_FILE ($(wc -l < "$RESOLVERS_FILE") resolvers)${NC}"
 
 # ------------------------------------------------------------------------------
@@ -279,6 +336,10 @@ REQUIRED_TOOLS=(
   "gowitness"
   "fingerprintx"
   "interactsh-client"
+  "dnsvalidator"
+  "paramspider"
+  "js-beautify"
+  "knockpy"
   "arjun"
   "wafw00f"
   "nmap"
@@ -310,3 +371,4 @@ fi
 
 echo -e "\n${CYAN}Add the following line to your ~/.bashrc or ~/.zshrc if not already present:${NC}"
 echo -e "${BOLD}export PATH=\"\$PATH:/usr/local/go/bin:\$HOME/go/bin:\$HOME/.local/bin\"${NC}\n"
+echo -e "${CYAN}Activate project Python tools with:${NC} ${BOLD}source \"$PYTHON_VENV/bin/activate\"${NC}\n"

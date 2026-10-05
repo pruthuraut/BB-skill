@@ -14,13 +14,21 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-The script automatically installs system packages, verifies/installs Go, downloads all Go engines, installs Python security tools into isolated environments via `pipx`, compiles `massdns`, updates Nuclei templates, creates a verified `resolvers.txt`, and runs a health-check verification matrix.
+The script automatically installs system packages, verifies/installs Go, downloads all Go engines, installs Python security tools in the repository-local `.venv`, compiles `massdns`, updates Nuclei templates, creates a verified `resolvers.txt`, and runs a health-check verification matrix.
+
+The installer is safe to rerun after an interrupted download: tools already available in `PATH` are skipped. If setup stops, fix the reported command and run `./setup.sh` again. The script never falls back to system-wide `pip`, so Kali/Debian's PEP 668 protection remains intact.
+
+After installation, activate the Python tools in each new shell:
+
+```bash
+source .venv/bin/activate
+```
 
 ---
 
 ## 2. Prerequisites & Environment Variables
 
-Ensure your shell configuration (`~/.bashrc` or `~/.zshrc`) includes Go and Python user binary directories:
+Ensure your shell configuration (`~/.bashrc` or `~/.zshrc`) includes the Go and user binary directories:
 
 ```bash
 export GOPATH="$HOME/go"
@@ -61,7 +69,7 @@ go install -v github.com/projectdiscovery/katana/cmd/katana@latest
 go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
 go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
-go install -v github.com/projectdiscovery/chaos-client/cmd/chaos-client@latest
+go install -v github.com/projectdiscovery/chaos-client/cmd/chaos@latest
 
 # --- Active Crawlers & URL Harvesters ---
 go install -v github.com/lc/gau/v2/cmd/gau@latest
@@ -83,28 +91,36 @@ go install -v github.com/sensepost/gowitness@latest
 ---
 
 ### Category C: Python Security & Parameter Mining Tools
-Install in isolated virtual environments via `pipx`:
+Install in the project-local virtual environment created by `setup.sh`. Do not use `sudo pip`, `pip install --user`, or `--break-system-packages` on Kali/Debian:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
 ```bash
 # Arjun (Hidden parameter discovery)
-pipx install arjun
+.venv/bin/pip install arjun
 
 # Wafw00f (WAF detection)
-pipx install wafw00f
+.venv/bin/pip install wafw00f
 
 # Waymore (Multi-engine historical archive mining)
-pipx install waymore
+.venv/bin/pip install waymore
 
 # Dnsvalidator (High-speed DNS resolver validator)
-pipx install dnsvalidator
+.venv/bin/pip install git+https://github.com/vortexau/dnsvalidator.git
+
+# Knockpy (subdomain enumeration; do not install the unrelated `knockpy` PyPI package)
+.venv/bin/pip install git+https://github.com/guelfoweb/KnockPy.git
 
 # ParamSpider (Parameter mining from Web Archives)
 git clone https://github.com/devanshbatham/ParamSpider.git /tmp/ParamSpider
-pipx install /tmp/ParamSpider
+.venv/bin/pip install /tmp/ParamSpider
 rm -rf /tmp/ParamSpider
 
 # JS Beautifier (for deobfuscating and beautifying JavaScript)
-pip install --user jsbeautifier
+.venv/bin/pip install jsbeautifier
 ```
 
 ---
