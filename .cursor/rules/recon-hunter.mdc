@@ -1,0 +1,15 @@
+---
+description: Full-stack Recon-to-Bug Master Skill running 16-phase unauthenticated pipeline
+globs: ["**/*recon*", "**/*hunter*", "**/*pipeline*", "**/*subdomain*"]
+alwaysApply: false
+---
+
+# RECON-HUNTER Master Pipeline Rule
+
+When invoked with keywords "recon", "enumerate", "subdomain", "find bugs", "attack surface", "map the target", "what's exposed", "scan this", or any domain/IP without further instruction:
+1. Master skill: `.agents/skills/recon-hunter/SKILL.md`.
+2. Execute all 16 phases in order with zero skips.
+3. Enforce **Impact First**: Only report what an attacker can abuse right now.
+4. Apply **Severity Kill Rules**: Discard theoretical findings (CORS without credentials, S3 AccessDenied, .git without remote, unconfirmed nuclei alerts).
+5. Enforce **PoC Standard**: Every reported finding must provide a 60-second copyable curl command and obey the 50-record exfiltration cap.
+6. Track progress using the 16-phase **Coverage Ledger**.

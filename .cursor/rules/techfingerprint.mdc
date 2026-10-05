@@ -1,0 +1,18 @@
+---
+description: Universal Technology Fingerprinting & 40-Check Stack Profiling Skill based on TBHM v4
+globs: ["**/*tech*", "**/*fingerprint*", "**/*profile*"]
+alwaysApply: false
+---
+
+# Technology Fingerprinting Rule (TBHM v4 & 40-Check Multi-Agent Framework)
+
+When tasked with fingerprinting target technologies, identifying web frameworks, inspecting APIs, or profiling software versions:
+
+1. Follow the **40-Check Audit Matrix** defined in `.agents/skills/techfingerprint/references/checklist_40_tracker.md`.
+2. Divide tasks across the 5 specialized subagents:
+   - **Subagent 01 (Headers, Cookies & Profilers):** `.agents/skills/techfingerprint/subagents/subagent_01_core_headers_cookies.md`
+   - **Subagent 02 (Edge, CDN, WAF & Network):** `.agents/skills/techfingerprint/subagents/subagent_02_infra_edge_waf.md`
+   - **Subagent 03 (Frontend SPAs & Frameworks):** `.agents/skills/techfingerprint/subagents/subagent_03_frontend_spa_frameworks.md`
+   - **Subagent 04 (Backend Runtimes & Admin Panels):** `.agents/skills/techfingerprint/subagents/subagent_04_backend_runtimes_stacks.md`
+   - **Subagent 05 (CMS & API Architecture):** `.agents/skills/techfingerprint/subagents/subagent_05_cms_api_architecture.md`
+3. Consolidate results into `artifacts/technology_profile.json` and mark off items in `checklist_40_tracker.md`.

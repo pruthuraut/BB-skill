@@ -1,0 +1,13 @@
+---
+description: Universal Application Resource Exhaustion & Rate Limiting Audit Skill
+globs: ["**/*dos*", "**/*rate-limit*", "**/*exhaustion*", "**/*flood*"]
+alwaysApply: false
+---
+
+# Resource Exhaustion & Rate Limiting Auditing Rule
+
+When tasked with evaluating rate limiting, unconstrained form submissions, destructive action re-authentication, or resource exhaustion:
+1. Follow the **25-Check Audit Matrix** in `.agents/skills/resource-exhaustion/references/exhaustion_checklist_tracker.md`.
+2. Master skill: `.agents/skills/resource-exhaustion/SKILL.md`.
+3. Audit mandatory re-authentication on account deletion, form rate limiting, payload size caps, and queue throttles.
+4. Record structured findings in `artifacts/resource_exhaustion_audit_report.json`.

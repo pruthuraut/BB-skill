@@ -1,0 +1,13 @@
+---
+description: Universal API Security & Swagger Auditing Skill based on OWASP API Top 10 & TBHM
+globs: ["**/*api*", "**/*swagger*", "**/*graphql*", "**/*rest*"]
+alwaysApply: false
+---
+
+# API Security & Swagger Auditing Rule (OWASP API Top 10 & 25-Check Framework)
+
+When tasked with auditing REST APIs, GraphQL endpoints, Swagger UI, or API gateways:
+1. Follow the **25-Check Audit Matrix** in `.agents/skills/api-security/references/api_security_checklist_tracker.md`.
+2. Master skill: `.agents/skills/api-security/SKILL.md`.
+3. Audit OpenAPI exposure, GraphQL introspection, BOLA/BFLA, mass assignment, and gateway rate limits.
+4. Record structured findings in `artifacts/api_security_audit_report.json`.

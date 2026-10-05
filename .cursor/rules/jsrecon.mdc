@@ -1,0 +1,18 @@
+---
+description: Comprehensive JavaScript reconnaissance, de-minification, source map recovery, and secret mining rule
+globs: **/*
+alwaysApply: false
+---
+
+# Universal Bug Bounty JavaScript Reconnaissance (`jsrecon`) Rules
+
+When performing JavaScript asset harvesting, code de-minification, source map analysis, or secret mining:
+1. Always reference the master skill: `.agents/skills/jsrecon/SKILL.md`
+2. Follow the 5 specialized subagents:
+   - Subagent 01: Multi-Source Harvesting & Parallel Downloading
+   - Subagent 02: Automated De-Minification & Source Map (`.js.map`) Reconstruction
+   - Subagent 03: 60+ Secret Regex Patterns & TruffleHog Verification
+   - Subagent 04: Deep 6-Way Endpoint & Parameter Extraction
+   - Subagent 05: Dynamic Runtime Hooking & Notification Dispatch
+3. For standalone automation runs, use `.agents/skills/jsrecon/scripts/jsx_pipeline.sh` or `.agents/skills/jsrecon/scripts/js_analyzer.py`.
+4. Never analyze minified JS without beautifying (`js-beautify`) first and checking for `.js.map` sourcemap exposures.

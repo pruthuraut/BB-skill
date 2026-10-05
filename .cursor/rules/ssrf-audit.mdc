@@ -1,0 +1,13 @@
+---
+description: Universal Server-Side Request Forgery (SSRF) & Cloud Metadata Auditing Skill based on TBHM Module 15
+globs: ["**/*ssrf*", "**/*metadata*", "**/*webhook*", "**/*fetch*"]
+alwaysApply: false
+---
+
+# SSRF Auditing Rule (TBHM Module 15 & 25-Check Multi-Agent Framework)
+
+When tasked with auditing SSRF vulnerabilities, remote URL fetchers, or cloud metadata access:
+1. Follow the **25-Check Audit Matrix** in `.agents/skills/ssrf-audit/references/ssrf_checklist_tracker.md`.
+2. Master skill: `.agents/skills/ssrf-audit/SKILL.md`.
+3. Evaluate against IMDSv1/v2 requirements, RFC 1918 egress restrictions, URL parser differentials, and DNS rebinding resilience.
+4. Record structured findings in `artifacts/ssrf_vulnerability_report.json`.

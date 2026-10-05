@@ -1,0 +1,18 @@
+# Resources folder (excluded per configuration)
+resorces/
+resources/
+
+# Audit outputs & runtime artifacts
+artifacts/
+*.sqlite3
+*.log
+
+# System & OS artifacts
+.DS_Store
+Thumbs.db
+
+# Python & Node artifacts
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/

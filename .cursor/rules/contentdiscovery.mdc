@@ -1,0 +1,20 @@
+---
+description: Universal Content & URL Discovery 50-Check Audit Skill based on TBHM v4 & Custom Wordlists
+globs: ["**/*content*", "**/*fuzz*", "**/*dirsearch*", "**/*ffuf*", "**/*endpoint*"]
+alwaysApply: false
+---
+
+# Content & URL Discovery Rule (TBHM v4 & 50-Check Multi-Agent Framework)
+
+When tasked with directory bruteforcing, content discovery, hidden endpoint mapping, or sensitive file hunting:
+
+1. Follow the **50-Check Audit Matrix** defined in `.agents/skills/contentdiscovery/references/checklist_50_tracker.md`.
+2. Divide tasks across the 6 specialized subagents:
+   - **Subagent 01 (Fuzzers & Crawlers):** `.agents/skills/contentdiscovery/subagents/subagent_01_fuzzers_crawlers.md`
+   - **Subagent 02 (Historical, JS & OSINT):** `.agents/skills/contentdiscovery/subagents/subagent_02_historical_js_osint.md`
+   - **Subagent 03 (Well-Known, SEO & Identity):** `.agents/skills/contentdiscovery/subagents/subagent_03_wellknown_identity_seo.md`
+   - **Subagent 04 (Sensitive Files, Backups & Git):** `.agents/skills/contentdiscovery/subagents/subagent_04_sensitive_files_backups.md`
+   - **Subagent 05 (Debug, Logs & API Docs):** `.agents/skills/contentdiscovery/subagents/subagent_05_debug_logs_api_docs.md`
+   - **Subagent 06 (Admin Consoles & DevOps):** `.agents/skills/contentdiscovery/subagents/subagent_06_admin_devops_portals.md`
+3. Always reference the specialized wordlists mapped in `.agents/skills/contentdiscovery/references/wordlists_guide.md` from `wordlists/` and `wordlists/`.
+4. Output verified findings to `artifacts/discovered_endpoints.txt`, `artifacts/sensitive_files.txt`, and mark progress in `checklist_50_tracker.md`.

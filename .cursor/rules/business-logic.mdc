@@ -1,0 +1,13 @@
+---
+description: Universal Business Logic & Workflow Security Auditing Skill based on TBHM Modules 10 & 11
+globs: ["**/*logic*", "**/*workflow*", "**/*race-condition*", "**/*price*"]
+alwaysApply: false
+---
+
+# Business Logic & Workflow Auditing Rule (TBHM Modules 10 & 11 Framework)
+
+When tasked with auditing business logic, price manipulation, or workflow state transitions:
+1. Follow the **25-Check Audit Matrix** in `.agents/skills/business-logic/references/business_logic_checklist_tracker.md`.
+2. Master skill: `.agents/skills/business-logic/SKILL.md`.
+3. Test client-side price tampering, workflow sequencing, single-use coupon race conditions, and state machine integrity.
+4. Record structured findings in `artifacts/business_logic_flaws_report.json`.

@@ -1,0 +1,15 @@
+---
+description: Universal Cloud Storage, Org Secrets & Dependency Confusion Skill based on TBHM and Supply Chain Methodologies
+globs: ["**/*cloud*", "**/*s3*", "**/*bucket*", "**/*storage*", "**/*supplychain*", "**/*npm*"]
+alwaysApply: false
+---
+
+# Cloud Storage, Org Secrets & Supply Chain Auditing Rule
+
+When tasked with cloud bucket hunting, Firebase auditing, GitHub organization scanning, or dependency confusion:
+1. Follow the **Master Skill Guide** in `.agents/skills/cloud-supplychain/SKILL.md`.
+2. Probe AWS S3, GCS, and Azure Blob storage using apex domain permutations.
+3. Test Firebase RTDB with `?shallow=true` to prevent mass-downloading data.
+4. Scan GitHub organization repos using TruffleHog and Gitleaks with cryptographic verification.
+5. Check exposed `package.json` dependencies against the public npm registry for HTTP 404 unclaimed internal namespaces.
+6. Enforce Severity Kill Rules: discard `AccessDenied` buckets and non-matching package namespaces.

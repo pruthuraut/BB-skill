@@ -1,0 +1,13 @@
+---
+description: Universal Broken Access Control & IDOR Auditing Skill based on TBHM Module 14
+globs: ["**/*idor*", "**/*access-control*", "**/*bola*", "**/*privilege*"]
+alwaysApply: false
+---
+
+# Broken Access Control & IDOR Auditing Rule (TBHM Module 14 & 25-Check Framework)
+
+When tasked with auditing access controls, IDOR, or authorization boundaries:
+1. Follow the **25-Check Audit Matrix** in `.agents/skills/access-control/references/bac_checklist_tracker.md`.
+2. Master skill: `.agents/skills/access-control/SKILL.md`.
+3. Test horizontal IDOR (equal tiers), vertical privilege escalation, and multi-tenant isolation.
+4. Record structured findings in `artifacts/idor_vulnerability_matrix.json`.

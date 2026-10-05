@@ -1,0 +1,8 @@
+# Universal Bug Bounty Recon & Subdomain Enumeration Rules
+# Implements Jason Haddix TBHM v4 50-Item Subdomain Enumeration Methodology
+
+When executing reconnaissance, subdomain discovery, or attack surface mapping:
+- Refer to the master skill: `.agents/skills/subdomainenum/SKILL.md`
+- Track the 50 checks using: `.agents/skills/subdomainenum/references/checklist_50_tracker.md`
+- Utilize the 6 modular subagents under `.agents/skills/subdomainenum/subagents/`
+- Prioritize high-fidelity resolution with wildcard filtering and multi-resolver pools.

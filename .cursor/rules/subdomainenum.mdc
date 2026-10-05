@@ -1,0 +1,26 @@
+---
+description: Universal Subdomain Enumeration & 50-Check Audit Skill based on TBHM v4
+globs: ["**/*recon*", "**/*subdomain*", "**/*target*"]
+alwaysApply: false
+---
+
+# Subdomain Enumeration Rule (TBHM v4 & 50-Check Multi-Agent Framework)
+
+When tasked with performing subdomain enumeration, reconnaissance, or attack surface mapping for a target domain:
+
+1. Follow the **50-Check Audit Matrix** defined in `.agents/skills/subdomainenum/references/checklist_50_tracker.md`.
+2. Do not execute a flat unorganized scan. Delegate tasks to the 6 dedicated subagents:
+   - **Subagent 01 (Passive OSINT & CT):** `.agents/skills/subdomainenum/subagents/subagent_01_passive_scraping.md`
+   - **Subagent 02 (Search Dorking & Cyberspace):** `.agents/skills/subdomainenum/subagents/subagent_02_dorking_cyberspace.md`
+   - **Subagent 03 (Active DNS, Brute & Wildcards):** `.agents/skills/subdomainenum/subagents/subagent_03_active_dns_brute.md`
+   - **Subagent 04 (JS, Content & Mobile Discovery):** `.agents/skills/subdomainenum/subagents/subagent_04_js_content_mobile.md`
+   - **Subagent 05 (DNS Infra, Cloud & Network):** `.agents/skills/subdomainenum/subagents/subagent_05_infra_dns_cloud.md`
+   - **Subagent 06 (Subdomain Takeover & Dangling):** `.agents/skills/subdomainenum/subagents/subagent_06_takeover_verification.md`
+3. Always verify API keys from `.agents/skills/subdomainenum/references/api_keys_config.md` before querying third-party APIs.
+4. Always detect and filter Wildcard DNS before outputting resolved assets.
+5. Generate standardized artifacts in `artifacts/`:
+   - `live_subdomains.txt`
+   - `resolved_subdomains.json`
+   - `internal_ip_leaks.txt`
+   - `takeovers_report.md`
+   - `checklist_50_tracker.md` (progress from 0/50 to 50/50).

@@ -1,0 +1,19 @@
+---
+description: Universal Link & Parameter Discovery 40-Check Audit Skill based on TBHM v4
+globs: ["**/*param*", "**/*link*", "**/*crawl*", "**/*katana*", "**/*arjun*"]
+alwaysApply: false
+---
+
+# Link & Parameter Discovery Rule (TBHM v4 & 40-Check Multi-Agent Framework)
+
+When tasked with web crawling, parameter mining, client-side JS analysis, or uncovering hidden inputs:
+
+1. Follow the **40-Check Audit Matrix** defined in `.agents/skills/linkparamdiscovery/references/checklist_40_tracker.md`.
+2. Divide tasks across the 5 specialized subagents:
+   - **Subagent 01 (Crawlers & Linked Discovery):** `.agents/skills/linkparamdiscovery/subagents/subagent_01_crawlers_linked_discovery.md`
+   - **Subagent 02 (JS Mining & Source Maps):** `.agents/skills/linkparamdiscovery/subagents/subagent_02_js_mining_sourcemaps.md`
+   - **Subagent 03 (Parameter Mining & Forms):** `.agents/skills/linkparamdiscovery/subagents/subagent_03_parameter_mining_forms.md`
+   - **Subagent 04 (Real-time, WS & Event Handlers):** `.agents/skills/linkparamdiscovery/subagents/subagent_04_realtime_websockets_events.md`
+   - **Subagent 05 (API Formats, SSO & Workflows):** `.agents/skills/linkparamdiscovery/subagents/subagent_05_api_formats_workflows.md`
+3. Incorporate `wordlists/params.txt` for all parameter brute-forcing.
+4. Save structured outputs in `artifacts/discovered_parameters.json` and mark items complete in `checklist_40_tracker.md`.

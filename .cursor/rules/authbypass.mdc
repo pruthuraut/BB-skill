@@ -1,0 +1,19 @@
+---
+description: Universal Login & Registration Bypass 30-Check Audit Skill based on TBHM v4 & Real-world Exploit Disclosures
+globs: ["**/*login*", "**/*register*", "**/*authbypass*", "**/*takeover*", "**/*mass-assignment*"]
+alwaysApply: false
+---
+
+# Login & Registration Bypass Rule (TBHM v4 & 30-Check Multi-Agent Framework)
+
+When tasked with auditing authentication workflows, registration logic, privilege escalation, or account takeover vectors:
+
+1. Follow the **30-Check Audit Matrix** defined in `.agents/skills/authbypass/references/checklist_30_tracker.md`.
+2. Divide tasks across the 5 specialized subagents:
+   - **Subagent 01 (Injections & Semantics):** `.agents/skills/authbypass/subagents/subagent_01_injection_semantic_bypasses.md`
+   - **Subagent 02 (Middleware & Pathing):** `.agents/skills/authbypass/subagents/subagent_02_middleware_headers_pathing.md`
+   - **Subagent 03 (Registration & Mass Assignment):** `.agents/skills/authbypass/subagents/subagent_03_registration_mass_assignment.md`
+   - **Subagent 04 (Verification & Takeovers):** `.agents/skills/authbypass/subagents/subagent_04_verification_account_takeovers.md`
+   - **Subagent 05 (Enumeration & Defensive Controls):** `.agents/skills/authbypass/subagents/subagent_05_enumeration_timing_controls.md`
+3. Refer to `.agents/skills/authbypass/references/auth_bypass_payloads.md` for exact injection and header override payloads.
+4. Save structured outputs in `artifacts/auth_bypasses_confirmed.txt` and mark items complete in `checklist_30_tracker.md`.
