@@ -54,6 +54,7 @@ if command -v apt-get &>/dev/null; then
     build-essential \
     libpcap-dev \
     nmap \
+    masscan \
     whois \
     dnsutils \
     libssl-dev \
@@ -117,6 +118,7 @@ GO_TOOLS=(
   "github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest"
   "github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest"
   "github.com/projectdiscovery/chaos-client/cmd/chaos@latest"
+  "github.com/projectdiscovery/alterx/cmd/alterx@latest"
 
   # Fast Crawlers, Historical & URL Harvesters
   "github.com/lc/gau/v2/cmd/gau@latest"
@@ -336,6 +338,7 @@ REQUIRED_TOOLS=(
   "gowitness"
   "fingerprintx"
   "interactsh-client"
+  "alterx"
   "dnsvalidator"
   "paramspider"
   "js-beautify"
@@ -343,6 +346,7 @@ REQUIRED_TOOLS=(
   "arjun"
   "wafw00f"
   "nmap"
+  "masscan"
   "jq"
   "curl"
 )

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Subdomain Takeover"
+  short_description: "Audit 50 dangling DNS takeover conditions"
+  default_prompt: "Use $subdomain-takeover to audit authorized DNS assets for dangling-service takeover risks without claiming resources."

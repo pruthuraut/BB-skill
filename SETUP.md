@@ -70,6 +70,7 @@ go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
 go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
 go install -v github.com/projectdiscovery/chaos-client/cmd/chaos@latest
+go install -v github.com/projectdiscovery/alterx/cmd/alterx@latest
 
 # --- Active Crawlers & URL Harvesters ---
 go install -v github.com/lc/gau/v2/cmd/gau@latest
@@ -237,7 +238,7 @@ dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resol
 Run this one-liner to verify that all critical tools are available in your `$PATH`:
 
 ```bash
-for tool in subfinder httpx dnsx naabu katana nuclei shuffledns massdns ffuf waybackurls gau waymore hakrawler gospider trufflehog gitleaks cero subjack gowitness fingerprintx interactsh-client arjun wafw00f nmap jq curl gh; do
+for tool in subfinder httpx dnsx naabu alterx katana nuclei shuffledns massdns ffuf waybackurls gau waymore hakrawler gospider trufflehog gitleaks cero subjack gowitness fingerprintx interactsh-client arjun wafw00f nmap masscan jq curl gh; do
   which "$tool" &>/dev/null && echo -e "\e[32m[+] $tool: INSTALLED\e[0m" || echo -e "\e[31m[-] $tool: MISSING\e[0m"
 done
 ```

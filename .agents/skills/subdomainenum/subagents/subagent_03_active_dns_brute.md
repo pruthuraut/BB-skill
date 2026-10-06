@@ -13,6 +13,8 @@ Responsible for active DNS operations: DNS zone transfer checks (AXFR), massive 
 - **Check 27:** Nmap `dns-brute` script execution
 - **Check 45:** DNSrecon SRV service record enumeration
 
+Permutation expansion is a supplemental discovery stage supporting Checks 18 and 19; it does not inflate the 50-check completion count.
+
 ---
 
 ## Standardized Execution Playbook
@@ -118,16 +120,39 @@ dnsrecon -d <target> -t srv | grep -E "SRV[ \t]+" | awk '{print $NF}' | sed 's/\
 ```
 
 ### Step 7: Permutation & Alteration Scanning (TBHM v4 Haddix Slide 48)
-*Methodology:* Analyze resolved live names and generate permutations (`dev-api`, `api-staging`, `internal-vpn`):
+*Methodology:* Treat verified names as evidence of the target's naming conventions. Extract recurring application, environment, region, and numeric labels; then generate a bounded candidate delta around those observations. Do not pipe an unbounded generator directly into resolution because that loses provenance, makes wildcard analysis difficult, and can create millions of low-value queries.
+
+Use three complementary passes:
+
+1. **Observed-name enrichment:** Let `alterx` learn words and numbers from the verified seed set and apply its maintained patterns.
+2. **Targeted structural mutations:** Apply dash and dot variations around observed labels, such as environment-before-service, service-before-environment, nested environment labels, and numeric iterations.
+3. **Apex label expansion:** Apply a bounded SecLists DNS label tier to the root domain. Start with the 5,000-label list, move to 20,000 only when scope and rate limits permit it, and reserve the 110,000 tier for explicitly expanded runs.
+
+Keep seeds, raw generated names, the candidate delta, DNS evidence, wildcard-filtered results, and new verified names as separate artifacts. Normalize to lowercase FQDNs beneath the exact target suffix and subtract `live_subdomains.txt` before sending DNS queries.
+
+The repository runner implements this flow:
 
 ```bash
-# Run alterx or gotator on resolved subdomains
-alterx -l artifacts/live_subdomains.txt -o permutations.txt
-# Resolve newly generated permutations
-dnsx -l permutations.txt -r resolvers.txt -wd <target> -o artifacts/live_permutations.txt
-cat artifacts/live_permutations.txt >> artifacts/live_subdomains.txt
-sort -u artifacts/live_subdomains.txt -o artifacts/live_subdomains.txt
+.agents/skills/subdomainenum/scripts/run_permutations.sh \
+  --authorized \
+  --domain <target> \
+  --seeds artifacts/live_subdomains.txt \
+  --resolvers resolvers.txt
 ```
+
+The default cap is 100,000 generated candidates and the default DNS rate is 100 queries/second. Adjust them downward to match program limits. Use `--wordlist` to select a different authorized tier and `--max-candidates` to make the expansion budget explicit.
+
+Only append `artifacts/permutations/new_live_subdomains.txt` after reviewing `resolved.jsonl` and wildcard evidence. Rerun with `--merge` to update the seed inventory after that review. The runner requires two successful resolution passes and applies automatic wildcard filtering; retain ambiguous wildcard matches outside the live inventory.
+
+**Permutation artifacts:**
+
+- `artifacts/permutations/seeds.txt` — normalized verified inputs
+- `artifacts/permutations/raw_generated.txt` — all bounded AlterX output
+- `artifacts/permutations/candidate_delta.txt` — generated names not already known
+- `artifacts/permutations/resolved.jsonl` — A/AAAA/CNAME response evidence
+- `artifacts/permutations/new_live_subdomains.txt` — verified additions only
+- `artifacts/permutations/run_metadata.txt` — inputs, limits, rates, tool versions, and counts
+- `artifacts/permutations/wildcard_probes.jsonl` — randomized negative-control responses
 
 ---
 

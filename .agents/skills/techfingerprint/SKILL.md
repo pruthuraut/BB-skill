@@ -103,6 +103,10 @@ When this skill is executed against a target (`TARGET_URL="https://example.com"`
 * Probe Swagger / OpenAPI interactive documentation endpoints (`/swagger-ui.html`, `/openapi.json`).
 * Probe GraphQL endpoints (`/graphql`), check for exposed GraphiQL Playgrounds, and execute introspection queries.
 
+### Phase 6: Server Configuration Routing
+
+When profiling identifies Apache, Nginx, IIS, Tomcat, Jetty, WildFly, WebLogic, WebSphere, JBoss, GlassFish, or HTTP/2, pass the relevant targets and evidence to the dedicated [`server-config-audit`](../server-config-audit/SKILL.md). Do not execute its credential-gated, mutation-gated, or lab-only checks as part of ordinary fingerprinting.
+
 ---
 
 ## Standard Output Artifacts

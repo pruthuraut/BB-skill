@@ -24,23 +24,29 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
    - *Subagents (5):* Multi-Source Harvesting & Downloads, Automated Beautification & Source Map Recovery, 60+ Secret Patterns & TruffleHog, Deep 6-Way Endpoint & Param Extraction, Dynamic Runtime Hooking & Alerting.
 7. **`cloud-supplychain` (Cloud Storage, Org Secrets & Dependency Confusion)** — `.agents/skills/cloud-supplychain/SKILL.md`
    - *Subagents (3):* Cloud Storage & Buckets (S3/GCS/Azure/Firebase), Organization & Public Repo Secret Hunting, Supply Chain & Dependency Confusion.
+8. **`network-portscan` (Full TCP Port & Service Discovery)** — `.agents/skills/network-portscan/SKILL.md`
+   - *Pipeline:* Inherits authorized live subdomains, scans ports 1–65535 with Naabu/Nmap/Masscan, and validates discovered services with targeted Nmap probes.
+9. **`subdomain-takeover` (50 Checks)** — `.agents/skills/subdomain-takeover/SKILL.md`
+   - *Pipeline:* Audits dangling DNS and decommissioned cloud/SaaS bindings with non-destructive evidence thresholds and a complete 50-row coverage ledger.
+10. **`server-config-audit` (102 Checks)** — `.agents/skills/server-config-audit/SKILL.md`
+   - *Pipeline:* Audits web-server defaults, modules, consoles, security headers, and HTTP/2 controls with passive, bounded, credential-gated, mutation-gated, and lab-only execution classes.
 
 ### Phase 2: Authentication & Access Control Auditing
-8. **`credentialattacks` (40 Checks)** — `.agents/skills/credentialattacks/SKILL.md`
+11. **`credentialattacks` (40 Checks)** — `.agents/skills/credentialattacks/SKILL.md`
    - *Subagents (5):* Password Policies & Encodings, Brute-Force & Rate Limiting, Reset Flows & Takeover Risks, 2FA/MFA Bypass & OTP, Client-Side Transport & Sessions.
-9. **`authbypass` (30 Checks)** — `.agents/skills/authbypass/SKILL.md`
+12. **`authbypass` (30 Checks)** — `.agents/skills/authbypass/SKILL.md`
    - *Subagents (5):* Injections & Semantic Bypasses, Protocol & Middleware Headers, Registration & Mass Assignment, Verification & Account Takeovers, Enumeration & Defensive Controls.
 
 ### Phase 3: Vulnerability & Application Logic Auditing
-10. **`ssrf-audit` (25 Checks)** — `.agents/skills/ssrf-audit/SKILL.md`
+13. **`ssrf-audit` (25 Checks)** — `.agents/skills/ssrf-audit/SKILL.md`
     - *Subagents (4):* Attack Surface Identification, Cloud Metadata (IMDSv1/v2) & Internal Nets, Parser Differentials & Encodings, Defensive Architecture & DNS Pinning.
-11. **`access-control` (25 Checks)** — `.agents/skills/access-control/SKILL.md`
+14. **`access-control` (25 Checks)** — `.agents/skills/access-control/SKILL.md`
     - *Subagents (4):* Horizontal IDOR & BOLA, Vertical Privilege Escalation, Multi-Tenant Isolation, Defensive Authorization Models.
-12. **`business-logic` (25 Checks)** — `.agents/skills/business-logic/SKILL.md`
+15. **`business-logic` (25 Checks)** — `.agents/skills/business-logic/SKILL.md`
     - *Subagents (4):* Pricing & Financial Parameter Manipulation, Multi-Step Workflows & State Machines, Concurrency & Race Conditions (TOCTOU), Defensive Business Rules.
-13. **`api-security` (25 Checks)** — `.agents/skills/api-security/SKILL.md`
+16. **`api-security` (25 Checks)** — `.agents/skills/api-security/SKILL.md`
     - *Subagents (4):* Documentation & Schema Discovery (Swagger/WSDL), GraphQL Security & Query Limits, Object & Function Authorization (BOLA/BFLA), Defensive API Gateways.
-14. **`resource-exhaustion` (25 Checks)** — `.agents/skills/resource-exhaustion/SKILL.md`
+17. **`resource-exhaustion` (25 Checks)** — `.agents/skills/resource-exhaustion/SKILL.md`
     - *Subagents (4):* Destructive Action Re-Authentication, Velocity Controls & Form Limits, Payload & Memory Bounds, Backend Queue & Storage Protections.
 
 ---
@@ -80,6 +86,10 @@ Each run populates the `artifacts/` folder:
 - `artifacts/cloud_storage_findings.txt`
 - `artifacts/org_secrets_findings.json`
 - `artifacts/dep_confusion_candidates.txt`
+- `artifacts/network_portscan/`
+- `artifacts/takeover_checklist_50.tsv`
+- `artifacts/subdomain_takeover_report.md`
+- `artifacts/server_config/`
 - `artifacts/recon_hunter_ranked_report.txt`
 - `artifacts/credential_audit_report.json`
 - `artifacts/auth_bypasses_confirmed.txt`

@@ -48,7 +48,7 @@ metadata:
    │  Subagent 05    │                                         │  Subagent 06    │
    │  DNS & Infra,   │                                         │  Subdomain      │
    │  Cloud & SPF    │                                         │  Takeover Audit │
-   │  (8 Checks)     │                                         │  (2 Checks)     │
+   │  (8 Checks)     │                                         │  (50 Checks)    │
    └────────┬────────┘                                         └────────┬────────┘
             │                                                           │
             └─────────────────────────────┬─────────────────────────────┘
@@ -78,7 +78,7 @@ To maintain maximum depth, accuracy, and operational granularity, tasks are part
 5. **[Subagent 05: DNS Records, SPF/DMARC, Cloud Infra & Network Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_05_infra_dns_cloud.md)**
    *Checks: 22, 23, 29, 36, 37, 38, 40, 46*
 6. **[Subagent 06: Subdomain Takeover & Dangling Resource Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_06_takeover_verification.md)**
-   *Checks: 25, 28*
+   *Parent checks: 25 and 28; expands into the dedicated [50-check takeover audit](../subdomain-takeover/SKILL.md).*
 7. **[Subagent 07: DNS Fuzzing with SecLists](subagents/subagent_07_dns_fuzzing.md)**
    *Supplemental coverage: checks 17, 18, and 19 with explicit SecLists progression and wildcard validation.*
 8. **[Subagent 08: Virtual Host Discovery with SecLists](subagents/subagent_08_vhost_discovery.md)**
@@ -127,7 +127,7 @@ cat artifacts/subagent_01_passive_results.txt \
 * **Wildcard DNS Detection:** Query random nonce domain (`rand-check-xxxx.target`). If it resolves, flag wildcard IP for filtering.
 * **Multi-Resolver Brute-Force:** Run `shuffledns` or `massdns` using TBHM `commonspeak2` / `all.txt`.
 * **SRV Records:** Enumerate service locators (`dnsrecon -t srv`).
-* **Permutation / Alteration:** Generate and resolve contextual variations (`alterx`, `gotator`).
+* **Permutation / Alteration:** Feed verified passive and brute-force findings into target-aware `alterx` patterns. Generate bounded prefix/suffix, environment, region, numeric, and multi-level variations; remove already-known names; then resolve the delta with wildcard filtering before merging it into the live inventory. Use [the permutation runner](scripts/run_permutations.sh) for reproducible artifacts.
 * **Unified Resolution via `dnsx`:**
   ```bash
   dnsx -l artifacts/passive_seed_candidates.txt \
@@ -140,6 +140,8 @@ cat artifacts/subagent_01_passive_results.txt \
   ```
 
 For dedicated SecLists-based DNS fuzzing, invoke Subagent 07 and merge only independently resolved, wildcard-filtered names.
+
+For permutation expansion, run Subagent 03 only after the first resolution pass has produced a useful seed set. Begin with names actually observed for the target, enrich from their labels, and use the smallest relevant SecLists tier. Estimate and cap candidate volume before resolution; a large generic wordlist multiplied across every pattern is not automatically better coverage.
 
 ### Phase 3B: Virtual Host Discovery (Subagent 08, when authorized)
 
@@ -157,11 +159,7 @@ Run only when the destination IP/origin is explicitly in scope. Learn the defaul
 ---
 
 ### Phase 5: Takeover & Dangling Resource Auditing (Subagent 06)
-* **Extract CNAME Chains:** Filter for unlinked or dangling endpoints pointing to GitHub Pages, Heroku, S3, Azure, Fastly, Shopify, etc.
-* **Automated Takeover Scanning:** Run Nuclei takeover templates:
-  ```bash
-  nuclei -l artifacts/live_subdomains.txt -t http/takeovers/ -o artifacts/takeovers.txt
-  ```
+Invoke the dedicated [subdomain-takeover skill](../subdomain-takeover/SKILL.md). Complete its 50-row ledger across CNAME, NS, MX, A/AAAA, SRV, ALIAS/ANAME, TXT, CAA, wildcard, chain, and provider-specific conditions. Scanner matches remain candidates until DNS control, dangling state, and current provider binding behavior align; never claim a resource during routine verification.
 
 ---
 

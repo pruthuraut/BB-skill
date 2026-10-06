@@ -1,0 +1,4 @@
+interface:
+  display_name: "Server Configuration Deep Audit"
+  short_description: "Audit web servers and HTTP/2 safely"
+  default_prompt: "Use $server-config-audit to assess authorized web-server configuration and HTTP/2 controls using non-disruptive evidence."
