@@ -137,6 +137,7 @@ GO_TOOLS=(
   "github.com/praetorian-inc/fingerprintx/cmd/fingerprintx@latest"
 )
 
+GO_FAILED=()
 for tool in "${GO_TOOLS[@]}"; do
   binary=$(basename "$tool" | cut -d'@' -f1)
   case "$tool" in
@@ -147,7 +148,10 @@ for tool in "${GO_TOOLS[@]}"; do
     continue
   fi
   echo -e "${BLUE}  -> Installing ${binary}...${NC}"
-  go install -v "$tool" 2>&1 | tail -n 1
+  if ! go install -v "$tool" >/tmp/bb_go_install_"$binary".log 2>&1; then
+    echo -e "${RED}  -> FAILED: ${binary} (see /tmp/bb_go_install_${binary}.log)${NC}"
+    GO_FAILED+=("$binary")
+  fi
 done
 
 # ------------------------------------------------------------------------------
@@ -173,26 +177,24 @@ PYTHON_TOOLS=(
   "knockpy"
 )
 
+PY_FAILED=()
 for ptool in "${PYTHON_TOOLS[@]}"; do
   if command -v "$ptool" &>/dev/null; then
     echo -e "${GREEN}  -> ${ptool} is already installed; skipping.${NC}"
     continue
   fi
   echo -e "${BLUE}  -> Installing ${ptool} in project virtual environment...${NC}"
+  # dnsvalidator is not published on PyPI under this name; install from GitHub.
+  # knockpy's PyPI name belongs to an unrelated package, so use the GitHub source.
   case "$ptool" in
-    dnsvalidator)
-      "$PYTHON_VENV/bin/python" -m pip install \
-        "git+https://github.com/vortexau/dnsvalidator.git"
-      ;;
-    knockpy)
-      # The `knockpy` PyPI name belongs to an unrelated statistics package.
-      "$PYTHON_VENV/bin/python" -m pip install \
-        "git+https://github.com/guelfoweb/KnockPy.git"
-      ;;
-    *)
-      "$PYTHON_VENV/bin/python" -m pip install "$ptool"
-      ;;
+    dnsvalidator) pip_target="git+https://github.com/vortexau/dnsvalidator.git" ;;
+    knockpy)      pip_target="git+https://github.com/guelfoweb/KnockPy.git" ;;
+    *)            pip_target="$ptool" ;;
   esac
+  if ! "$PYTHON_VENV/bin/python" -m pip install "$pip_target"; then
+    echo -e "${RED}  -> FAILED: ${ptool}${NC}"
+    PY_FAILED+=("$ptool")
+  fi
 done
 
 # ParamSpider installation (clone if not packaged)
@@ -367,6 +369,13 @@ done
 
 echo "--------------------------------------------------------------------"
 
+if [ "${#GO_FAILED[@]}" -gt 0 ]; then
+  echo -e "${RED}[!] Go installs failed: ${GO_FAILED[*]}${NC}"
+fi
+if [ "${#PY_FAILED[@]}" -gt 0 ]; then
+  echo -e "${RED}[!] Python installs failed: ${PY_FAILED[*]}${NC}"
+fi
+
 if [ $MISSING_COUNT -eq 0 ]; then
   echo -e "\n${GREEN}${BOLD}[SUCCESS] All $(echo ${#REQUIRED_TOOLS[@]}) core reconnaissance and security auditing tools are installed and ready!${NC}"
 else
@@ -374,5 +383,5 @@ else
 fi
 
 echo -e "\n${CYAN}Add the following line to your ~/.bashrc or ~/.zshrc if not already present:${NC}"
-echo -e "${BOLD}export PATH=\"\$PATH:/usr/local/go/bin:\$HOME/go/bin:\$HOME/.local/bin\"${NC}\n"
+echo -e "${BOLD}export PATH=\"\$PATH:/usr/local/go/bin:\$HOME/go/bin:\$HOME/.local/bin:$PYTHON_VENV/bin\"${NC}\n"
 echo -e "${CYAN}Activate project Python tools with:${NC} ${BOLD}source \"$PYTHON_VENV/bin/activate\"${NC}\n"
