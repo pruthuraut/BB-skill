@@ -53,25 +53,25 @@ compatibility:
 
 ## The 5 Specialized Subagents
 
-1. **[Subagent 01: Injection & Semantic Payload Bypasses](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/subagents/subagent_01_injection_semantic_bypasses.md)**
+1. **[Subagent 01: Injection & Semantic Payload Bypasses](subagents/subagent_01_injection_semantic_bypasses.md)**
    *Checks: 02, 03, 04, 25, 28, 29*
    *Focus:* SQL injection (`' OR 1=1--`), NoSQL operator injection (`{"$gt": ""}`), LDAP injection (`*`), Null Byte truncation (`admin%00`), Unicode Turkish dotless `ı` case collisions, and ReDoS/buffer overflow string lengths.
-2. **[Subagent 02: HTTP Protocol & Middleware Header Bypasses](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/subagents/subagent_02_middleware_headers_pathing.md)**
+2. **[Subagent 02: HTTP Protocol & Middleware Header Bypasses](subagents/subagent_02_middleware_headers_pathing.md)**
    *Checks: 06, 15, 16, 17, 18, 19*
    *Focus:* HTTP method switching (POST -> GET/PUT/HEAD), `X-Original-URL` / `X-Rewrite-URL` reverse proxy overrides, URL path traversal differentials (`/login/..;/admin`), HTTP parameter pollution, and API key query leakage.
-3. **[Subagent 03: Registration Logic, Mass Assignment & Privilege Escalation](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/subagents/subagent_03_registration_mass_assignment.md)**
+3. **[Subagent 03: Registration Logic, Mass Assignment & Privilege Escalation](subagents/subagent_03_registration_mass_assignment.md)**
    *Checks: 05, 09, 13, 14, 23, 30*
    *Focus:* Parameter tampering (`role=admin`), mass assignment (`"isAdmin": true`), privilege escalation during signup, duplicate registration race conditions, disposable email domain acceptance, and admin-impersonating email syntax.
-4. **[Subagent 04: Verification Workflows & Account Takeover Flaws](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/subagents/subagent_04_verification_account_takeovers.md)**
+4. **[Subagent 04: Verification Workflows & Account Takeover Flaws](subagents/subagent_04_verification_account_takeovers.md)**
    *Checks: 08, 10, 11, 12, 22, 26*
    *Focus:* Broken password reset validation, email verification bypass (response code tampering, direct step skipping), account takeover via unverified email updates, account takeover via phone number modifications, and verification email bombing.
-5. **[Subagent 05: Enumeration, Timing Attacks & Defensive Controls](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/subagents/subagent_05_enumeration_timing_controls.md)**
+5. **[Subagent 05: Enumeration, Timing Attacks & Defensive Controls](subagents/subagent_05_enumeration_timing_controls.md)**
    *Checks: 01, 07, 20, 21, 24, 27*
    *Focus:* Username/email enumeration via password hashing timing deltas, forceful browsing to protected endpoints, timing attacks on comparison functions, CAPTCHA omission/replay, weak KBA security questions, and case-sensitive account lockout bypasses.
 
 For payload references and step-by-step reproduction guides, consult:
-- [Authentication Bypass Payloads Reference](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/references/auth_bypass_payloads.md)
-- [Real-World Session Puzzling, Response Manipulation & HPP Playbook](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/authbypass/references/session_puzzling_and_otp_playbook.md)
+- [Authentication Bypass Payloads Reference](references/auth_bypass_payloads.md)
+- [Real-World Session Puzzling, Response Manipulation & HPP Playbook](references/session_puzzling_and_otp_playbook.md)
 
 ---
 

@@ -53,28 +53,28 @@ compatibility:
 
 ## The 6 Specialized Subagents
 
-1. **[Subagent 01: High-Speed Recursive Fuzzers & Crawlers](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/subagents/subagent_01_fuzzers_crawlers.md)**
+1. **[Subagent 01: High-Speed Recursive Fuzzers & Crawlers](subagents/subagent_01_fuzzers_crawlers.md)**
    *Checks: 01, 02, 03, 04*
    *Wordlists:* `wordlists/MiniFuzz.txt`, `wordlists/God-Fuzz.txt`.
-2. **[Subagent 02: Historical Crawling, JS Extraction & Public OSINT Leaks](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/subagents/subagent_02_historical_js_osint.md)**
+2. **[Subagent 02: Historical Crawling, JS Extraction & Public OSINT Leaks](subagents/subagent_02_historical_js_osint.md)**
    *Checks: 22, 23, 24, 25, 26*
    *Methodology:* Archive mining (`gau`, `waybackurls`), live JS bundle crawling (`katana`), dev subdomain mapping, and Google Docs/Sheets dorking.
-3. **[Subagent 03: Well-Known, SEO & Identity Federation Discovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/subagents/subagent_03_wellknown_identity_seo.md)**
+3. **[Subagent 03: Well-Known, SEO & Identity Federation Discovery](subagents/subagent_03_wellknown_identity_seo.md)**
    *Checks: 05, 06, 07, 46, 47, 48, 49, 50*
    *Focus:* `robots.txt`, `sitemap.xml`, `security.txt`, OpenID Connect schemas, OAuth discovery, Android `assetlinks.json`, and iOS universal links.
-4. **[Subagent 04: Sensitive Files, Source Leaks, Backups & Credentials](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/subagents/subagent_04_sensitive_files_backups.md)**
+4. **[Subagent 04: Sensitive Files, Source Leaks, Backups & Credentials](subagents/subagent_04_sensitive_files_backups.md)**
    *Checks: 08, 09, 10, 11, 12, 13, 14, 27, 28, 29, 30, 31*
    *Wordlists:* `env.txt`, `dotfiles.txt`, `git_config.txt`, `zip.txt`, `sql.txt`, `config.txt`, `webconfig.txt`, `yaml.txt`.
-5. **[Subagent 05: Debug Endpoints, Test Files & API Documentation](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/subagents/subagent_05_debug_logs_api_docs.md)**
+5. **[Subagent 05: Debug Endpoints, Test Files & API Documentation](subagents/subagent_05_debug_logs_api_docs.md)**
    *Checks: 15, 16, 17, 18, 34*
    *Wordlists:* `log.txt`, `phpunit.txt`, `api.txt`.
-6. **[Subagent 06: Admin Consoles, DevOps Panels & Enterprise Portals](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/subagents/subagent_06_admin_devops_portals.md)**
+6. **[Subagent 06: Admin Consoles, DevOps Panels & Enterprise Portals](subagents/subagent_06_admin_devops_portals.md)**
    *Checks: 19, 20, 21, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45*
    *Wordlists:* `phpmyadmin.txt`, `adminer.txt`, `WPfuzz.txt`, `JiraFuzz.txt`.
 
 For detailed wordlist categorization and real-world reproduction playbooks, see:
-- [Wordlists Guide & Resource Mapping](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/references/wordlists_guide.md)
-- [CI/CD, DevOps Exposure & Information Disclosure Playbook](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/references/cicd_devops_exposure_playbook.md)
+- [Wordlists Guide & Resource Mapping](references/wordlists_guide.md)
+- [CI/CD, DevOps Exposure & Information Disclosure Playbook](references/cicd_devops_exposure_playbook.md)
 
 ---
 

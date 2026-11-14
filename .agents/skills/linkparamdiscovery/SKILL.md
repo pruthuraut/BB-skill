@@ -54,19 +54,19 @@ compatibility:
 
 ## The 5 Specialized Subagents
 
-1. **[Subagent 01: Automated Crawlers & Linked Discovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/subagents/subagent_01_crawlers_linked_discovery.md)**
+1. **[Subagent 01: Automated Crawlers & Linked Discovery](subagents/subagent_01_crawlers_linked_discovery.md)**
    *Checks: 01, 02, 03, 10, 25*
    *Tools:* `katana`, `hakrawler`, `gospider`, client-side HashRouter extraction, and `iframe` harvesting.
-2. **[Subagent 02: JavaScript Mining, AST Analysis & Source Maps](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/subagents/subagent_02_js_mining_sourcemaps.md)**
+2. **[Subagent 02: JavaScript Mining, AST Analysis & Source Maps](subagents/subagent_02_js_mining_sourcemaps.md)**
    *Checks: 04, 05, 09, 15, 16, 17, 18, 39*
    *Tools:* `LinkFinder`, `JSParser`, `.js.map` source map recovery (`sourcemapper`), AST constants parsing, and React/Vue/Angular router tables.
-3. **[Subagent 03: Parameter Mining, Fuzzing & Form Extraction](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/subagents/subagent_03_parameter_mining_forms.md)**
+3. **[Subagent 03: Parameter Mining, Fuzzing & Form Extraction](subagents/subagent_03_parameter_mining_forms.md)**
    *Checks: 06, 07, 08, 23, 24, 31, 36, 37*
    *Tools & Wordlists:* `paramspider`, `arjun` using `wordlists/params.txt`, path parameter normalization (`/{id}`), HTML `<form>` hidden input parsing, Referer leak analysis, search filters, and pagination parameters.
-4. **[Subagent 04: Real-time, Streaming, WebSockets & Event Handlers](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/subagents/subagent_04_realtime_websockets_events.md)**
+4. **[Subagent 04: Real-time, Streaming, WebSockets & Event Handlers](subagents/subagent_04_realtime_websockets_events.md)**
    *Checks: 11, 12, 13, 14, 30, 40*
    *Focus:* WebSocket endpoints (`ws://`, `wss://`, `/socket.io/`), Server-Sent Events (`text/event-stream`), long-polling routines, microservice gateway headers, and cross-origin `postMessage` listener validation.
-5. **[Subagent 05: API Formats, Legacy Gateways & Functional Workflows](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/subagents/subagent_05_api_formats_workflows.md)**
+5. **[Subagent 05: API Formats, Legacy Gateways & Functional Workflows](subagents/subagent_05_api_formats_workflows.md)**
    *Checks: 19, 20, 21, 22, 26, 27, 28, 29, 32, 33, 34, 35, 38*
    *Focus & Wordlists:* REST API versioning (`/v1/` vs `/v2/`), SOAP WSDL (`wad.txt`, `svc.txt`), XML-RPC (`system.listMethods`), SAML/OAuth redirect flows, webhooks, file uploads, data exports, and batch/bulk operations.
 

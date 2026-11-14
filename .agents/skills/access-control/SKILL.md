@@ -48,21 +48,21 @@ compatibility:
 
 ## The 4 Specialized Subagents
 
-1. **[Subagent 01: Horizontal IDOR & Object-Level Authorization](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/access-control/subagents/subagent_01_horizontal_idor.md)**
+1. **[Subagent 01: Horizontal IDOR & Object-Level Authorization](subagents/subagent_01_horizontal_idor.md)**
    *Checks: 01, 02, 03, 04, 05, 06, 07*
    *Focus:* Sequential integer IDs, UUID validation, read/update/delete object tampering between equal-tier users, parameter pollution (`id=1&id=2`), and nested JSON object references.
-2. **[Subagent 02: Vertical Privilege Escalation & Role Boundaries](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/access-control/subagents/subagent_02_vertical_privilege_escalation.md)**
+2. **[Subagent 02: Vertical Privilege Escalation & Role Boundaries](subagents/subagent_02_vertical_privilege_escalation.md)**
    *Checks: 08, 09, 10, 11*
    *Focus:* Administrative endpoint reachability from unprivileged accounts, HTTP method switching bypasses, role-based access control (RBAC) consistency, and user profile role parameter tampering (`role=admin`).
-3. **[Subagent 03: Multi-Tenant Isolation & Shared Resources](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/access-control/subagents/subagent_03_multitenant_isolation.md)**
+3. **[Subagent 03: Multi-Tenant Isolation & Shared Resources](subagents/subagent_03_multitenant_isolation.md)**
    *Checks: 12, 13, 14, 15, 16*
    *Focus:* Organization ID (`org_id`, `company_id`) tampering, cross-tenant workspace invites, static attachment authorization, CSV/PDF report tenant leakage, and batch/bulk array validation.
-4. **[Subagent 04: Defensive Authorization Models & Code Hardening](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/access-control/subagents/subagent_04_defensive_authorization_models.md)**
+4. **[Subagent 04: Defensive Authorization Models & Code Hardening](subagents/subagent_04_defensive_authorization_models.md)**
    *Checks: 17, 18, 19, 20, 21, 22, 23, 24, 25*
    *Focus:* State machine transitions, GraphQL field-level resolvers, API token scoping, centralized middleware enforcement, database-layer query ownership (`WHERE user_id = :id`), indirect reference maps, and security audit logging.
 
 For real-world case studies and step-by-step reproduction instructions on KYC verification and multi-tenant tampering, consult:
-- [Real-World IDOR & Access Control Vulnerability Playbook](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/access-control/references/idor_and_privilege_reproduction_playbook.md)
+- [Real-World IDOR & Access Control Vulnerability Playbook](references/idor_and_privilege_reproduction_playbook.md)
 
 ---
 

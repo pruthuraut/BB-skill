@@ -53,25 +53,25 @@ compatibility:
 
 ## The 5 Specialized Subagents
 
-1. **[Subagent 01: Password Policies, Encodings & Input Flaws](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/subagents/subagent_01_password_policies_input.md)**
+1. **[Subagent 01: Password Policies, Encodings & Input Flaws](subagents/subagent_01_password_policies_input.md)**
    *Checks: 01, 07, 08, 14, 15, 16, 33, 34*
    *Focus:* Password complexity, old password verification, password reuse, bcrypt 72-byte truncation, Unicode normalization, SQL injection in password field, and hashing CPU DoS.
-2. **[Subagent 02: Default Credentials, Brute Force & Rate Limiting Defenses](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/subagents/subagent_02_bruteforce_ratelimit_defaults.md)**
+2. **[Subagent 02: Default Credentials, Brute Force & Rate Limiting Defenses](subagents/subagent_02_bruteforce_ratelimit_defaults.md)**
    *Checks: 02, 03, 09, 10, 11, 12, 35, 40*
    *Focus:* Default service credentials, credential stuffing velocity limits, `X-Forwarded-For` IP spoofing bypasses, account lockout user enumeration, password comparison timing attacks, and CAPTCHA bypasses.
-3. **[Subagent 03: Password Reset Flows & Account Takeovers](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/subagents/subagent_03_reset_flows_takeovers.md)**
+3. **[Subagent 03: Password Reset Flows & Account Takeovers](subagents/subagent_03_reset_flows_takeovers.md)**
    *Checks: 04, 05, 06, 13, 31, 32, 36*
    *Focus:* Token PRNG entropy, GET parameter leakage, email enumeration, single-use token replay, Host header injection account takeovers, and plaintext password storage.
-4. **[Subagent 04: Multi-Factor Authentication (2FA/MFA) Bypass Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/subagents/subagent_04_2fa_mfa_bypass.md)**
+4. **[Subagent 04: Multi-Factor Authentication (2FA/MFA) Bypass Auditing](subagents/subagent_04_2fa_mfa_bypass.md)**
    *Checks: 20, 21, 22, 23, 24, 25, 26, 27, 28, 30*
    *Focus:* Direct endpoint navigation (`/dashboard`), post-auth API token access without 2FA claim, OTP brute force, sequential codes, code reuse race conditions, backup code entropy, unverified 2FA deactivation, and response status-code tampering (`400/403` to `200 OK`).
-5. **[Subagent 05: Client-Side Security, Transport & Session Policies](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/subagents/subagent_05_client_transport_sessions.md)**
+5. **[Subagent 05: Client-Side Security, Transport & Session Policies](subagents/subagent_05_client_transport_sessions.md)**
    *Checks: 17, 18, 19, 29, 37, 38, 39*
    *Focus:* HTTPS enforcement, browser autocomplete attributes, `localStorage` / `sessionStorage` credential leakage, step-up 2FA re-authentication on sensitive actions, and concurrent multi-session revocation.
 
 For rate-limit IP header bypasses and step-by-step reproduction guides, refer to:
-- [Rate Limiting & IP Header Spoofing Reference](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/references/rate_limit_bypass_headers.md)
-- [OTP Rate Limiting, Throttling Bypass & Financial Resource Exhaustion Playbook](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/credentialattacks/references/otp_rate_limiting_and_dos_playbook.md)
+- [Rate Limiting & IP Header Spoofing Reference](references/rate_limit_bypass_headers.md)
+- [OTP Rate Limiting, Throttling Bypass & Financial Resource Exhaustion Playbook](references/otp_rate_limiting_and_dos_playbook.md)
 
 ---
 

@@ -48,21 +48,21 @@ compatibility:
 
 ## The 4 Specialized Subagents
 
-1. **[Subagent 01: Attack Surface Identification & Ingestion Points](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/subagents/subagent_01_surface_identification.md)**
+1. **[Subagent 01: Attack Surface Identification & Ingestion Points](subagents/subagent_01_surface_identification.md)**
    *Checks: 01, 02, 03, 04, 05, 21*
    *Focus:* Identifying query/body parameters (`url=`, `dest=`, `feed=`, `source=`), webhook registrations, PDF/HTML converters, image import pipelines, OpenGraph preview generators, and blind OOB listeners.
-2. **[Subagent 02: Cloud Metadata & Internal Network Exposure](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/subagents/subagent_02_cloud_metadata_internal_nets.md)**
+2. **[Subagent 02: Cloud Metadata & Internal Network Exposure](subagents/subagent_02_cloud_metadata_internal_nets.md)**
    *Checks: 06, 07, 08, 09, 10, 11, 12*
    *Focus:* Auditing AWS IMDSv1 vs IMDSv2 token enforcement, GCP `Metadata-Flavor: Google` requirement, Azure IMDS headers, Kubernetes etcd / Kubelet APIs, Docker sockets, and RFC 1918 segmentation.
-3. **[Subagent 03: Parser Differentials, Encodings & Scheme Restriction](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/subagents/subagent_03_parser_differentials_schemes.md)**
+3. **[Subagent 03: Parser Differentials, Encodings & Scheme Restriction](subagents/subagent_03_parser_differentials_schemes.md)**
    *Checks: 13, 14, 15, 16, 17*
    *Focus:* URI scheme restriction (disabling `gopher://`, `file://`, `dict://`), URL parser differentials between validator and client, alternative IP encodings (decimal, hex, octal, IPv6 mapped IPv4), and 301/302 redirect following behavior.
-4. **[Subagent 04: Defensive Architecture, DNS Pinning & Egress Controls](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/subagents/subagent_04_defensive_architecture.md)**
+4. **[Subagent 04: Defensive Architecture, DNS Pinning & Egress Controls](subagents/subagent_04_defensive_architecture.md)**
    *Checks: 18, 19, 20, 22, 23, 24, 25*
    *Focus:* DNS Rebinding resilience, resolution IP pinning, strict hostname allowlisting, network egress firewall rules, forward proxy isolation, body/content-type limits, and internal mutual TLS.
 
 For step-by-step reproduction instructions and parser differential cheat sheets, consult:
-- [Real-World SSRF, Cloud Metadata & Port Scanning Reproduction Guide](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/references/realworld_ssrf_reproduction_guide.md)
+- [Real-World SSRF, Cloud Metadata & Port Scanning Reproduction Guide](references/realworld_ssrf_reproduction_guide.md)
 
 ---
 

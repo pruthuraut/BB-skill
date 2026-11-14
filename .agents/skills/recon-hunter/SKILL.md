@@ -59,22 +59,22 @@ While `recon-hunter` coordinates the rapid 16-phase pipeline end-to-end, each ph
 
 | Phase | Title | Primary Engine / Commands | Specialized Skill Reference |
 |---|---|---|---|
-| **Phase 01** | Passive Subdomain Enum | `crt.sh`, `subfinder`, `amass`, `chaos`, `cero`, `github-subdomains` | [subdomainenum](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/SKILL.md) |
-| **Phase 02** | DNS Resolution & Tech Detect | `dnsx`, `httpx -title -tech-detect -cdn -follow-redirects` | [techfingerprint](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/SKILL.md) |
-| **Phase 03** | Port Scan & Services | `naabu` (non-CDN), `nmap -sV`, unauth service verification | [techfingerprint](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/SKILL.md) |
-| **Phase 04** | Subdomain Takeover | `nuclei -t takeovers/`, `subjack`, 11 signature grep loop | [subdomainenum](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/SKILL.md) |
-| **Phase 05** | Historical URLs & Juicy Files | `waybackurls`, `gau`, `waymore`, juicy extension `httpx -mc 200` | [contentdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/SKILL.md) |
-| **Phase 06** | Active Web Crawl | `katana -jc -jsl -d 5 -kf all -aff`, `gospider`, `hakrawler` | [linkparamdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/SKILL.md) |
-| **Phase 07** | Directory & Endpoint Fuzzing | Target-derived wordlist (`unfurl`), `ffuf -ac`, API fuzzing | [contentdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/SKILL.md) |
-| **Phase 08** | JS Analysis & Secret Extraction| `js-beautify`, `trufflehog`, `gitleaks`, live token validation | [jsrecon](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/jsrecon/SKILL.md) |
-| **Phase 09** | Nuclei Automated Vulnerability| `nuclei -severity critical,high,medium`, priority exposures | [contentdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/SKILL.md) |
-| **Phase 10** | Cloud Storage & Buckets | Multi-cloud S3/GCS/Azure permutations, Firebase RTDB shallow | [cloud-supplychain](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/SKILL.md) |
-| **Phase 11** | Source Code & Config Exposure | `.git/config`, `.env`, Spring actuators, 21 sensitive paths | [contentdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/SKILL.md) |
-| **Phase 12** | CORS Origin Reflection | Arbitrary origin, `Origin: null`, `Allow-Credentials: true` | [api-security](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/api-security/SKILL.md) |
-| **Phase 13** | SSRF Entry Point Discovery | Regex parameter filtering, Out-Of-Band interactsh verification | [ssrf-audit](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/SKILL.md) |
-| **Phase 14** | GraphQL Discovery & Schema | `{__typename}` probe, full schema introspection dump | [api-security](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/api-security/SKILL.md) |
-| **Phase 15** | Org Secrets & Supply Chain | `trufflehog github --org`, npm package registry 404 audit | [cloud-supplychain](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/SKILL.md) |
-| **Phase 16** | Screenshot & Visual Triage | `gowitness file -f subs/live_http.txt --resolution 1280x800` | [techfingerprint](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/SKILL.md) |
+| **Phase 01** | Passive Subdomain Enum | `crt.sh`, `subfinder`, `amass`, `chaos`, `cero`, `github-subdomains` | [subdomainenum](../subdomainenum/SKILL.md) |
+| **Phase 02** | DNS Resolution & Tech Detect | `dnsx`, `httpx -title -tech-detect -cdn -follow-redirects` | [techfingerprint](../techfingerprint/SKILL.md) |
+| **Phase 03** | Port Scan & Services | `naabu` (non-CDN), `nmap -sV`, unauth service verification | [techfingerprint](../techfingerprint/SKILL.md) |
+| **Phase 04** | Subdomain Takeover | `nuclei -t takeovers/`, `subjack`, 11 signature grep loop | [subdomainenum](../subdomainenum/SKILL.md) |
+| **Phase 05** | Historical URLs & Juicy Files | `waybackurls`, `gau`, `waymore`, juicy extension `httpx -mc 200` | [contentdiscovery](../contentdiscovery/SKILL.md) |
+| **Phase 06** | Active Web Crawl | `katana -jc -jsl -d 5 -kf all -aff`, `gospider`, `hakrawler` | [linkparamdiscovery](../linkparamdiscovery/SKILL.md) |
+| **Phase 07** | Directory & Endpoint Fuzzing | Target-derived wordlist (`unfurl`), `ffuf -ac`, API fuzzing | [contentdiscovery](../contentdiscovery/SKILL.md) |
+| **Phase 08** | JS Analysis & Secret Extraction| `js-beautify`, `trufflehog`, `gitleaks`, live token validation | [jsrecon](../jsrecon/SKILL.md) |
+| **Phase 09** | Nuclei Automated Vulnerability| `nuclei -severity critical,high,medium`, priority exposures | [contentdiscovery](../contentdiscovery/SKILL.md) |
+| **Phase 10** | Cloud Storage & Buckets | Multi-cloud S3/GCS/Azure permutations, Firebase RTDB shallow | [cloud-supplychain](../cloud-supplychain/SKILL.md) |
+| **Phase 11** | Source Code & Config Exposure | `.git/config`, `.env`, Spring actuators, 21 sensitive paths | [contentdiscovery](../contentdiscovery/SKILL.md) |
+| **Phase 12** | CORS Origin Reflection | Arbitrary origin, `Origin: null`, `Allow-Credentials: true` | [api-security](../api-security/SKILL.md) |
+| **Phase 13** | SSRF Entry Point Discovery | Regex parameter filtering, Out-Of-Band interactsh verification | [ssrf-audit](../ssrf-audit/SKILL.md) |
+| **Phase 14** | GraphQL Discovery & Schema | `{__typename}` probe, full schema introspection dump | [api-security](../api-security/SKILL.md) |
+| **Phase 15** | Org Secrets & Supply Chain | `trufflehog github --org`, npm package registry 404 audit | [cloud-supplychain](../cloud-supplychain/SKILL.md) |
+| **Phase 16** | Screenshot & Visual Triage | `gowitness file -f subs/live_http.txt --resolution 1280x800` | [techfingerprint](../techfingerprint/SKILL.md) |
 
 ---
 

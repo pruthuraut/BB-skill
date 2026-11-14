@@ -53,15 +53,15 @@ compatibility:
 
 ## The 5 Specialized Subagents
 
-1. **[Subagent 01: Core Web Profilers, Headers, Cookies & Meta Tags](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/subagents/subagent_01_core_headers_cookies.md)**
+1. **[Subagent 01: Core Web Profilers, Headers, Cookies & Meta Tags](subagents/subagent_01_core_headers_cookies.md)**
    *Checks: 01, 02, 03, 04, 05, 06, 07, 16*
-2. **[Subagent 02: Infrastructure, Edge CDNs, WAFs & Network Services](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/subagents/subagent_02_infra_edge_waf.md)**
+2. **[Subagent 02: Infrastructure, Edge CDNs, WAFs & Network Services](subagents/subagent_02_infra_edge_waf.md)**
    *Checks: 14, 15, 17, 18, 20*
-3. **[Subagent 03: Modern Frontend Frameworks & Single Page Applications](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/subagents/subagent_03_frontend_spa_frameworks.md)**
+3. **[Subagent 03: Modern Frontend Frameworks & Single Page Applications](subagents/subagent_03_frontend_spa_frameworks.md)**
    *Checks: 09, 10, 11, 12, 33, 34, 35, 36, 37, 38*
-4. **[Subagent 04: Backend Runtimes, Server Frameworks & Enterprise Stacks](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/subagents/subagent_04_backend_runtimes_stacks.md)**
+4. **[Subagent 04: Backend Runtimes, Server Frameworks & Enterprise Stacks](subagents/subagent_04_backend_runtimes_stacks.md)**
    *Checks: 13, 26, 27, 28, 29, 30, 31, 32, 39, 40*
-5. **[Subagent 05: CMS & API Architecture Profiling (GraphQL, Swagger, REST)](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/subagents/subagent_05_cms_api_architecture.md)**
+5. **[Subagent 05: CMS & API Architecture Profiling (GraphQL, Swagger, REST)](subagents/subagent_05_cms_api_architecture.md)**
    *Checks: 08, 19, 21, 22, 23, 24, 25*
 
 ---

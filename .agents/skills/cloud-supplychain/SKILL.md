@@ -42,11 +42,11 @@ compatibility:
 
 ## The 3 Specialized Subagents
 
-1. **[Subagent 01: Cloud Storage & Unauthenticated Database Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/subagents/subagent_01_cloud_buckets_s3_gcs_azure.md)**
+1. **[Subagent 01: Cloud Storage & Unauthenticated Database Auditing](subagents/subagent_01_cloud_buckets_s3_gcs_azure.md)**
    *Focus:* Multi-cloud bucket name permutation guessing (AWS S3, Google Cloud Storage, Azure Blob Storage) from apex domain, brand keywords, and environment prefixes; unauthenticated ListObjects extraction; and Firebase Realtime Database shallow querying (`/.json?shallow=true`).
-2. **[Subagent 02: Organization & Public Repository Secret Hunting](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/subagents/subagent_02_org_secret_hunting.md)**
+2. **[Subagent 02: Organization & Public Repository Secret Hunting](subagents/subagent_02_org_secret_hunting.md)**
    *Focus:* Corporate GitHub and GitLab organization footprinting, multi-repo enumeration via GitHub CLI (`gh repo list`), TruffleHog GitHub org scanning with cryptographic verification, Gitleaks commit history audits, and NoseyParker regex extraction.
-3. **[Subagent 03: Supply Chain & Dependency Confusion Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/subagents/subagent_03_dependency_confusion.md)**
+3. **[Subagent 03: Supply Chain & Dependency Confusion Auditing](subagents/subagent_03_dependency_confusion.md)**
    *Focus:* Mining discovered web manifests (`package.json`, `requirements.txt`, `composer.json`), extracting private internal dependency packages, querying public registries (npm, PyPI) for HTTP 404 unallocated namespaces, and verifying internal naming conventions to eliminate false positives.
 
 ---

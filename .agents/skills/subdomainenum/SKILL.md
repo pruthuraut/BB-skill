@@ -67,17 +67,17 @@ metadata:
 
 To maintain maximum depth, accuracy, and operational granularity, tasks are partitioned into 8 focused subagents:
 
-1. **[Subagent 01: Passive OSINT & Certificate Transparency](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_01_passive_scraping.md)**
+1. **[Subagent 01: Passive OSINT & Certificate Transparency](subagents/subagent_01_passive_scraping.md)**
    *Checks: 01, 02, 03, 04, 06, 07, 08, 09, 10, 11, 12, 13, 24, 34, 39, 43, 44, 47*
-2. **[Subagent 02: Search Engine Dorking & Cyberspace Engines](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_02_dorking_cyberspace.md)**
+2. **[Subagent 02: Search Engine Dorking & Cyberspace Engines](subagents/subagent_02_dorking_cyberspace.md)**
    *Checks: 14, 15, 16, 30, 32, 33, 48, 49, 50*
-3. **[Subagent 03: Active DNS Resolution, Bruting, Permutations & Wildcards](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_03_active_dns_brute.md)**
+3. **[Subagent 03: Active DNS Resolution, Bruting, Permutations & Wildcards](subagents/subagent_03_active_dns_brute.md)**
    *Checks: 05, 17, 18, 19, 20, 26, 27, 45*
-4. **[Subagent 04: JavaScript Crawling, Content Discovery & Mobile Artifacts](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_04_js_content_mobile.md)**
+4. **[Subagent 04: JavaScript Crawling, Content Discovery & Mobile Artifacts](subagents/subagent_04_js_content_mobile.md)**
    *Checks: 21, 31, 35, 41, 42*
-5. **[Subagent 05: DNS Records, SPF/DMARC, Cloud Infra & Network Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_05_infra_dns_cloud.md)**
+5. **[Subagent 05: DNS Records, SPF/DMARC, Cloud Infra & Network Auditing](subagents/subagent_05_infra_dns_cloud.md)**
    *Checks: 22, 23, 29, 36, 37, 38, 40, 46*
-6. **[Subagent 06: Subdomain Takeover & Dangling Resource Auditing](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/subagents/subagent_06_takeover_verification.md)**
+6. **[Subagent 06: Subdomain Takeover & Dangling Resource Auditing](subagents/subagent_06_takeover_verification.md)**
    *Parent checks: 25 and 28; expands into the dedicated [50-check takeover audit](../subdomain-takeover/SKILL.md).*
 7. **[Subagent 07: DNS Fuzzing with SecLists](subagents/subagent_07_dns_fuzzing.md)**
    *Supplemental coverage: checks 17, 18, and 19 with explicit SecLists progression and wildcard validation.*
@@ -85,8 +85,8 @@ To maintain maximum depth, accuracy, and operational granularity, tasks are part
    *Supplemental coverage: shared-origin Host-header discovery with learned response baselines and SNI-aware verification.*
 
 For methodology and reference playbooks, consult:
-- [API Keys Configuration Reference](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/references/api_keys_config.md)
-- [Jason Haddix TBHM Lecture Methodology & Attack Surface Pipeline Playbook](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/references/haddix_lecture_recon_playbook.md)
+- [API Keys Configuration Reference](references/api_keys_config.md)
+- [Jason Haddix TBHM Lecture Methodology & Attack Surface Pipeline Playbook](references/haddix_lecture_recon_playbook.md)
 
 ---
 
@@ -147,6 +147,32 @@ For permutation expansion, run Subagent 03 only after the first resolution pass 
 
 Run only when the destination IP/origin is explicitly in scope. Learn the default response from multiple random Host headers, derive FFUF match/filter settings from stable response signatures, and verify outliers with SNI-aware requests. Keep DNS-dark vhosts separate from DNS-resolved subdomains.
 
+### Phase 3C: Final HTTP Service Probing (required when authorized)
+
+After DNS collection and scope filtering are complete, run one final HTTPx pass across the authorized, resolved hostname inventory. Never feed raw passive candidates or excluded hosts directly into this stage. Preserve JSONL metadata and raw responses, then derive a deduplicated hostname list from successful HTTP responses; this is the canonical HTTP-live handoff for later web and takeover workflows. DNS-resolving but HTTP-silent names must remain in the DNS inventory because takeover analysis cannot rely only on web-live hosts.
+
+Use the repository runner for deterministic paths and safety checks:
+
+```bash
+.agents/skills/subdomainenum/scripts/run_httpx_probe.sh \
+  --authorized \
+  --input artifacts/live_subdomains.txt \
+  --output-dir artifacts/httpx_probe
+```
+
+The runner probes HTTP ports 80, 8080, 8000, 8888, and 3000 plus HTTPS ports 443, 8443, and 9443. It records status, content length, title, technology, server, IP, CDN, redirect location, and favicon hash; follows at most three redirects; filters likely error pages; caps the rate at 50 requests/second with 25 workers; uses an eight-second timeout and two retries; emits JSONL; and stores raw responses. Record the HTTPx version, exact command, input hash/count, exclusions applied, start/end time, exit status, JSONL line count, unique responsive URLs, and unique responsive hostnames in `run_metadata.txt`.
+
+Required outputs:
+
+- `artifacts/httpx_probe/httpx.jsonl` — canonical structured probe output
+- `artifacts/httpx_probe/responses/` — stored raw HTTP responses
+- `artifacts/httpx_probe/live_urls.txt` — deduplicated responsive URLs
+- `artifacts/httpx_probe/live_hosts.txt` — deduplicated responsive hostnames
+- `artifacts/httpx_probe/run_metadata.txt` — reproducibility and scope record
+- `artifacts/httpx_probe/httpx.stderr.log` — progress, statistics, and errors
+
+Do not replace `live_subdomains.txt` with `live_hosts.txt`: the former means DNS-resolving, while the latter means an HTTP service responded on at least one selected port.
+
 ---
 
 ### Phase 4: Infrastructure & Network Auditing (Subagent 05)
@@ -165,11 +191,13 @@ Invoke the dedicated [subdomain-takeover skill](../subdomain-takeover/SKILL.md).
 
 ### Phase 6: Final Audit Report & 50-Check Verification
 Update the tracking matrix in:
-[Checklist 50 Tracker](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/references/checklist_50_tracker.md)
+[Checklist 50 Tracker](references/checklist_50_tracker.md)
 
 Compile executive output:
 * `artifacts/live_subdomains.txt` — Deduplicated, resolved live subdomains.
 * `artifacts/resolved_subdomains.json` — Enriched metadata (A, CNAME, IPs, CDNs).
+* `artifacts/httpx_probe/httpx.jsonl` — Final multi-port HTTP service probe metadata.
+* `artifacts/httpx_probe/live_hosts.txt` — Canonical HTTP-responsive hostname handoff.
 * `artifacts/internal_ip_leaks.txt` — Discovered internal RFC 1918 addresses.
 * `artifacts/takeovers_report.md` — Verified takeover vulnerabilities with proof-of-concept steps.
 * `artifacts/audit_summary_report.md` — Executive 50/50 completion summary.
