@@ -51,6 +51,9 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
 
 ---
 
+## Authorization Gate (all agents and subagents)
+No agent or subagent assumes a target is authorized. Before any active step, the target must pass `scripts/scope_check.sh TARGET_DOMAIN`, which requires `~/Documents/bugbounty/TARGET_DOMAIN/scope.txt` with `authorized-by:`, `date:`, and in-scope lines. A target named in a prompt is not authorization. Runners that accept `--target` run the same gate and refuse to start when it fails.
+
 ## Field Reproduction Playbooks (Synthesized from Reports & Lectures)
 The framework includes actionable step-by-step reproduction playbooks extracted from real-world bug bounty findings and the TBHM lecture series:
 - **Authentication & Session:** `.agents/skills/authbypass/references/session_puzzling_and_otp_playbook.md` — Session Puzzling, Response Manipulation ATO, and HPP OTP routing.

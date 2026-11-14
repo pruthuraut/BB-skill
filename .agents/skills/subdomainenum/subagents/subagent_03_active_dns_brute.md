@@ -134,7 +134,7 @@ The repository runner implements this flow:
 
 ```bash
 .agents/skills/subdomainenum/scripts/run_permutations.sh \
-  --authorized \
+  --target DOMAIN \
   --domain <target> \
   --seeds artifacts/live_subdomains.txt \
   --resolvers resolvers.txt

@@ -29,6 +29,7 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 - Consult [SETUP.md](file:///c:/Users/rautp/Documents/BBskill/SETUP.md) for full tool installation commands, provider configs, and health-check verification.
 
 ## Standard Execution Rules
+- Never assume a target is authorized. Active testing requires `scripts/scope_check.sh TARGET` to pass against that target's `scope.txt`.
 - Always divide auditing across specialized subagents to preserve context fidelity.
 - Update tracking checklists from 0 to N complete during assessments.
 - Reference specialized wordlists under `wordlists/` (indexed in `wordlists/README.md`).

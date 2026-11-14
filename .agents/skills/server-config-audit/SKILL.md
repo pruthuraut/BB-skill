@@ -62,3 +62,15 @@ Stop active testing immediately on elevated latency, connection errors above bas
 - `artifacts/server_config/server_configuration_report.md`
 
 The checklist TSV must include `check_id`, `status`, `execution_class`, `performed_class`, `untested_class`, `target`, `applicability_evidence`, `evidence_paths`, `finding_id`, and `notes`. Cross-reference a single finding when multiple rows expose the same root cause.
+
+## Authorization Gate (applies to every run)
+
+Before any active step (DNS queries beyond public resolution, HTTP requests, port scans, fuzzing, authenticated or state-changing requests, or verification of a finding), the target must pass the shared scope gate:
+
+```bash
+scripts/scope_check.sh TARGET_DOMAIN
+```
+
+- The target must have its own `scope.txt` under `~/Documents/bugbounty/TARGET_DOMAIN/` with `authorized-by:`, `date:`, and in-scope lines. Nothing is assumed authorized, and a target named in a prompt is not authorization.
+- If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
+- Runners that take `--target` run the same gate and refuse to start otherwise.

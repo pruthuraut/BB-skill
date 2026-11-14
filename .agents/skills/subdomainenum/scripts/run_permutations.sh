@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 usage() {
   cat <<'EOF'
-Usage: run_permutations.sh --authorized --domain DOMAIN [options]
+Usage: run_permutations.sh --domain DOMAIN [options]
 
 Options:
   --seeds FILE            Verified seed names (default: artifacts/live_subdomains.txt)
@@ -13,7 +13,7 @@ Options:
   --max-candidates N      Maximum generated candidates (default: 100000)
   --rate N                DNS queries per second (default: 100)
   --merge                 Merge confirmed additions into the seed file
-  --authorized            Confirm active DNS permutation testing is authorized
+  (scope is enforced by scripts/scope_check.sh; DOMAIN must be listed in its scope.txt)
   -h, --help              Show this help
 EOF
 }
@@ -25,7 +25,6 @@ WORDLIST=""
 OUT_DIR="artifacts/permutations"
 MAX_CANDIDATES=100000
 RATE=100
-AUTHORIZED=0
 MERGE=0
 STARTED_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
@@ -39,14 +38,13 @@ while (($#)); do
     --max-candidates) MAX_CANDIDATES="${2:?missing value for --max-candidates}"; shift 2 ;;
     --rate) RATE="${2:?missing value for --rate}"; shift 2 ;;
     --merge) MERGE=1; shift ;;
-    --authorized) AUTHORIZED=1; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown argument: $1" >&2; usage >&2; exit 2 ;;
   esac
 done
 
-((AUTHORIZED == 1)) || { echo "Refusing active DNS testing without --authorized." >&2; exit 2; }
 DOMAIN=$(printf '%s' "$DOMAIN" | tr '[:upper:]' '[:lower:]' | sed 's/^\.//;s/\.$//')
+"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../../../../scripts/scope_check.sh" "$DOMAIN" || exit $?
 [[ "$DOMAIN" =~ ^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$ ]] || {
   echo "Invalid root domain: $DOMAIN" >&2; exit 2;
 }

@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 usage() {
   cat <<'EOF'
-Usage: run_portscan.sh --authorized [options]
+Usage: run_portscan.sh --target DOMAIN [options]
 
 Options:
   --input FILE           Targets (default: artifacts/live_subdomains.txt)
@@ -11,7 +11,7 @@ Options:
   --engine ENGINE        naabu, nmap, or masscan (default: naabu)
   --rate N               Packet/request rate (default: 1000)
   --concurrency N        Naabu worker count (default: 50)
-  --authorized           Confirm every destination is authorized for port scanning
+  --target DOMAIN        Root domain; must be in its scope.txt, and every input host must be under it
   -h, --help             Show this help
 EOF
 }
@@ -21,7 +21,7 @@ OUT_DIR="artifacts/network_portscan"
 ENGINE="naabu"
 RATE="1000"
 CONCURRENCY="50"
-AUTHORIZED=0
+TARGET=""
 
 while (($#)); do
   case "$1" in
@@ -30,13 +30,16 @@ while (($#)); do
     --engine) ENGINE="${2:?missing value for --engine}"; shift 2 ;;
     --rate) RATE="${2:?missing value for --rate}"; shift 2 ;;
     --concurrency) CONCURRENCY="${2:?missing value for --concurrency}"; shift 2 ;;
-    --authorized) AUTHORIZED=1; shift ;;
+    --target) TARGET="${2:?missing value for --target}"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown argument: $1" >&2; usage >&2; exit 2 ;;
   esac
 done
 
-((AUTHORIZED == 1)) || { echo "Refusing to scan without --authorized." >&2; exit 2; }
+[ -n "$TARGET" ] || { echo "Refusing to scan without --target DOMAIN." >&2; exit 2; }
+"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../../../../scripts/scope_check.sh" "$TARGET" || exit $?
+OUTSIDE=$(grep -viE "(^|\.)${TARGET//./\\.}$" "$INPUT" || true)
+[ -z "$OUTSIDE" ] || { echo "Input contains hosts outside $TARGET; refusing:" >&2; echo "$OUTSIDE" >&2; exit 3; }
 [[ "$RATE" =~ ^[1-9][0-9]*$ ]] || { echo "--rate must be a positive integer" >&2; exit 2; }
 [[ "$CONCURRENCY" =~ ^[1-9][0-9]*$ ]] || { echo "--concurrency must be a positive integer" >&2; exit 2; }
 [[ "$ENGINE" =~ ^(naabu|nmap|masscan)$ ]] || { echo "Unsupported engine: $ENGINE" >&2; exit 2; }
@@ -90,7 +93,7 @@ done < "$TARGETS"
 
 {
   printf 'started_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  printf 'authorized_confirmed=true\nengine=%s\nrate=%s\nconcurrency=%s\ninput=%s\n' "$ENGINE" "$RATE" "$CONCURRENCY" "$INPUT"
+  printf 'scope_checked_target=%s\nengine=%s\nrate=%s\nconcurrency=%s\ninput=%s\n' "$TARGET" "$ENGINE" "$RATE" "$CONCURRENCY" "$INPUT"
   printf 'target_count=%s\nresolved_address_count=%s\n' "$(wc -l < "$TARGETS")" "$(wc -l < "$TARGET_IP_MAP")"
   "$ENGINE" -version 2>&1 | head -n 2 || true
   nmap --version 2>&1 | head -n 1 || true

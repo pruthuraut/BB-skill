@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-authorized=false
+target=""
 input=""
 output_dir=""
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --authorized) authorized=true; shift ;;
+    --target) target="${2:?missing --target value}"; shift 2 ;;
     --input) input="${2:?missing --input value}"; shift 2 ;;
     --output-dir) output_dir="${2:?missing --output-dir value}"; shift 2 ;;
     *) printf 'unknown argument: %s\n' "$1" >&2; exit 2 ;;
   esac
 done
 
-[ "$authorized" = true ] || { printf '%s\n' 'refusing active HTTP probing without --authorized' >&2; exit 2; }
+[ -n "$target" ] || { printf '%s\n' 'missing --target DOMAIN (scope is checked against it)' >&2; exit 2; }
+"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../../../../scripts/scope_check.sh" "$target" || exit $?
 [ -f "$input" ] || { printf 'input file not found: %s\n' "$input" >&2; exit 2; }
 [ -n "$output_dir" ] || { printf '%s\n' 'missing --output-dir' >&2; exit 2; }
 command -v httpx >/dev/null 2>&1 || { printf '%s\n' 'httpx not found' >&2; exit 127; }

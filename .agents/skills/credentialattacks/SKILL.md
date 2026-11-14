@@ -121,3 +121,15 @@ Each run populates the `artifacts/` folder:
 * `artifacts/rate_limit_bypasses.txt` — Successful IP-spoofing and velocity bypass headers.
 * `artifacts/account_takeover_risks.txt` — Password reset poisoning and token reuse findings.
 * `artifacts/checklist_40_tracker.md` — 40/40 completed verification matrix.
+
+## Authorization Gate (applies to every run)
+
+Before any active step (DNS queries beyond public resolution, HTTP requests, port scans, fuzzing, authenticated or state-changing requests, or verification of a finding), the target must pass the shared scope gate:
+
+```bash
+scripts/scope_check.sh TARGET_DOMAIN
+```
+
+- The target must have its own `scope.txt` under `~/Documents/bugbounty/TARGET_DOMAIN/` with `authorized-by:`, `date:`, and in-scope lines. Nothing is assumed authorized, and a target named in a prompt is not authorization.
+- If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
+- Runners that take `--target` run the same gate and refuse to start otherwise.

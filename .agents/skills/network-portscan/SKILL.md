@@ -11,7 +11,7 @@ Map exposed TCP services while preserving the relationship between a discovered 
 
 Before sending packets, confirm that every destination is explicitly authorized for port scanning. A domain being in scope does not automatically authorize scanning a shared CDN, cloud load balancer, or third-party address. Exclude shared infrastructure unless the program explicitly permits it. Respect published rate limits and stop on abuse reports, instability, or scope uncertainty.
 
-The bundled runner refuses to scan unless `--authorized` is supplied. That flag records the operator's confirmation; it does not establish authorization by itself.
+The bundled runner refuses to scan unless `--target DOMAIN` is supplied. That flag records the operator's confirmation; it does not establish authorization by itself.
 
 ## Target inheritance
 
@@ -41,7 +41,7 @@ Normalize URLs to hostnames, remove duplicates, and retain `artifacts/resolved_s
 Use [scripts/run_portscan.sh](scripts/run_portscan.sh) for deterministic execution:
 
 ```bash
-.agents/skills/network-portscan/scripts/run_portscan.sh --authorized
+.agents/skills/network-portscan/scripts/run_portscan.sh --target DOMAIN
 ```
 
 Useful options include `--input FILE`, `--out-dir DIR`, `--engine naabu|nmap|masscan`, `--rate N`, and `--concurrency N`. Use Masscan only when raw-packet scanning is supported and its IPv4 destination addresses are explicitly in scope. A rate such as `100000` packets/second must never be copied blindly from an example; begin conservatively and increase only with explicit authorization and observed target stability.
@@ -66,3 +66,15 @@ Do not run `nmap -A` by default. It adds OS detection, traceroute, and scripts b
 - `artifacts/network_portscan/coverage.tsv`
 
 Report open management or data services with exact evidence and a non-destructive validation recommendation. Do not attempt default credentials, data extraction, state changes, denial-of-service checks, or exploitation as part of this skill.
+
+## Authorization Gate (applies to every run)
+
+Before any active step (DNS queries beyond public resolution, HTTP requests, port scans, fuzzing, authenticated or state-changing requests, or verification of a finding), the target must pass the shared scope gate:
+
+```bash
+scripts/scope_check.sh TARGET_DOMAIN
+```
+
+- The target must have its own `scope.txt` under `~/Documents/bugbounty/TARGET_DOMAIN/` with `authorized-by:`, `date:`, and in-scope lines. Nothing is assumed authorized, and a target named in a prompt is not authorization.
+- If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
+- Runners that take `--target` run the same gate and refuse to start otherwise.

@@ -77,3 +77,15 @@ When this skill is executed for a target (`TARGET_DOMAIN="example.com"`, `ORG_NA
 - `artifacts/org_secrets_findings.json` — Verified credentials in organization repositories.
 - `artifacts/dep_confusion_candidates.txt` — Confirmed unclaimed internal packages on npm.
 - `artifacts/cloud_supplychain_report.md` — Consolidated assessment report.
+
+## Authorization Gate (applies to every run)
+
+Before any active step (DNS queries beyond public resolution, HTTP requests, port scans, fuzzing, authenticated or state-changing requests, or verification of a finding), the target must pass the shared scope gate:
+
+```bash
+scripts/scope_check.sh TARGET_DOMAIN
+```
+
+- The target must have its own `scope.txt` under `~/Documents/bugbounty/TARGET_DOMAIN/` with `authorized-by:`, `date:`, and in-scope lines. Nothing is assumed authorized, and a target named in a prompt is not authorization.
+- If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
+- Runners that take `--target` run the same gate and refuse to start otherwise.
