@@ -173,7 +173,7 @@ for tool in subfinder httpx dnsx naabu katana nuclei shuffledns massdns ffuf way
   which "$tool" &>/dev/null && echo -e "\e[32m[+] $tool: INSTALLED\e[0m" || echo -e "\e[31m[-] $tool: MISSING\e[0m"
 done
 ```
-For manual installation instructions and API key configurations, consult [SETUP.md](file:///c:/Users/rautp/Documents/BBskill/SETUP.md).
+For manual installation instructions and API key configurations, consult [SETUP.md](SETUP.md).
 
 ---
 
@@ -181,7 +181,7 @@ For manual installation instructions and API key configurations, consult [SETUP.
 
 ### Workflow 1: Continuous Full-Surface Recon (`recon-hunter`)
 When starting an engagement with an apex domain (`target.com`):
-1. Activate [recon-hunter](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/recon-hunter/SKILL.md).
+1. Activate [recon-hunter](.agents/skills/recon-hunter/SKILL.md).
 2. It executes all 16 phases sequentially:
    - **Phase 01–04:** Passive Subdomains $\rightarrow$ DNS Resolution $\rightarrow$ Port Scan $\rightarrow$ Subdomain Takeover.
    - **Phase 05–08:** Historical URLs $\rightarrow$ Active Katana Crawl $\rightarrow$ Ffuf Directory Fuzzing $\rightarrow$ JS Secret Extraction & SSR.
@@ -191,11 +191,11 @@ When starting an engagement with an apex domain (`target.com`):
 
 ### Workflow 2: Targeted Module Audits
 Target individual attack vectors by directly instructing subagents:
-- **API Auditing:** [api-security](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/api-security/SKILL.md) (Interactive Swagger, GraphQL depth limits, BOLA, CORS credentials).
-- **Client-Side Secrets:** [jsrecon](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/jsrecon/SKILL.md) (Source map recovery, 60+ secret regexes, Next.js hydration props).
-- **Broken Access Control:** [access-control](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/access-control/SKILL.md) (Horizontal IDOR, tenant crossing, vertical privilege escalation).
-- **SSRF & Cloud Metadata:** [ssrf-audit](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/SKILL.md) (Image proxies, AWS IMDSv1/v2, OOB Interactsh confirmation).
-- **Cloud & Supply Chain:** [cloud-supplychain](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/SKILL.md) (S3/GCS/Azure permutations, Firebase RTDB, NPM 404 namespace claims).
+- **API Auditing:** [api-security](.agents/skills/api-security/SKILL.md) (Interactive Swagger, GraphQL depth limits, BOLA, CORS credentials).
+- **Client-Side Secrets:** [jsrecon](.agents/skills/jsrecon/SKILL.md) (Source map recovery, 60+ secret regexes, Next.js hydration props).
+- **Broken Access Control:** [access-control](.agents/skills/access-control/SKILL.md) (Horizontal IDOR, tenant crossing, vertical privilege escalation).
+- **SSRF & Cloud Metadata:** [ssrf-audit](.agents/skills/ssrf-audit/SKILL.md) (Image proxies, AWS IMDSv1/v2, OOB Interactsh confirmation).
+- **Cloud & Supply Chain:** [cloud-supplychain](.agents/skills/cloud-supplychain/SKILL.md) (S3/GCS/Azure permutations, Firebase RTDB, NPM 404 namespace claims).
 
 ---
 

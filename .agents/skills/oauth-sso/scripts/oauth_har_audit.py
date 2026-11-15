@@ -50,6 +50,9 @@ def body_params(req):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
+        print(__doc__)
+        return
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     entries = []

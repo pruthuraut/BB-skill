@@ -1,0 +1,3 @@
+# Keep scripts LF on every platform (Windows checkouts included) so bash/python run unchanged.
+*.sh text eol=lf
+*.py text eol=lf

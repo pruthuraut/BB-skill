@@ -249,13 +249,13 @@ done
 
 Once the setup is verified, you can invoke any skill or execute the master pipeline:
 
-- **Full 16-Phase Pipeline:** Hand a target domain to the assistant with keywords like `"recon target.com"`, `"map attack surface"`, or `"find bugs"`. The system will activate [recon-hunter](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/recon-hunter/SKILL.md).
+- **Full 16-Phase Pipeline:** Hand a target domain to the assistant with keywords like `"recon target.com"`, `"map attack surface"`, or `"find bugs"`. The system will activate [recon-hunter](.agents/skills/recon-hunter/SKILL.md).
 - **Targeted Deep Dives:** Call individual skills as needed:
-  - [subdomainenum](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/subdomainenum/SKILL.md) (50 Checks)
-  - [techfingerprint](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/techfingerprint/SKILL.md) (40 Checks)
-  - [contentdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/contentdiscovery/SKILL.md) (50 Checks)
-  - [linkparamdiscovery](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/linkparamdiscovery/SKILL.md) (40 Checks)
-  - [jsrecon](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/jsrecon/SKILL.md) (JS De-minification & Secrets)
-  - [cloud-supplychain](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/cloud-supplychain/SKILL.md) (S3/GCS/Azure/Firebase & Dependency Confusion)
-  - [api-security](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/api-security/SKILL.md) (Swagger, GraphQL & CORS)
-  - [ssrf-audit](file:///c:/Users/rautp/Documents/BBskill/.agents/skills/ssrf-audit/SKILL.md) (SSRF & IMDS)
+  - [subdomainenum](.agents/skills/subdomainenum/SKILL.md) (50 Checks)
+  - [techfingerprint](.agents/skills/techfingerprint/SKILL.md) (40 Checks)
+  - [contentdiscovery](.agents/skills/contentdiscovery/SKILL.md) (50 Checks)
+  - [linkparamdiscovery](.agents/skills/linkparamdiscovery/SKILL.md) (40 Checks)
+  - [jsrecon](.agents/skills/jsrecon/SKILL.md) (JS De-minification & Secrets)
+  - [cloud-supplychain](.agents/skills/cloud-supplychain/SKILL.md) (S3/GCS/Azure/Firebase & Dependency Confusion)
+  - [api-security](.agents/skills/api-security/SKILL.md) (Swagger, GraphQL & CORS)
+  - [ssrf-audit](.agents/skills/ssrf-audit/SKILL.md) (SSRF & IMDS)

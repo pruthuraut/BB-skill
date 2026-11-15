@@ -48,16 +48,16 @@ compatibility:
 
 ## The 4 Specialized Subagents
 
-1. **[Subagent 01: Pricing & Financial Parameter Manipulation](subagents/subagent_01_pricing_financial_flaws.md)**
+1. **Subagent 01: Pricing & Financial Parameter Manipulation**
    *Checks: 01, 02, 03, 04, 05*
    *Focus:* Server-side authoritative price lookups, negative quantities, integer boundary truncation, multi-currency conversion rounding, and fee/tax/shipping parameter tampering.
-2. **[Subagent 02: Multi-Step Workflows & State Machine Transitions](subagents/subagent_02_workflow_state_machine.md)**
+2. **Subagent 02: Multi-Step Workflows & State Machine Transitions**
    *Checks: 06, 07, 08, 09, 10, 20*
    *Focus:* Checkout step sequencing (bypassing payment directly to fulfillment), webhook HMAC signature validation, illegal order status transitions, cart tampering post-authorization, and cancellation reset states.
-3. **[Subagent 03: Concurrency, Rate Limits & Quota Integrity](subagents/subagent_03_race_conditions_concurrency.md)**
+3. **Subagent 03: Concurrency, Rate Limits & Quota Integrity**
    *Checks: 11, 12, 13, 14, 15, 16, 17, 18, 19*
    *Focus:* Single-use coupon code race conditions (Turbo Intruder), wallet/gift-card double-spending, discount stacking logic, referral reward duplication, quota reset boundary timing, and license seat over-allocation.
-4. **[Subagent 04: Defensive Business Rules & Concurrency Controls](subagents/subagent_04_defensive_business_rules.md)**
+4. **Subagent 04: Defensive Business Rules & Concurrency Controls**
    *Checks: 21, 22, 23, 24, 25*
    *Focus:* Authoritative server-side state models, database ACID transactions with row-level locks (`SELECT FOR UPDATE`), `Idempotency-Key` header enforcement, distributed Redis locks (Redlock), and anomaly detection monitoring.
 
