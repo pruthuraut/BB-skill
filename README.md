@@ -25,7 +25,7 @@ This framework partitions complex security assessments across **14 specialized s
 │           PHASE 1:            │ │           PHASE 2:            │ │           PHASE 3:            │
 │  Attack Surface & Discovery   │ │ Authentication & Credentials  │ │ Vulnerability & Business Logic│
 ├───────────────────────────────┤ ├───────────────────────────────┤ ├───────────────────────────────┤
-│ • recon-hunter (Master Recon) │ │ • credentialattacks (40 Chks) │ │ • ssrf-audit (25 Checks)      │
+│ • recon-hunter (Master Recon) │ │ • credentialattacks (40 Chks) │ │ • ssrf-audit (55 Checks)      │
 │ • subdomainenum (50 Checks)   │ │ • authbypass (30 Checks)      │ │ • access-control (25 Checks)  │
 │ • techfingerprint (40 Checks) │ └───────────────────────────────┘ │ • business-logic (25 Checks)  │
 │ • contentdiscovery (50 Checks)│                                   │ • api-security (25 Checks)    │
@@ -60,7 +60,7 @@ BBskill/
 │       ├── cloud-supplychain/          # S3/GCS/Azure/Firebase & NPM dependency confusion
 │       ├── credentialattacks/          # 40-Check password policy, brute-force & MFA bypass
 │       ├── authbypass/                 # 30-Check login bypass, NoSQL/SQLi & JWT manipulation
-│       ├── ssrf-audit/                 # 25-Check remote fetchers, cloud IMDS & egress audit
+│       ├── ssrf-audit/                 # 55-Check remote fetchers, bypasses, cloud IMDS & blind SSRF
 │       ├── access-control/             # 25-Check horizontal IDOR, BOLA & privilege escalation
 │       ├── business-logic/             # 25-Check race conditions, price tampering & workflows
 │       ├── api-security/               # 25-Check Swagger exposure, GraphQL & CORS credentials

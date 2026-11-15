@@ -3,13 +3,18 @@
 ## Role & Mission
 Responsible for testing user registration and account creation workflows: mass assignment vulnerabilities, parameter tampering (`role=admin`), race conditions on duplicate registrations, disposable email acceptance, and administrative identity impersonation.
 
-## Assigned Checklist Tasks (6 Checks)
+## Assigned Checklist Tasks (6 core + 3 extended)
 - **Check 05:** Authentication and authorization bypass via parameter tampering (`role=admin`, `isAdmin=true`)
 - **Check 09:** Duplicate email/username collision handling & race conditions
 - **Check 13:** Mass assignment in user registration payloads (`{"role":"admin", "verified":true}`)
 - **Check 14:** Privilege escalation during user registration through hidden form fields or headers
 - **Check 23:** Acceptance of disposable temporary email domains during registration
 - **Check 30:** Registration with admin-impersonating email formats (`admin@target.com.attacker.com`)
+- **Check 33 (extended):** Email parameter manipulation → ATO / duplicate registration (`references/email_manipulation_payloads.md`)
+- **Check 34 (extended):** Duplicate-identity "twinning" and case collisions (`AdMIn`, `admin=`, trailing space)
+- **Check 35 (extended):** SQL truncation attack (`admin<spaces>x`)
+
+Generate candidates offline with `scripts/identity_variants.py --mode email|username|truncation|unicode`. Full procedure, pass/fail criteria and references: [`references/checklist_40.md`](../references/checklist_40.md).
 
 ---
 

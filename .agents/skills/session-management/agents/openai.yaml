@@ -1,0 +1,4 @@
+interface:
+  display_name: "Session Management"
+  short_description: "Audit 40 session, cookie, and JWT controls"
+  default_prompt: "Use $session-management to audit session token strength, lifecycle, cookie attributes, and JWT handling on an authorized target using only self-owned test accounts."

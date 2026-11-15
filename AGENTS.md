@@ -1,6 +1,6 @@
 # AGENTS.md — Universal Bug Bounty Multi-Agent Framework
 
-This document specifies the agent architecture, roles, and execution workflows for automated offensive reconnaissance, technology fingerprinting, content discovery, parameter mining, credential attacks, authentication bypass, SSRF auditing, broken access control, business logic, API security, and resource exhaustion.
+This document specifies the agent architecture, roles, and execution workflows for automated offensive reconnaissance, technology fingerprinting, content discovery, parameter mining, credential attacks, authentication bypass, session management, OAuth/SSO, SSRF auditing, broken access control, business logic, API security, and resource exhaustion.
 
 ## System Mission
 Execute complete, deterministic, and high-fidelity attack surface mapping and vulnerability auditing across granular verification checks, preventing false positives and missed assets by dividing work across specialized subagents.
@@ -34,19 +34,31 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
 ### Phase 2: Authentication & Access Control Auditing
 11. **`credentialattacks` (40 Checks)** — `.agents/skills/credentialattacks/SKILL.md`
    - *Subagents (5):* Password Policies & Encodings, Brute-Force & Rate Limiting, Reset Flows & Takeover Risks, 2FA/MFA Bypass & OTP, Client-Side Transport & Sessions.
-12. **`authbypass` (30 Checks)** — `.agents/skills/authbypass/SKILL.md`
-   - *Subagents (5):* Injections & Semantic Bypasses, Protocol & Middleware Headers, Registration & Mass Assignment, Verification & Account Takeovers, Enumeration & Defensive Controls.
+12. **`authbypass` (40 Checks)** — `.agents/skills/authbypass/SKILL.md`
+   - *Subagents (6):* Injections & Semantic Bypasses, Protocol & Middleware Headers, Registration/Mass Assignment & Identity Collisions, Verification/OTP & Account Takeovers, Enumeration & Defensive Controls, Stored Input in Identity Fields & Public Forms.
+13. **`session-management` (40 Checks)** — `.agents/skills/session-management/SKILL.md`
+   - *Subagents (5):* Token Generation & Exposure, Session Lifecycle (fixation/logout/timeout), Cookie Attributes & Transport, Binding & Cross-Channel (WebSocket/CSRF/refresh), JWT Deep Testing.
+14. **`oauth-sso` (50 Checks)** — `.agents/skills/oauth-sso/SKILL.md`
+   - *Subagents (6):* Redirect URI & Front-Channel Leakage, State/CSRF & Account Linking, Code/Token & Client Security, OpenID Connect & SSO Session, SAML, Enterprise Directory Auth (Kerberos/NTLM/LDAP).
 
 ### Phase 3: Vulnerability & Application Logic Auditing
-13. **`ssrf-audit` (25 Checks)** — `.agents/skills/ssrf-audit/SKILL.md`
-    - *Subagents (4):* Attack Surface Identification, Cloud Metadata (IMDSv1/v2) & Internal Nets, Parser Differentials & Encodings, Defensive Architecture & DNS Pinning.
-14. **`access-control` (25 Checks)** — `.agents/skills/access-control/SKILL.md`
-    - *Subagents (4):* Horizontal IDOR & BOLA, Vertical Privilege Escalation, Multi-Tenant Isolation, Defensive Authorization Models.
-15. **`business-logic` (25 Checks)** — `.agents/skills/business-logic/SKILL.md`
+15. **`ssrf-audit` (55 Checks)** — `.agents/skills/ssrf-audit/SKILL.md`
+    - *Subagents (6):* Entry Points & Discovery, Document & Media Renderers, Filter Bypass: IP Formats & DNS, Filter Bypass: Parsers/Redirects & Rebinding, Cloud & Container Metadata, Internal Network/Protocols & Impact (O/R/S/W/N execution classes; white-box appendix WB-1..8).
+16. **`idor` (35 Checks)** — `.agents/skills/idor/SKILL.md`
+    - *Subagents (5):* Identifier Discovery & Predictability, Identifier Locations, Methods/Versions & Channels, Feature-Specific Objects, Roles/Writes & Indirect References.
+17. **`access-control` (37 Checks)** — `.agents/skills/access-control/SKILL.md`
+    - *Subagents (5):* Role & Identity Claims, Admin Surface & Request Tricks, Architecture Layers (gateway/UI/GraphQL/cache/API keys), Tenancy/Membership & Sharing, Features/Data & State (flags, races, backup/import, demotion, approvals, entitlements).
+18. **`path-traversal` (39 Checks)** — `.agents/skills/path-traversal/SKILL.md`
+    - *Subagents (5):* Traversal Sequences & Encodings, Validation Bypass & Platform Specifics, Feature Sinks, Inclusion & Archives, Target Files & Impact (R/S/W/X execution classes).
+19. **`sqli` (50 Checks)** — `.agents/skills/sqli/SKILL.md`
+    - *Subagents (5):* Injection Point Discovery, Detection Techniques (UNION/error/boolean/time/OOB/inference), Query-Context Injection (ORDER BY/LIMIT/LIKE/IN/identifiers/ORM/second-order), Filter & WAF Bypass, DBMS-Specific & Impact (D/P/S/W/X execution classes).
+20. **`xss` (60 Checks)** — `.agents/skills/xss/SKILL.md`
+    - *Subagents (6):* Reflection Surfaces, Stored/Blind & Rendering Pipelines, DOM/Frameworks & Cross-Origin (postMessage, clobbering, prototype pollution, XSSI/JSONP), Element & Event Vectors, URL/Navigation & Scriptless, Bypass/CSP & Impact (R/E/S/B/I execution classes).
+21. **`business-logic` (25 Checks)** — `.agents/skills/business-logic/SKILL.md`
     - *Subagents (4):* Pricing & Financial Parameter Manipulation, Multi-Step Workflows & State Machines, Concurrency & Race Conditions (TOCTOU), Defensive Business Rules.
-16. **`api-security` (25 Checks)** — `.agents/skills/api-security/SKILL.md`
+22. **`api-security` (25 Checks)** — `.agents/skills/api-security/SKILL.md`
     - *Subagents (4):* Documentation & Schema Discovery (Swagger/WSDL), GraphQL Security & Query Limits, Object & Function Authorization (BOLA/BFLA), Defensive API Gateways.
-17. **`resource-exhaustion` (25 Checks)** — `.agents/skills/resource-exhaustion/SKILL.md`
+23. **`resource-exhaustion` (25 Checks)** — `.agents/skills/resource-exhaustion/SKILL.md`
     - *Subagents (4):* Destructive Action Re-Authentication, Velocity Controls & Form Limits, Payload & Memory Bounds, Backend Queue & Storage Protections.
 
 ---
@@ -73,7 +85,7 @@ All wordlists, dictionaries, and payload files are consolidated into `wordlists/
 - **APIs & Web Services:** `wordlists/api.txt`, `wordlists/API-FUZZ.txt`, `wordlists/SwaggerAPI.txt`, `wordlists/wad.txt`, `wordlists/svc.txt`
 - **Sensitive Files & Configs:** `wordlists/env.txt`, `wordlists/dotfiles.txt`, `wordlists/config.txt`, `wordlists/webconfig.txt`, `wordlists/git_config.txt`, `wordlists/zip.txt`, `wordlists/sql.txt`, `wordlists/log.txt`, `wordlists/keys.txt`, `wordlists/web-inf.txt`
 - **CMS & Administration:** `wordlists/WPfuzz.txt`, `wordlists/wp-content.txt`, `wordlists/phpmyadmin.txt`, `wordlists/adminer.txt`, `wordlists/JiraFuzz.txt`, `wordlists/JIra-Domains.txt`
-- **Payloads & Bypasses:** `wordlists/OR-Payloads.txt`, `wordlists/windows-lfi.txt`, `wordlists/sqltesting.txt`, `wordlists/sqlbypass.txt`
+- **Payloads & Bypasses:** `wordlists/OR-Payloads.txt`, `wordlists/windows-lfi.txt` (used by `path-traversal`), `wordlists/sqltesting.txt`, `wordlists/sqlbypass.txt` (used by `sqli`)
 
 ---
 
@@ -96,8 +108,29 @@ Each run populates the `artifacts/` folder:
 - `artifacts/recon_hunter_ranked_report.txt`
 - `artifacts/credential_audit_report.json`
 - `artifacts/auth_bypasses_confirmed.txt`
-- `artifacts/ssrf_vulnerability_report.json`
+- `artifacts/authbypass/authbypass_checklist_40.tsv`
+- `artifacts/session/session_checklist_40.tsv`
+- `artifacts/session_management_report.md`
+- `artifacts/oauth/oauth_checklist_50.tsv`
+- `artifacts/oauth_sso_report.md`
+- `artifacts/ssrf/surface_map.md`, `artifacts/ssrf/probe*.tsv`, `artifacts/ssrf/listener_hits.jsonl`, `artifacts/ssrf/cleanup.md`
+- `artifacts/ssrf/ssrf_checklist_55.tsv`
+- `artifacts/ssrf_report.md`
 - `artifacts/idor_vulnerability_matrix.json`
+- `artifacts/idor/idor_checklist_35.tsv`
+- `artifacts/idor_report.md`
+- `artifacts/access_control/access_control_checklist_37.tsv`
+- `artifacts/privilege_escalation_report.md`
+- `artifacts/path_traversal/path_traversal_checklist_39.tsv`
+- `artifacts/path_traversal_report.md`
+- `artifacts/sqli/sink_map.md`
+- `artifacts/sqli/probe_*.tsv`, `artifacts/sqli/probe_*_verdicts.json`
+- `artifacts/sqli/sqli_checklist_50.tsv`
+- `artifacts/sqli_report.md`
+- `artifacts/xss/reflection_map.md`, `artifacts/xss/reflect*.tsv`, `artifacts/xss/dom_sinks.tsv`, `artifacts/xss/xssi/xssi.tsv`
+- `artifacts/xss/stored_payloads.md`, `artifacts/xss/blind_hits.jsonl`
+- `artifacts/xss/xss_checklist_60.tsv`
+- `artifacts/xss_report.md`
 - `artifacts/business_logic_flaws_report.json`
 - `artifacts/api_security_audit_report.json`
 - `artifacts/resource_exhaustion_audit_report.json`

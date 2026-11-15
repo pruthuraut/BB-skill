@@ -1,7 +1,7 @@
 ---
 name: authbypass
-description: Master authentication and registration security skill for exhaustive 30-point login/registration bypass auditing, NoSQL/SQL/LDAP injection, mass assignment, email verification bypasses, and account takeovers based on TBHM v4.
-version: "1.0.0"
+description: Audit authorized login, registration, verification, password-reset and OTP flows across 40 checks — SQL/NoSQL/LDAP injection, null-byte and Unicode case-mapping collisions, HTTP method switching, X-Original-URL and path-normalisation bypasses, parameter pollution, mass assignment and registration privilege escalation, email-parameter manipulation, duplicate/twin accounts, SQL truncation, email/phone change ATO, email-verification bypass chains, leaked tokens, OTP bypass, org email-domain trust, enumeration and timing, CAPTCHA and lockout bypass, path overwrite and stored/blind XSS via identity fields. Built on PortSwigger authentication, access-control, logic-flaw and race-condition labs, OWASP WSTG ATHN/IDNT and the Authentication, Forgot Password, MFA and Mass Assignment cheat sheets.
+version: "2.0.0"
 author: "Bug Bounty Multi-Agent Skills Framework"
 compatibility:
   - Antigravity / Gemini CLI
@@ -11,117 +11,118 @@ compatibility:
   - DeepSeek
 ---
 
-# `authbypass` — Universal Login & Registration Bypass Skill
+# `authbypass` — Login & Registration Bypass
 
-## Overview
-`authbypass` is an offensive authentication and identity lifecycle auditing skill designed to execute an exhaustive **30-point login and registration security audit**. It audits injection flaws (SQLi, NoSQLi, LDAP), protocol and middleware bypasses (`X-Original-URL`, HTTP verb switching, path traversal differentials), mass assignment privilege escalation, email/phone verification bypasses, and account takeover vectors based on Jason Haddix's *The Bug Hunter's Methodology (TBHM v4)* and real-world bounty disclosures.
+Find ways to log in as someone else, create an account with privileges or an identity you should not have, or get past verification/OTP/reset controls. The checks are grouped into six subagents; AB-01…AB-30 are the core list and AB-31…AB-40 extend it with verification chains, identity collisions, OTP bypass, and stored input in identity fields.
 
+Primary methodology sources:
+
+- PortSwigger Web Security Academy — Authentication (password-based, multi-factor, other mechanisms), Access control, Business logic examples, Race conditions, SQL/NoSQL injection, Server-side parameter pollution; research *Splitting the email atom* (2024)
+- OWASP WSTG v4.2 — 4.3 Identity Management (IDNT-02/03/04/05), 4.4 Authentication (ATHN-03/04/08/09/10), 4.7 Input Validation (SQLi, NoSQLi, LDAP, HPP)
+- OWASP Cheat Sheets — Authentication, Forgot Password, Multifactor Authentication, Mass Assignment, Choosing and Using Security Questions
+- Community checklists supplied with this skill (email-parameter manipulation, verification bypass chains, twinning, SQL truncation, OTP bypass list, path overwrite, blind XSS)
+
+## Authorization and safety boundary
+
+- Pass the scope gate (below) before any request.
+- Use **self-owned accounts only**: A (attacker), B (victim), C (spare), each with an inbox/phone you control. "Victim" addresses in payloads are always **your** B address, never a real user or staff member. Do not register real employees' or `support@target` addresses; prove domain-trust issues with your own domain or the program's designated test domain.
+- Rate-sensitive tests are capped: ≤ 15 verification/contact emails, ≤ 20 OTP guesses on your own account (enough to prove a missing limit), ≤ 12 timing samples per name by default. Never brute-force other users' credentials or OTPs.
+- Oversized-input tests are single requests at increasing sizes (≤ 100 KB), with pauses — not a DoS.
+- SQL/NoSQL/LDAP injection: prove login bypass **as your own account** or a boolean/time signal; do not extract data — hand off to the injection skills.
+- Blind XSS uses your own collector and beacon-only payloads. Do not reuse third-party collector IDs from public notes.
+- Clean up: delete or rename test accounts that occupy reserved names, revert email/phone changes, and note it in the report.
+
+## Inputs
+
+1. HAR captures of: registration (incl. verification), login (incl. MFA/OTP), logout, forgot/reset password, email change, phone change, invite acceptance, SSO linking
+2. `artifacts/discovered_endpoints.txt`, `artifacts/discovered_parameters.json`, `artifacts/technology_profile.json`
+3. Hidden/legacy auth endpoints from `contentdiscovery`, `jsrecon` (`/api/v1/register`, `/admin/register`, mobile APIs)
+4. Output of `session-management` (session rotation) and `oauth-sso` (SSO linking) where flows overlap
+
+## Workflow
+
+1. **Map the identity lifecycle** for each account type: register → verify → login → MFA → change email/phone/password → reset → delete. Record identifiers (email, username, phone, user ID), how each is normalised, and every endpoint that sends an email/SMS. Write `artifacts/authbypass/identity_map.md`.
+2. **Generate payloads offline**: `scripts/identity_variants.py` (email, username, Unicode, truncation, reserved names).
+3. **Run the 40-check ledger** in [references/checklist_40.md](references/checklist_40.md) using the subagent split; each subagent file has the step-by-step playbook.
+4. **Chain** findings: unverified account + SSO auto-merge (→ `oauth-sso` OA-31); email-change chain + org domain trust (AB-31 → AB-37); HPP in reset (AB-18) + email header injection (AB-33); path overwrite + OAuth redirect gadget (AB-38 → OA-03).
+5. **Prove impact minimally** between your own accounts and record request/response pairs.
+6. **Report** artifacts and update `[ N / 40 ]`.
+
+## The six subagents
+
+| Subagent | File | Checks |
+|---|---|---|
+| **01** Injection & Semantic Bypasses | [subagent_01](subagents/subagent_01_injection_semantic_bypasses.md) | 02, 03, 04, 25, 28, 29 |
+| **02** Middleware, Headers & Paths | [subagent_02](subagents/subagent_02_middleware_headers_pathing.md) | 06, 15, 16, 17, 18, 19 |
+| **03** Registration, Mass Assignment & Identity Collisions | [subagent_03](subagents/subagent_03_registration_mass_assignment.md) | 05, 09, 13, 14, 23, 30, **33, 34, 35** |
+| **04** Verification, Reset, OTP & Account Takeover | [subagent_04](subagents/subagent_04_verification_account_takeovers.md) | 08, 10, 11, 12, 22, 26, **31, 32, 36, 37** |
+| **05** Enumeration, Timing & Defensive Controls | [subagent_05](subagents/subagent_05_enumeration_timing_controls.md) | 01, 07, 20, 21, 24, 27 |
+| **06** Stored Input in Identity Fields & Public Forms | [subagent_06](subagents/subagent_06_identity_field_injection_public_forms.md) | **38, 39, 40** |
+
+Supporting references:
+- [references/checklist_40.md](references/checklist_40.md) — every check with severity, commands, pass/fail and references
+- [references/email_manipulation_payloads.md](references/email_manipulation_payloads.md) — email/username manipulation, Unicode, truncation, stored-injection payloads
+- [references/auth_bypass_payloads.md](references/auth_bypass_payloads.md) — SQLi/NoSQLi/LDAP/header/path payloads
+- [references/session_puzzling_and_otp_playbook.md](references/session_puzzling_and_otp_playbook.md) — session puzzling, response manipulation ATO, HPP in OTP
+
+## Status values
+
+- `PASS` — applicable, executed, negative evidence saved.
+- `FINDING` — reproduced between self-owned accounts; evidence saved.
+- `INFO` — weakness without demonstrated impact (disposable emails accepted, weak timing signal, enumeration on a non-sensitive endpoint).
+- `NOT_APPLICABLE` — feature absent (no phone, no security questions, no CAPTCHA); evidence cited.
+- `BLOCKED` — cannot execute (needs a second phone number, invite from an admin, scope limits).
+
+Response manipulation (flipping `false` → `true` in your proxy) is only a finding when the **server** subsequently grants the state; a UI-only change is `PASS`/`INFO`.
+
+## Severity guidance
+
+| Condition | Typical severity |
+|---|---|
+| Login as another user (SQLi/NoSQLi/LDAP bypass, Unicode/truncation collision, reset/OTP/HPP ATO, email change ATO) | Critical |
+| Mass assignment / registration privilege escalation, org-domain trust bypass, verification bypass enabling impersonation of a verified address | High–Critical |
+| Method/path/header middleware bypass to authenticated content | High (depends on content) |
+| OTP or login brute force possible (no limit), CAPTCHA bypass enabling automation, path overwrite of sensitive routes, stored XSS in identity fields | Medium–High |
+| Username enumeration, email bombing, disposable emails, weak KBA, API key in URL | Low–Medium / Info (program dependent) |
+
+## Helper scripts
+
+```bash
+S=.agents/skills/authbypass/scripts
+
+# Offline: identity manipulation candidates (TSV: check_id, family, payload)
+python3 -I $S/identity_variants.py --mode email --email you+b@your-domain.test --attacker you+a@your-domain.test
+python3 -I $S/identity_variants.py --mode all --email you+b@your-domain.test --attacker you+a@your-domain.test --username bbtestb
+
+# Scope-gated: method / rewrite-header / path / API-version / IP-header matrix for one protected URL
+$S/bypass_matrix.sh --target example.com --url https://app.example.com/admin --out artifacts/authbypass/bypass_matrix.tsv
+
+# Scope-gated: timing comparison (your account vs random names), interleaved, Mann-Whitney U
+python3 -I $S/timing_enum.py --target example.com --url https://app.example.com/login \
+  --data 'username={user}&password=WrongPass!{n}' --users bbtestA,nouser_x1,nouser_x2 --samples 12 --delay 1
 ```
-                              [ AUTHENTICATION TARGET ]
-                                        │
-           ┌────────────────────────────┼────────────────────────────┐
-           ▼                            ▼                            ▼
-  ┌─────────────────┐          ┌─────────────────┐          ┌─────────────────┐
-  │  Subagent 01    │          │  Subagent 02    │          │  Subagent 03    │
-  │  Injections &   │          │  Middleware,    │          │  Registration & │
-  │  Semantics      │          │  Headers & Paths│          │  Mass Assignment│
-  │  (6 Checks)     │          │  (6 Checks)     │          │  (6 Checks)     │
-  └────────┬────────┘          └────────┬────────┘          └────────┬────────┘
-           │                            │                            │
-           └────────────────────────────┼────────────────────────────┘
-                                        ▼
-           ┌────────────────────────────┴────────────────────────────┐
-           ▼                                                         ▼
-  ┌─────────────────┐                                       ┌─────────────────┐
-  │  Subagent 04    │                                       │  Subagent 05    │
-  │  Verification   │                                       │  Enumeration,   │
-  │  & Takeovers    │                                       │  Timing & WAF   │
-  │  (6 Checks)     │                                       │  (6 Checks)     │
-  └────────┬────────┘                                       └────────┬────────┘
-           │                                                         │
-           └────────────────────────────┬────────────────────────────┘
-                                        ▼
-                       [ CONSOLIDATED AUDIT ARTIFACTS ]
-                       • auth_bypasses_confirmed.txt
-                       • account_takeover_vectors.txt
-                       • mass_assignment_report.json
-                       • path_bypasses.txt
-                       • checklist_30_tracker.md (30/30 Complete)
-```
 
----
+Related tools: Burp Suite (Repeater groups / single-packet attack for races, Intruder, Turbo Intruder, Collaborator, Param Miner for hidden params), `ffuf` for hidden registration fields with `wordlists/params.txt`, `sqlmap` only when the injection skill takes over.
 
-## The 5 Specialized Subagents
+## Required artifacts
 
-1. **[Subagent 01: Injection & Semantic Payload Bypasses](subagents/subagent_01_injection_semantic_bypasses.md)**
-   *Checks: 02, 03, 04, 25, 28, 29*
-   *Focus:* SQL injection (`' OR 1=1--`), NoSQL operator injection (`{"$gt": ""}`), LDAP injection (`*`), Null Byte truncation (`admin%00`), Unicode Turkish dotless `ı` case collisions, and ReDoS/buffer overflow string lengths.
-2. **[Subagent 02: HTTP Protocol & Middleware Header Bypasses](subagents/subagent_02_middleware_headers_pathing.md)**
-   *Checks: 06, 15, 16, 17, 18, 19*
-   *Focus:* HTTP method switching (POST -> GET/PUT/HEAD), `X-Original-URL` / `X-Rewrite-URL` reverse proxy overrides, URL path traversal differentials (`/login/..;/admin`), HTTP parameter pollution, and API key query leakage.
-3. **[Subagent 03: Registration Logic, Mass Assignment & Privilege Escalation](subagents/subagent_03_registration_mass_assignment.md)**
-   *Checks: 05, 09, 13, 14, 23, 30*
-   *Focus:* Parameter tampering (`role=admin`), mass assignment (`"isAdmin": true`), privilege escalation during signup, duplicate registration race conditions, disposable email domain acceptance, and admin-impersonating email syntax.
-4. **[Subagent 04: Verification Workflows & Account Takeover Flaws](subagents/subagent_04_verification_account_takeovers.md)**
-   *Checks: 08, 10, 11, 12, 22, 26*
-   *Focus:* Broken password reset validation, email verification bypass (response code tampering, direct step skipping), account takeover via unverified email updates, account takeover via phone number modifications, and verification email bombing.
-5. **[Subagent 05: Enumeration, Timing Attacks & Defensive Controls](subagents/subagent_05_enumeration_timing_controls.md)**
-   *Checks: 01, 07, 20, 21, 24, 27*
-   *Focus:* Username/email enumeration via password hashing timing deltas, forceful browsing to protected endpoints, timing attacks on comparison functions, CAPTCHA omission/replay, weak KBA security questions, and case-sensitive account lockout bypasses.
+- `artifacts/authbypass/identity_map.md`
+- `artifacts/authbypass/bypass_matrix.tsv`, `artifacts/authbypass/timing_*.txt`
+- `artifacts/authbypass/evidence/AB-XX_<short>.txt`
+- `artifacts/authbypass/authbypass_checklist_40.tsv` — `check_id  subagent  status  severity  finding_id  evidence_path  notes`
+- `artifacts/auth_bypasses_confirmed.txt`, `artifacts/account_takeover_vectors.txt`, `artifacts/mass_assignment_report.json`, `artifacts/path_bypasses.txt` (kept for compatibility with `recon-hunter` and older runs)
+- `artifacts/authbypass_report.md` — findings, chains, false positives, blocked checks, `[ N / 40 ]`
 
-For payload references and step-by-step reproduction guides, consult:
-- [Authentication Bypass Payloads Reference](references/auth_bypass_payloads.md)
-- [Real-World Session Puzzling, Response Manipulation & HPP Playbook](references/session_puzzling_and_otp_playbook.md)
+## Related skills
 
----
-
-## Master Orchestration Workflow
-
-When this skill is executed against a target authentication system:
-
-### Phase 1: Injection & Semantic Payload Verification (Subagent 01)
-* Probe SQL injection in login parameters (`' OR '1'='1`).
-* Test NoSQL operator injections (`{"$ne": null}`) in JSON bodies.
-* Test Null Byte injection (`admin%00`).
-* Test Unicode case mapping confusion (`admın` vs `ADMIN`).
-
-### Phase 2: Protocol & Reverse Proxy Header Manipulation (Subagent 02)
-* Switch HTTP methods on protected endpoints (POST -> GET/PUT/OPTIONS).
-* Inject `X-Original-URL: /admin` and `X-Rewrite-URL: /admin` on root/login requests.
-* Test path normalization differentials (`/login/..;/admin`).
-* Test HTTP parameter pollution with duplicate parameters.
-
-### Phase 3: Registration Lifecycle & Mass Assignment (Subagent 03)
-* Inject administrative properties (`"role":"admin"`, `"isAdmin":true`) during user registration.
-* Submit concurrent registration requests for the same email to test for race conditions.
-* Test disposable email domain acceptance (`mailinator.com`).
-* Attempt registration with admin-impersonating email structures.
-
-### Phase 4: Verification & Account Takeover Auditing (Subagent 04)
-* Test bypassing email verification by navigating directly to post-auth pages or tampering response codes.
-* Audit profile email update functionality (verify if confirmation is required on the *current* email).
-* Audit phone number updates.
-* Test sending rapid verification email triggers to verify velocity rate limiting.
-
-### Phase 5: Timing Side-Channels & Defensive Mechanisms (Subagent 05)
-* Measure response latency deltas between valid and invalid usernames.
-* Test forceful browsing to `/admin` and authenticated routes without cookies.
-* Attempt CAPTCHA omission and token replay.
-* Test case-variant emails (`Admin@` vs `admin@`) to bypass account lockout.
-
----
-
-## Standard Output Artifacts
-Each run populates the `artifacts/` folder:
-* `artifacts/auth_bypasses_confirmed.txt` — Verified login and authorization bypasses.
-* `artifacts/account_takeover_vectors.txt` — Confirmed account takeover findings.
-* `artifacts/mass_assignment_report.json` — Accepted elevated registration parameters.
-* `artifacts/path_bypasses.txt` — Middleware header and path traversal overrides.
-* `artifacts/checklist_30_tracker.md` — 30/30 completed verification matrix.
+- `credentialattacks` — password policy, brute force, reset-flow depth, 2FA/MFA (overlaps AB-08, AB-15, AB-36: run once, cross-reference)
+- `session-management` — session rotation after login/reset/email change (SM-03/04/08)
+- `oauth-sso` — SSO account linking and pre-account takeover (OA-31), LDAP injection on IdP login (OA-25)
+- `access-control` — impact of escalated roles; `business-logic` — races and multi-account abuse
 
 ## Authorization Gate (applies to every run)
 
-Before any active step (DNS queries beyond public resolution, HTTP requests, port scans, fuzzing, authenticated or state-changing requests, or verification of a finding), the target must pass the shared scope gate:
+Before any active step (HTTP requests, registrations, login attempts, emails/SMS triggered, or verification of a finding), the target must pass the shared scope gate:
 
 ```bash
 scripts/scope_check.sh TARGET_DOMAIN

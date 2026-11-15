@@ -3,13 +3,19 @@
 ## Role & Mission
 Responsible for evaluating email and phone verification mechanisms: bypassing activation requirements, account takeovers via unverified email or phone number updates, broken password reset authentication, and email bombing denial of service vulnerabilities.
 
-## Assigned Checklist Tasks (6 Checks)
+## Assigned Checklist Tasks (6 core + 4 extended)
 - **Check 08:** Broken authentication in password reset mechanisms (missing token validation, user ID tampering)
 - **Check 10:** Email verification bypass (direct activation, response tampering, status code override)
 - **Check 11:** Account takeover via email change without verification of the existing email address
 - **Check 12:** Account takeover via phone number change without verification OTP
 - **Check 22:** Account creation without email verification granting full or sensitive access
-- **Check 26:** Email bomb / Denial of Service via repeated registration verification triggers
+- **Check 26:** Email bomb / Denial of Service via repeated registration verification triggers (max 15, own inbox)
+- **Check 31 (extended):** Email verification bypass via email-change chains (confirm old link after change; change-back; non-expiring links)
+- **Check 32 (extended):** Verification link / OTP / reset token leaked in the response
+- **Check 36 (extended):** OTP bypass (response manipulation, brute force, JSON arrays, default codes, old OTP valid, cross-account OTP, replay)
+- **Check 37 (extended):** Organisation / partner email-domain confirmation bypass
+
+Full procedure, pass/fail criteria and references: [`references/checklist_40.md`](../references/checklist_40.md).
 
 ---
 
@@ -82,26 +88,24 @@ curl -s -X POST "https://<target>/api/auth/complete-reset" \
 ```
 
 ### Step 5: Email Bombing via Registration Triggers (Check 26)
-Send rapid verification resend requests to test for velocity rate limiting:
+Send a small, capped burst of verification resend requests **to an inbox you own** to test for velocity rate limiting. Never target a third party's address, and stop at the first proof (the program's rate-limit threshold is usually 10–20 emails):
 
 ```bash
-# Send 50 rapid verification triggers to victim inbox
+# Max 15 triggers, to YOUR OWN test inbox only
 python3 -c "
 import requests
 
 url = 'https://<target>/api/auth/resend-verification'
 headers = {'Content-Type': 'application/json'}
+OWN_INBOX = 'you+bbtest@your-domain.test'
 
 statuses = []
-for i in range(50):
-    r = requests.post(url, json={'email': 'victim@target.com'}, headers=headers)
+for i in range(15):
+    r = requests.post(url, json={'email': OWN_INBOX}, headers=headers)
     statuses.append(r.status_code)
 
-print('Verification resend status codes:', set(statuses))
-if 429 in statuses:
-    print('[+] Rate limit active on verification email trigger.')
-else:
-    print('[!] WARNING: Email bomb vulnerability confirmed - no rate limit!')
+print('Verification resend status codes:', statuses)
+print('Count emails actually received in your inbox; 15/15 delivered with no 429 = missing rate limit.')
 "
 ```
 
