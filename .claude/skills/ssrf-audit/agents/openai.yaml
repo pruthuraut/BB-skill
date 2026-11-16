@@ -1,4 +1,0 @@
-interface:
-  display_name: "Server-Side Request Forgery (SSRF)"
-  short_description: "Audit 55 SSRF checks: fetchers, bypasses, metadata, blind"
-  default_prompt: "Use $ssrf-audit to find server-side fetchers on an authorized target, confirm them out-of-band against your own host, prove internal reach with non-secret evidence (instance-id, role name, page titles, bounded ports on one host), and stop before credentials, internal protocol writes or network scans unless the program explicitly allows them."

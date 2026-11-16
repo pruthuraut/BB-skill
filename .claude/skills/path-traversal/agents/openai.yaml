@@ -1,4 +1,0 @@
-interface:
-  display_name: "Path Traversal & File Inclusion"
-  short_description: "Audit 39 traversal, LFI/RFI and file-access checks"
-  default_prompt: "Use $path-traversal to test file path handling on an authorized target with read-only proof by default; escalate to sensitive reads, writes or code execution only with explicit permission."

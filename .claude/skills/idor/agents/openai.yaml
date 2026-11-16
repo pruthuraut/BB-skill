@@ -1,4 +1,0 @@
-interface:
-  display_name: "IDOR / BOLA"
-  short_description: "Audit 35 object-level authorization checks"
-  default_prompt: "Use $idor to test object-level authorization on an authorized target by replaying requests between self-owned accounts, without touching real users' data."

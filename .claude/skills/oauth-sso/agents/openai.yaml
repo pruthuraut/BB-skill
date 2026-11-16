@@ -1,4 +1,0 @@
-interface:
-  display_name: "OAuth & SSO"
-  short_description: "Audit 50 OAuth, OIDC, SAML and SSO controls"
-  default_prompt: "Use $oauth-sso to audit OAuth 2.0, OpenID Connect, SAML and SSO integrations on an authorized target using only self-owned accounts and attacker infrastructure you control."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Login & Registration Bypass"
-  short_description: "Audit 40 login, registration, verification and OTP controls"
-  default_prompt: "Use $authbypass to audit login, registration, email/phone verification, password reset and OTP flows on an authorized target using only self-owned accounts and inboxes."

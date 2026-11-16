@@ -1,4 +1,0 @@
-interface:
-  display_name: "Privilege Escalation & Access Control"
-  short_description: "Audit 37 role, tenant and function-level authorization checks"
-  default_prompt: "Use $access-control to test privilege escalation and function-level authorization on an authorized target with a ladder of self-owned roles and tenants, without affecting real users."
