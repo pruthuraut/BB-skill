@@ -156,3 +156,9 @@ scripts/scope_check.sh TARGET_DOMAIN
 - Classes S, B and I need the program to allow them in addition to the scope gate. Record that permission in the report.
 - If the gate fails, stop the active steps and report the failure. Passive, offline and read-only analysis of artifacts already collected (JS bundles, HARs, CSP headers) may continue.
 - Runners that take `--target` run the same gate and refuse to start otherwise. `bxss_listener.py` runs on your own infrastructure and sends nothing to targets.
+
+## Extended checklist (added)
+
+- File: `references/xss_extended.md` (Reflected, stored, blind, DOM, and framework XSS variants).
+- Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
+- Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.

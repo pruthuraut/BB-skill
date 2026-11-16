@@ -151,3 +151,9 @@ scripts/scope_check.sh TARGET_DOMAIN
 - Run the gate for **each** host involved (client app, authorization server, API). A third-party IdP host that fails the gate may only be used as a normal user of its login page.
 - If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
 - Runners that take `--target` run the same gate and refuse to start otherwise.
+
+## Extended checklist (added)
+
+- File: `references/oauth_extended.md` (OAuth, OIDC, SAML, and identity provider checks).
+- Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
+- Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.

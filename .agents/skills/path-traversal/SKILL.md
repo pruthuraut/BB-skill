@@ -124,3 +124,9 @@ scripts/scope_check.sh TARGET_DOMAIN
 - Classes S, W and X need explicit permission in addition to the scope gate; record it in the report.
 - If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
 - Runners that take `--target` run the same gate and refuse to start otherwise.
+
+## Extended checklist (added)
+
+- File: `references/lfi_extended.md` (LFI, RFI, wrappers, Windows variants, and archive traversal).
+- Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
+- Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.

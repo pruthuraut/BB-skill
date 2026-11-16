@@ -131,3 +131,9 @@ scripts/scope_check.sh TARGET_DOMAIN
 - The target must have its own `scope.txt` under `~/Documents/bugbounty/TARGET_DOMAIN/` with `authorized-by:`, `date:`, and in-scope lines. Nothing is assumed authorized, and a target named in a prompt is not authorization.
 - If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
 - Runners that take `--target` run the same gate and refuse to start otherwise.
+
+## Extended checklist (added)
+
+- File: `references/crawl_fuzz_websocket.md` (Crawling, parameter fuzzing, virtual hosts, methods, and WebSockets).
+- Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
+- Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.

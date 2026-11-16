@@ -144,3 +144,9 @@ scripts/scope_check.sh TARGET_DOMAIN
 - Classes S, W and X need explicit permission in addition to the scope gate; record it in the report. The wrapper flags `BB_SQLI_ALLOW_DATA`, `BB_SQLI_ALLOW_FILE` and `BB_SQLI_ALLOW_RISK3` are set only when that permission exists.
 - If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
 - Runners that take `--target` (or a TARGET argument) run the same gate and refuse to start otherwise.
+
+## Extended checklist (added)
+
+- File: `references/sqli_extended.md` (SQL injection contexts, blind variants, and WAF variants).
+- Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
+- Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
