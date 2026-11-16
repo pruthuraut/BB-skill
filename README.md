@@ -8,7 +8,7 @@ A production-grade offensive reconnaissance, technology fingerprinting, content 
 
 Modern offensive audits fail when a single AI agent attempts to perform broad recon, parameter mining, and vulnerability exploitation simultaneously—resulting in token fatigue, hallucinations, missed assets, and shallow testing.
 
-This framework partitions complex security assessments across **14 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
+This framework partitions complex security assessments across **23 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
 
 ```
                                   [ TARGET ROOT DOMAIN / IP ]
@@ -107,7 +107,7 @@ Antigravity automatically discovers skills defined in `.agents/skills/<skill_nam
 
 ### 3. Claude Code (Anthropic CLI)
 Claude Code uses `CLAUDE.md` in the project root as its system prompt and rules configuration:
-1. **Pre-Configured:** `CLAUDE.md` already registers all 14 skills, tool prerequisites, and output paths.
+1. **Pre-Configured:** `CLAUDE.md` already registers all 23 skills, tool prerequisites, and output paths.
 2. **Execution:** Launch Claude Code from within the repository root:
    ```bash
    cd BBskill
