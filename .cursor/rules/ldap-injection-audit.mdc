@@ -1,0 +1,9 @@
+---
+description: LDAP filter injection audit with wildcard, boolean, and escape differential probes
+globs: ["**/*ldap*", "**/*directory*"]
+alwaysApply: false
+---
+
+# ldap-injection-audit Rule
+
+Follow `.agents/skills/ldap-injection-audit/references/ldap_checklist.md`. Run `scripts/scope_check.sh TARGET`, then `scripts/ldap_probe.py`. Stop at the boolean oracle. No directory enumeration.

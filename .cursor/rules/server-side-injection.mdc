@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications for server-side injection classes that are not SQL or XSS: server-side template injection (SSTI), OS command injection, XML external entities (XXE), NoSQL operator injection, LDAP filter injection, unsafe deser
+globs: ["**/*server*"]
+alwaysApply: false
+---
+
+# server-side-injection Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/server-side-injection/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/server-side-injection/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

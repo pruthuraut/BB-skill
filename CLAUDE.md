@@ -33,6 +33,29 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 22. **`api-security` (25 Checks):** `.agents/skills/api-security/SKILL.md` (Swagger/OpenAPI Exposure, GraphQL Security, CORS)
 23. **`resource-exhaustion` (25 Checks):** `.agents/skills/resource-exhaustion/SKILL.md` (Rate Limiting, Form Flooding, Destructive Action Re-Auth)
 
+### Smart Start and Routing
+- `target-router` (planning only): run `python3 scripts/route_target.py --target <t> --fingerprint <file> --params <file> --urls <file>`. It prints the skills and checklist rows that apply, with each row's class (`passive`, `bounded`, `authorized-only`). It never sends traffic.
+
+### Technology and Platform Exposure
+24. **`tech-stack-audit` (about 470 checks):** `.agents/skills/tech-stack-audit/SKILL.md` (CMS, frameworks, DevOps, monitoring, databases, appliances, IoT, enterprise; version and exposure checks, no exploits)
+25. **`saas-third-party-exposure` (about 90 vendors):** `.agents/skills/saas-third-party-exposure/SKILL.md` (client-side keys and tags, public vs secret)
+
+### Additional Vulnerability Classes
+26. **`open-redirect-and-header-injection`:** `.agents/skills/open-redirect-and-header-injection/SKILL.md` (open redirect, CRLF, Host header)
+27. **`server-side-injection` (33 checks):** `.agents/skills/server-side-injection/SKILL.md` (SSTI, command injection, XXE, NoSQL, LDAP, deserialization)
+28. **`csrf-and-headers-audit` (about 30 checks):** `.agents/skills/csrf-and-headers-audit/SKILL.md` (CSRF, clickjacking, security headers, CSP)
+29. **`http-protocol-cache` (about 30 checks):** `.agents/skills/http-protocol-cache/SKILL.md` (smuggling, HTTP/2, cache poisoning, WAF bypass)
+30. **`client-side-js-security` (about 30 checks):** `.agents/skills/client-side-js-security/SKILL.md` (prototype pollution, postMessage, storage, service workers, WebSockets)
+31. **`file-upload-audit` (20 checks):** `.agents/skills/file-upload-audit/SKILL.md`
+32. **`email-security-audit` (14 checks):** `.agents/skills/email-security-audit/SKILL.md`
+33. **`ssti-audit` (about 70 checks):** `.agents/skills/ssti-audit/SKILL.md` (template injection detection across engines, injection points, blind SSTI; `scripts/ssti_probe.py` for scope-gated arithmetic probes)
+34. **`command-injection-audit` (about 65 checks):** `.agents/skills/command-injection-audit/SKILL.md` (unix and Windows command injection; `scripts/cmdi_probe.py` for scope-gated split-marker and arithmetic probes; `scripts/sink_scan.py` for passive source review)
+35. **`nosql-injection-audit` (about 40 checks):** `.agents/skills/nosql-injection-audit/SKILL.md` (operator and syntax differential probes; `scripts/nosql_probe.py`)
+36. **`ldap-injection-audit` (about 30 checks):** `.agents/skills/ldap-injection-audit/SKILL.md` (wildcard, boolean, escape differential probes; `scripts/ldap_probe.py`)
+37. **`xml-xxe-audit` (about 45 checks):** `.agents/skills/xml-xxe-audit/SKILL.md` (entity expansion, out-of-band XXE, XInclude, XSLT, XPath; `scripts/xxe_probe.py`, `scripts/xml_parser_scan.py`)
+
+Existing skills gained an "Extended checklist (added)" section that points to a `references/` file. Each row carries an ID, product, check, class, and safe verification.
+
 ## Environment Setup & Tooling
 - Run `./setup.sh` to install all required Go, Python, and system dependencies automatically.
 - Consult [SETUP.md](SETUP.md) for full tool installation commands, provider configs, and health-check verification.
@@ -43,3 +66,5 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 - Update tracking checklists from 0 to N complete during assessments.
 - Reference specialized wordlists under `wordlists/` (indexed in `wordlists/README.md`).
 - Save all structured findings to `artifacts/`.
+- Classes: run `passive` and `bounded` rows inside scope with the stated limits. Run `authorized-only` rows only after explicit approval for that specific check.
+- Version-gated CVE rows are version checks. Never run exploit code from a checklist row.

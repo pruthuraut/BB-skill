@@ -1,0 +1,12 @@
+---
+description: Smart start for any target. Reads techfingerprint output, headers, page source, parameter names, and URL lists, then decides which audit skills and checklist rows apply (CMS, framework, server, SaaS key, parameter types like url/file/id/red
+globs: ["**/*target*"]
+alwaysApply: false
+---
+
+# target-router Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/target-router/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/target-router/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

@@ -1,0 +1,13 @@
+---
+description: Server-side template injection (SSTI) audit across template engines, with arithmetic-only detection, engine fingerprinting, blind replay, and approval gates for anything beyond evaluation
+globs: ["**/*ssti*", "**/*template*", "**/*preview*"]
+alwaysApply: false
+---
+
+# ssti-audit Rule
+
+When auditing template injection:
+1. Follow the checklist in `.agents/skills/ssti-audit/references/ssti_checklist.md`.
+2. Master skill: `.agents/skills/ssti-audit/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first, then `.agents/skills/ssti-audit/scripts/ssti_probe.py` for arithmetic detection.
+4. Stop at evaluated arithmetic. Anything beyond evaluation needs written approval and an isolated lab.

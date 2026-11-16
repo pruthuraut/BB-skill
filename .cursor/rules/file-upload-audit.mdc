@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications for file upload weaknesses: extension and MIME allowlist bypass, stored file types served unsafely (HTML, SVG), path traversal in filenames, zip slip and symlink extraction, image and office parser abuse (Image
+globs: ["**/*file*"]
+alwaysApply: false
+---
+
+# file-upload-audit Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/file-upload-audit/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/file-upload-audit/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

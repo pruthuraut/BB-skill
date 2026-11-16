@@ -1,0 +1,12 @@
+---
+description: Find third-party SaaS tags, widgets, and client-side keys on an authorized target (analytics, session replay, chat, email marketing, payments, maps, CDN and image services, CAPTCHA, error monitoring) and classify each as a public identifier
+globs: ["**/*saas*"]
+alwaysApply: false
+---
+
+# saas-third-party-exposure Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/saas-third-party-exposure/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/saas-third-party-exposure/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

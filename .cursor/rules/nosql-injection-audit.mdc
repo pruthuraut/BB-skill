@@ -1,0 +1,9 @@
+---
+description: NoSQL injection audit (MongoDB and similar) with differential operator and syntax probes and source review
+globs: ["**/*nosql*", "**/*mongo*", "**/*where*"]
+alwaysApply: false
+---
+
+# nosql-injection-audit Rule
+
+Follow `.agents/skills/nosql-injection-audit/references/nosql_checklist.md`. Run `scripts/scope_check.sh TARGET`, then `scripts/nosql_probe.py`. Stop at the differential evidence. No extraction, no writes.

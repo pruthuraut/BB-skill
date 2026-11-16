@@ -1,0 +1,12 @@
+---
+description: Audit authorized web infrastructure for HTTP request smuggling (CL.TE, TE.CL, TE.TE, HTTP/2 downgrade desync), HTTP/2 DoS and CVE exposure, web cache poisoning through unkeyed headers, web cache deception through static-extension paths, and
+globs: ["**/*http*"]
+alwaysApply: false
+---
+
+# http-protocol-cache Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/http-protocol-cache/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/http-protocol-cache/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

@@ -1,0 +1,12 @@
+---
+description: Audit authorized web front ends for client-side JavaScript security issues: prototype pollution (client and Node.js server), postMessage origin and sink bugs, DOM XSS and DOM clobbering, web storage and IndexedDB token exposure, service wor
+globs: ["**/*client*"]
+alwaysApply: false
+---
+
+# client-side-js-security Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/client-side-js-security/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/client-side-js-security/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications for open redirects (url, redirect, next, returnTo parameters, parser bypasses, redirect chains), CRLF and response header injection, Host header poisoning, and email header injection in forms. Triggers on "open
+globs: ["**/*open*"]
+alwaysApply: false
+---
+
+# open-redirect-and-header-injection Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/open-redirect-and-header-injection/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/open-redirect-and-header-injection/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

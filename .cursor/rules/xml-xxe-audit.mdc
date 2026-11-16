@@ -1,0 +1,9 @@
+---
+description: XML injection and XXE audit with safe entity-expansion probes, out-of-band checks to your host, and parser config review
+globs: ["**/*xml*", "**/*xxe*", "**/*soap*", "**/*saml*"]
+alwaysApply: false
+---
+
+# xml-xxe-audit Rule
+
+Follow `.agents/skills/xml-xxe-audit/references/xxe_checklist.md`. Run `scripts/scope_check.sh TARGET`, then `scripts/xxe_probe.py`. Use `scripts/xml_parser_scan.py` for source review. Never send resource-expansion payloads.

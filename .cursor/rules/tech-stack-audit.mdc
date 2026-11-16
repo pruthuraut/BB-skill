@@ -1,0 +1,12 @@
+---
+description: Audit authorized targets for product-specific exposure and known-CVE version risk across about 470 checks, grouped into CMS and ecommerce, web frameworks and languages, DevOps and CI/CD, monitoring and databases, identity and network 
+globs: ["**/*tech*"]
+alwaysApply: false
+---
+
+# tech-stack-audit Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/tech-stack-audit/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/tech-stack-audit/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

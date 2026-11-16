@@ -1,0 +1,13 @@
+---
+description: OS command injection audit (unix and Windows) with scope-gated echo and arithmetic probes, optional timing, and passive source sink review
+globs: ["**/*cmd*", "**/*command*", "**/*exec*", "**/*ping*"]
+alwaysApply: false
+---
+
+# command-injection-audit Rule
+
+When auditing command injection:
+1. Follow `.agents/skills/command-injection-audit/references/cmdi_checklist.md`.
+2. Master skill: `.agents/skills/command-injection-audit/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first, then `scripts/cmdi_probe.py` (split-marker and arithmetic only). Use `scripts/sink_scan.py` for source review.
+4. Timing probes need approval. Environment-variable and interpreter tricks are authorized-only and are not run by this skill.

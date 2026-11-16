@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications for cross-site request forgery (missing or unvalidated tokens, SameSite gaps, method switching, JSON content-type CSRF), clickjacking (frame-ancestors and X-Frame-Options), security headers (HSTS, CSP, X-Conten
+globs: ["**/*csrf*"]
+alwaysApply: false
+---
+
+# csrf-and-headers-audit Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/csrf-and-headers-audit/references/` (IDs, classes, and safe verifications).
+2. Master skill: `.agents/skills/csrf-and-headers-audit/SKILL.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

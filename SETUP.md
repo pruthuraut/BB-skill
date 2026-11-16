@@ -164,6 +164,38 @@ sudo apt-get update && sudo apt-get install gh -y
 
 ---
 
+### Category E: Added Audit Tools (checklist expansion)
+`setup.sh` installs these in Steps 1, 3, 4, and 8c. Run them manually only if the installer reports a failure.
+
+```bash
+# Go (STEP 3): subdomain and permutation
+go install github.com/PentestPad/subzy@latest
+go install github.com/Josue87/gotator@latest
+go install github.com/owasp-amass/amass/v4/cmd/amass@master
+go install github.com/projectdiscovery/chaos-client/cmd/chaos@latest
+
+# Python venv (STEP 4)
+.venv/bin/pip install git-dumper sqlmap sslyze
+.venv/bin/pip install git+https://github.com/darkoperator/dnsrecon.git
+
+# Apt (STEP 1)
+sudo apt-get install -y nikto whatweb
+
+# Scripts with wrappers in ~/.local/bin (STEP 8c)
+git clone https://github.com/ticarpi/jwt_tool.git ~/tools/jwt_tool       # jwt_tool.py + requirements.txt
+git clone https://github.com/drwetter/testssl.sh.git ~/tools/testssl.sh  # testssl.sh
+git clone https://github.com/defparam/smuggler.git ~/tools/smuggler      # smuggler.py
+
+# SSTImap (STEP 8c): detection mode for ssti-audit
+git clone https://github.com/vladko312/SSTImap.git ~/tools/SSTImap
+
+# Optional (STEP 8c)
+cargo install x8        # hidden parameter discovery (needs Rust)
+gem install wpscan      # WordPress plugin and theme data (needs Ruby)
+```
+
+---
+
 ## 4. API Keys & Configuration Setup
 
 Passive OSINT tools achieve exponentially higher coverage when supplied with free API keys.
@@ -238,7 +270,7 @@ dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resol
 Run this one-liner to verify that all critical tools are available in your `$PATH`:
 
 ```bash
-for tool in subfinder httpx dnsx naabu alterx katana nuclei shuffledns massdns ffuf waybackurls gau waymore hakrawler gospider trufflehog gitleaks cero subjack gowitness fingerprintx interactsh-client arjun wafw00f nmap masscan jq curl gh; do
+for tool in subfinder httpx dnsx naabu alterx katana nuclei shuffledns massdns ffuf waybackurls gau waymore hakrawler gospider trufflehog gitleaks cero subjack subzy gotator amass chaos gowitness fingerprintx interactsh-client arjun x8 wafw00f nmap masscan whatweb nikto sqlmap sslyze dnsrecon git-dumper testssl.sh jwt_tool sstimap jq curl gh; do
   which "$tool" &>/dev/null && echo -e "\e[32m[+] $tool: INSTALLED\e[0m" || echo -e "\e[31m[-] $tool: MISSING\e[0m"
 done
 ```

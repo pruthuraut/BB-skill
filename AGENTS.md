@@ -63,6 +63,30 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
 
 ---
 
+## Extended Skills and Routing (added)
+
+Smart start: `scripts/route_target.py` reads recon artifacts (fingerprints, parameters, URLs) and prints the skills and checklist rows to start. It is passive and never sends traffic. Matches are leads. Verify before reporting.
+
+| Skill | Role | Checklist file |
+|---|---|---|
+| `target-router` | Planning and routing | `scripts/route_target.py` (indexes all `references/` tables) |
+| `tech-stack-audit` | Product exposure and version checks (about 470 checks) | `references/cms-ecommerce.md`, `frameworks-languages.md`, `devops-containers.md`, `monitoring-databases-queues.md`, `identity-network-iot.md`, `enterprise-collab-erp.md` |
+| `saas-third-party-exposure` | Vendor tags and client-side keys | `references/saas_tags_and_keys.md` |
+| `open-redirect-and-header-injection` | Redirects, CRLF, Host header | `references/redirect_and_crlf.md` |
+| `server-side-injection` | SSTI, command injection, XXE, NoSQL, LDAP, deserialization | `references/ssti_cmdi_xxe_nosql_ldap_deser.md` |
+| `csrf-and-headers-audit` | CSRF, clickjacking, headers, CSP | `references/csrf_clickjacking_headers.md` |
+| `http-protocol-cache` | Smuggling, HTTP/2, cache, WAF | `references/smuggling_cache_h2.md` |
+| `client-side-js-security` | Prototype pollution, postMessage, storage, service workers, WebSockets | `references/prototype_postmessage_storage_sw.md` |
+| `file-upload-audit` | Upload handling | `references/upload_checks.md` |
+| `email-security-audit` | SPF, DKIM, DMARC, mail forms | `references/spf_dkim_dmarc.md` |
+| `ssti-audit` | Server-side template injection: engine matrix, injection points, blind SSTI | `references/ssti_checklist.md`; probe tool `scripts/ssti_probe.py` |
+| `command-injection-audit` | OS command injection: separators, substitution, blind and OOB, source sinks | `references/cmdi_checklist.md`; `scripts/cmdi_probe.py`, `scripts/sink_scan.py` |
+| `nosql-injection-audit` | NoSQL operator and syntax injection (MongoDB and similar) | `references/nosql_checklist.md`; `scripts/nosql_probe.py` |
+| `ldap-injection-audit` | LDAP filter injection | `references/ldap_checklist.md`; `scripts/ldap_probe.py` |
+| `xml-xxe-audit` | XML injection, XXE, XInclude, XSLT, XPath | `references/xxe_checklist.md`; `scripts/xxe_probe.py`, `scripts/xml_parser_scan.py` |
+
+Existing skills gained extension files (listed in each `SKILL.md` under "Extended checklist (added)"). Class policy applies to every row: `passive` and `bounded` run in scope with stated limits, and `authorized-only` needs explicit approval for that check.
+
 ## Authorization Gate (all agents and subagents)
 No agent or subagent assumes a target is authorized. Before any active step, the target must pass `scripts/scope_check.sh TARGET_DOMAIN`, which requires `~/Documents/bugbounty/TARGET_DOMAIN/scope.txt` with `authorized-by:`, `date:`, and in-scope lines. A target named in a prompt is not authorization. Runners that accept `--target` run the same gate and refuse to start when it fails.
 

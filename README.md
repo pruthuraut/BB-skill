@@ -8,7 +8,7 @@ A production-grade offensive reconnaissance, technology fingerprinting, content 
 
 Modern offensive audits fail when a single AI agent attempts to perform broad recon, parameter mining, and vulnerability exploitation simultaneously—resulting in token fatigue, hallucinations, missed assets, and shallow testing.
 
-This framework partitions complex security assessments across **23 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
+This framework partitions complex security assessments across **38 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
 
 ```
                                   [ TARGET ROOT DOMAIN / IP ]
@@ -64,7 +64,22 @@ BBskill/
 │       ├── access-control/             # 25-Check horizontal IDOR, BOLA & privilege escalation
 │       ├── business-logic/             # 25-Check race conditions, price tampering & workflows
 │       ├── api-security/               # 25-Check Swagger exposure, GraphQL & CORS credentials
-│       └── resource-exhaustion/        # 25-Check rate limiting, velocity controls & DoS
+│       ├── resource-exhaustion/        # 25-Check rate limiting, velocity controls & DoS
+│       ├── target-router/              # Smart start: routes fingerprints and params to skills
+│       ├── tech-stack-audit/           # ~470 product exposure and version checks (6 reference files)
+│       ├── saas-third-party-exposure/  # Vendor tags and client-side keys, public vs secret
+│       ├── open-redirect-and-header-injection/
+│       ├── server-side-injection/      # SSTI, command injection, XXE, NoSQL, LDAP, deserialization
+│       ├── csrf-and-headers-audit/     # CSRF, clickjacking, security headers, CSP
+│       ├── http-protocol-cache/        # Smuggling, HTTP/2, cache poisoning, WAF bypass
+│       ├── client-side-js-security/    # Prototype pollution, postMessage, storage, service workers
+│       ├── file-upload-audit/          # Upload handling and parser abuse
+│       ├── email-security-audit/       # SPF, DKIM, DMARC, mail-form header injection
+│       ├── ssti-audit/                 # Template injection: engine matrix, injection points, blind SSTI
+│       ├── command-injection-audit/    # OS command injection: separators, blind, OOB, source sinks
+│       ├── nosql-injection-audit/      # NoSQL operator and syntax differential probes
+│       ├── ldap-injection-audit/       # LDAP filter injection: wildcard, boolean, escape probes
+│       └── xml-xxe-audit/              # XML injection, XXE, XInclude, XSLT, XPath
 ├── .cursor/
 │   └── rules/                          # Cursor IDE Rule (.mdc) files with glob auto-binding
 ├── wordlists/                          # Consolidated security dictionaries & payload files
@@ -107,7 +122,7 @@ Antigravity automatically discovers skills defined in `.agents/skills/<skill_nam
 
 ### 3. Claude Code (Anthropic CLI)
 Claude Code uses `CLAUDE.md` in the project root as its system prompt and rules configuration:
-1. **Pre-Configured:** `CLAUDE.md` already registers all 23 skills, tool prerequisites, and output paths.
+1. **Pre-Configured:** `CLAUDE.md` already registers all 38 skills, tool prerequisites, and output paths.
 2. **Execution:** Launch Claude Code from within the repository root:
    ```bash
    cd BBskill
@@ -188,6 +203,17 @@ When starting an engagement with an apex domain (`target.com`):
    - **Phase 09–12:** Nuclei Automated Scan $\rightarrow$ Cloud Storage (S3/GCS/Firebase) $\rightarrow$ Config Exposure $\rightarrow$ CORS Verification.
    - **Phase 13–16:** SSRF Mining $\rightarrow$ GraphQL Introspection $\rightarrow$ Org Secrets & Dependency Confusion $\rightarrow$ Gowitness Triage.
 3. Consolidates actionable findings into `artifacts/recon_hunter_ranked_report.txt`.
+
+### Workflow 3: Smart Start (Routing)
+After recon has written fingerprints, parameters, or URLs to `artifacts/<target>/`:
+
+```bash
+python3 scripts/route_target.py --target example.com --workspace ~/Documents/bugbounty \
+  --fingerprint artifacts/example.com/techfingerprint.txt \
+  --params artifacts/example.com/params.txt --urls artifacts/example.com/urls.txt
+```
+
+The router prints the skills to start, the matched checklist rows, and each row's class. It is passive and never sends traffic. Start `passive` and `bounded` rows in scope. Ask before any `authorized-only` row.
 
 ### Workflow 2: Targeted Module Audits
 Target individual attack vectors by directly instructing subagents:
