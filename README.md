@@ -8,7 +8,7 @@ A production-grade offensive reconnaissance, technology fingerprinting, content 
 
 Modern offensive audits fail when a single AI agent attempts to perform broad recon, parameter mining, and vulnerability exploitation simultaneously—resulting in token fatigue, hallucinations, missed assets, and shallow testing.
 
-This framework partitions complex security assessments across **57 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
+This framework partitions complex security assessments across **48 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
 
 ```
                                   [ TARGET ROOT DOMAIN / IP ]
@@ -62,7 +62,6 @@ BBskill/
 │       ├── authbypass/                 # 30-Check login bypass, NoSQL/SQLi & JWT manipulation
 │       ├── ssrf-audit/                 # 55-Check remote fetchers, bypasses, cloud IMDS & blind SSRF
 │       ├── access-control/             # 25-Check horizontal IDOR, BOLA & privilege escalation
-│       ├── business-logic/             # 25-Check race conditions, price tampering & workflows
 │       ├── api-security/               # 25-Check Swagger/GraphQL/CORS + AA (25) and AI (15) checklists, api_probe.py
 │       ├── resource-exhaustion/        # 25-Check rate limiting, velocity controls & DoS
 │       ├── target-router/              # Smart start: routes fingerprints and params to skills
@@ -70,8 +69,6 @@ BBskill/
 │       ├── saas-third-party-exposure/  # Vendor tags and client-side keys, public vs secret
 │       ├── open-redirect-and-header-injection/
 │       ├── server-side-injection/      # SSTI, command injection, XXE, NoSQL, LDAP, deserialization
-│       ├── csrf-and-headers-audit/     # CSRF, clickjacking, security headers, CSP
-│       ├── http-protocol-cache/        # Smuggling, HTTP/2, cache poisoning, WAF bypass
 │       ├── client-side-js-security/    # Prototype pollution, postMessage, storage, service workers
 │       ├── file-upload-audit/          # Upload handling and parser abuse (UP + FU-001..020, test file generator)
 │       ├── email-security-audit/       # SPF, DKIM, DMARC, mail-form header injection
@@ -81,24 +78,27 @@ BBskill/
 │       ├── ldap-injection-audit/       # LDAP filter injection: wildcard, boolean, escape probes
 │       ├── xml-xxe-audit/              # XML injection, XXE, XInclude, XSLT, XPath
 │       ├── business-logic-vulns/       # 20 logic checks: price, currency, races, refunds, trials, tiers
-│       ├── race-conditions/            # 15 race checks + limit sweep, synchronized burst probe
 │       ├── csrf-audit/                 # Deep CSRF: 20 core + bypass matrix, PoCs, token probe and analyzer
 │       ├── cors-audit/                 # Deep CORS: 15 core + origin bypass matrix, chains, PoCs, probe
-│       ├── clickjacking-audit/         # Clickjacking: 10 core + variants, PoCs, framing-defense checker
-│       ├── postmessage-audit/          # postMessage origin/source checks, sinks, passive JS scanner
 │       ├── file-download-audit/        # Download auth, IDOR, headers, listings, signed URLs, PDF generation
-│       ├── tls-audit/                  # TLS/SSL 20 checks, testssl mapper, quick checker
 │       ├── crypto-audit/               # Crypto misuse 15 checks, source scanner, ciphertext analyzer
 │       ├── request-smuggling-audit/    # Desync detection: CL.TE/TE.CL/TE.TE/H2, timing-first probe
 │       ├── cache-poisoning-audit/      # Cache poisoning and deception, buster-only probe
 │       ├── cloud-container-audit/      # Cloud storage, metadata, Docker/K8s/etcd, IAM, functions
 │       ├── data-exposure-audit/        # Secrets, files, storage, API PII, URL and Referer leaks
 │       ├── error-handling-audit/       # Error disclosure, enumeration differentials, error pages
-│       ├── websocket-audit/            # WebSocket auth, CSWSH, IDOR, injection; RFC 6455 probe
 │       ├── graphql-audit/              # GraphQL schema, cost limits, authz, APQ; probe
 │       ├── rest-api-audit/             # REST CRUD authz lifecycle, HEAD/OPTIONS, sort/filter, versions
-│       ├── soap-api-audit/             # SOAP/WSDL, SOAPAction, XXE, WS-Security; probe
-│       └── grpc-audit/                 # gRPC reflection, auth, transport, metadata; probe + grpcurl
+│       ├── grpc-audit/                 # gRPC reflection, auth, transport, metadata; probe + grpcurl
+│       ├── idor/                       # Audit authorized applications and APIs for Insecure Direct Object References / B
+│       ├── network-portscan/           # Scan every TCP port on explicitly authorized hosts, then identify listening serv
+│       ├── oauth-sso/                  # Audit authorized OAuth 2.0, OpenID Connect, SAML 2.0 and enterprise SSO (Kerbero
+│       ├── path-traversal/             # Audit authorized applications for path traversal, local/remote file inclusion an
+│       ├── server-config-audit/        # Audit authorized Apache, Nginx, IIS, Tomcat, Jetty, WildFly, WebLogic, WebSphere
+│       ├── session-management/         # Audit authorized web applications across 40 session-management checks covering t
+│       ├── sqli/                       # Audit authorized applications for SQL injection across 50 checks — quote/break-r
+│       ├── subdomain-takeover/         # Audit authorized domains for subdomain takeover risk across 50 dangling DNS and 
+│       └── xss/                        # Audit authorized applications for cross-site scripting across 60 checks — reflec
 ├── .cursor/
 │   └── rules/                          # Cursor IDE Rule (.mdc) files with glob auto-binding
 ├── wordlists/                          # Consolidated security dictionaries & payload files
@@ -141,7 +141,7 @@ Antigravity automatically discovers skills defined in `.agents/skills/<skill_nam
 
 ### 3. Claude Code (Anthropic CLI)
 Claude Code uses `CLAUDE.md` in the project root as its system prompt and rules configuration:
-1. **Pre-Configured:** `CLAUDE.md` already registers all 57 skills, tool prerequisites, and output paths.
+1. **Pre-Configured:** `CLAUDE.md` already registers all 48 skills, tool prerequisites, and output paths.
 2. **Execution:** Launch Claude Code from within the repository root:
    ```bash
    cd BBskill

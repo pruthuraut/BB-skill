@@ -11,7 +11,7 @@ GraphQL puts the whole API behind one endpoint, so authorization must happen per
 - Query templates: `references/graphql_queries.md` (introspection, depth, batching, aliases, directives, APQ, injection, subscriptions, CSRF transports).
 - Tracker: `references/graphql_tracker.md`.
 - `scripts/gql_probe.py`: endpoint discovery, engine fingerprint, transports, introspection with schema summary (`--schema-out`), suggestions, bounded depth/batch/alias/directive tests, error disclosure, APQ, argument injection markers (`--inject-query` with `FUZZ`), and authorization comparison (`--ops-file` run as account A, account B, and anonymous).
-- Related: `api-security` (API-X-001 to API-X-007), `websocket-audit` (subscriptions over WebSocket), `idor`, `access-control`, `sqli`, `nosql-injection-audit`, `csrf-audit` (XSRF-019), `error-handling-audit` (EH-010), `resource-exhaustion`, `ssrf-audit` (URL arguments).
+- Related: `api-security` (API-X-001 to API-X-007), `client-side-js-security` (subscriptions over WebSocket), `idor`, `access-control`, `sqli`, `nosql-injection-audit`, `csrf-audit` (XSRF-019), `error-handling-audit` (EH-010), `resource-exhaustion`, `ssrf-audit` (URL arguments).
 
 ## Procedure
 

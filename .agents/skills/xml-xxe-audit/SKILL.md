@@ -44,4 +44,10 @@ Checklist: `references/xxe_checklist.md`. Tools: `scripts/xxe_probe.py` (black-b
 
 ## SOAP services
 
-- For SOAP-specific checks (SOAPAction spoofing, WSDL enumeration, WS-Security, replay, faults, namespaces), use `soap-api-audit` (`../soap-api-audit/SKILL.md`) and `scripts/soap_probe.py`; return here for deep XXE, XInclude, XSLT, and XPath testing.
+- For SOAP-specific checks (SOAPAction spoofing, WSDL enumeration, WS-Security, replay, faults, namespaces), use `xml-xxe-audit` (`../xml-xxe-audit/references/merged/soap-api-audit/SKILL.md`) and `../xml-xxe-audit/scripts/soap_probe.py`; return here for deep XXE, XInclude, XSLT, and XPath testing.
+
+## Merged skills (content preserved)
+
+These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
+
+- `soap-api-audit`: full content in `references/merged/soap-api-audit/` (SKILL.md, references, rule); scripts in `scripts/`

@@ -28,7 +28,7 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
    - *Pipeline:* Inherits authorized live subdomains, scans ports 1–65535 with Naabu/Nmap/Masscan, and validates discovered services with targeted Nmap probes.
 9. **`subdomain-takeover` (50 Checks)** — `.agents/skills/subdomain-takeover/SKILL.md`
    - *Pipeline:* Audits dangling DNS and decommissioned cloud/SaaS bindings with non-destructive evidence thresholds and a complete 50-row coverage ledger.
-10. **`server-config-audit` (102 Checks)** — `.agents/skills/server-config-audit/SKILL.md`
+10. **`server-config-audit` (102 Checks)** + merged: `tls-audit` — `.agents/skills/server-config-audit/SKILL.md`
    - *Pipeline:* Audits web-server defaults, modules, consoles, security headers, and HTTP/2 controls with passive, bounded, credential-gated, mutation-gated, and lab-only execution classes.
 
 ### Phase 2: Authentication & Access Control Auditing
@@ -54,11 +54,10 @@ Execute complete, deterministic, and high-fidelity attack surface mapping and vu
     - *Subagents (5):* Injection Point Discovery, Detection Techniques (UNION/error/boolean/time/OOB/inference), Query-Context Injection (ORDER BY/LIMIT/LIKE/IN/identifiers/ORM/second-order), Filter & WAF Bypass, DBMS-Specific & Impact (D/P/S/W/X execution classes).
 20. **`xss` (60 Checks)** — `.agents/skills/xss/SKILL.md`
     - *Subagents (6):* Reflection Surfaces, Stored/Blind & Rendering Pipelines, DOM/Frameworks & Cross-Origin (postMessage, clobbering, prototype pollution, XSSI/JSONP), Element & Event Vectors, URL/Navigation & Scriptless, Bypass/CSP & Impact (R/E/S/B/I execution classes).
-21. **`business-logic` (25 Checks)** — `.agents/skills/business-logic/SKILL.md`
     - *Subagents (4):* Pricing & Financial Parameter Manipulation, Multi-Step Workflows & State Machines, Concurrency & Race Conditions (TOCTOU), Defensive Business Rules.
-22. **`api-security` (25 Checks)** — `.agents/skills/api-security/SKILL.md`
+21. **`api-security` (25 Checks)** — `.agents/skills/api-security/SKILL.md`
     - *Subagents (4):* Documentation & Schema Discovery (Swagger/WSDL), GraphQL Security & Query Limits, Object & Function Authorization (BOLA/BFLA), Defensive API Gateways.
-23. **`resource-exhaustion` (25 Checks)** — `.agents/skills/resource-exhaustion/SKILL.md`
+22. **`resource-exhaustion` (25 Checks)** — `.agents/skills/resource-exhaustion/SKILL.md`
     - *Subagents (4):* Destructive Action Re-Authentication, Velocity Controls & Form Limits, Payload & Memory Bounds, Backend Queue & Storage Protections.
 
 ---
@@ -74,35 +73,35 @@ Smart start: `scripts/route_target.py` reads recon artifacts (fingerprints, para
 | `saas-third-party-exposure` | Vendor tags and client-side keys | `references/saas_tags_and_keys.md` |
 | `open-redirect-and-header-injection` | Redirects, CRLF, Host header | `references/redirect_and_crlf.md` |
 | `server-side-injection` | SSTI, command injection, XXE, NoSQL, LDAP, deserialization | `references/ssti_cmdi_xxe_nosql_ldap_deser.md` |
-| `csrf-and-headers-audit` | CSRF, clickjacking, headers, CSP | `references/csrf_clickjacking_headers.md` |
-| `http-protocol-cache` | Smuggling, HTTP/2, cache, WAF | `references/smuggling_cache_h2.md` |
-| `client-side-js-security` | Prototype pollution, postMessage, storage, service workers, WebSockets | `references/prototype_postmessage_storage_sw.md` |
+| `csrf-audit` + merged: `csrf-and-headers-audit`, `clickjacking-audit` | CSRF, clickjacking, headers, CSP | `references/csrf_clickjacking_headers.md` |
+| `request-smuggling-audit` + merged: `http-protocol-cache` | Smuggling, HTTP/2, cache, WAF | `references/smuggling_cache_h2.md` |
+| `client-side-js-security` + merged: `postmessage-audit`, `websocket-audit` | Prototype pollution, postMessage, storage, service workers, WebSockets | `references/prototype_postmessage_storage_sw.md` |
 | `file-upload-audit` | Upload handling (UP-* and FU-001 to FU-020) | `references/upload_checks.md`, `upload_vuln_checklist.md`; `scripts/upload_testfiles.py` |
 | `email-security-audit` | SPF, DKIM, DMARC, mail forms | `references/spf_dkim_dmarc.md` |
 | `ssti-audit` | Server-side template injection: engine matrix, injection points, blind SSTI | `references/ssti_checklist.md`; probe tool `scripts/ssti_probe.py` |
 | `command-injection-audit` | OS command injection: separators, substitution, blind and OOB, source sinks | `references/cmdi_checklist.md`; `scripts/cmdi_probe.py`, `scripts/sink_scan.py` |
 | `nosql-injection-audit` | NoSQL operator and syntax injection (MongoDB and similar) | `references/nosql_checklist.md`; `scripts/nosql_probe.py` |
 | `ldap-injection-audit` | LDAP filter injection | `references/ldap_checklist.md`; `scripts/ldap_probe.py` |
-| `xml-xxe-audit` | XML injection, XXE, XInclude, XSLT, XPath | `references/xxe_checklist.md`; `scripts/xxe_probe.py`, `scripts/xml_parser_scan.py` |
-| `business-logic-vulns` | 20 business logic checks: price, quantity, currency, discounts, referrals, races, double spend, payment bypass, transfers, quotas, workflow/state, refunds, trials, feature flags, tiers, verification | `references/logic_vuln_checklist.md`; tracker `references/logic_vuln_tracker.md` |
-| `race-conditions` | 15 race checks + "only N times" limit sweep (OTP resend, invites, votes, coupons, teams) | `references/race_checklist.md`; tracker `references/race_tracker.md`; probe `scripts/race_probe.py` |
-| `csrf-audit` | Deep CSRF: 20 core checks, bypass matrix, PoC templates, reports and writeups | `references/csrf_checklist.md`, `csrf_poc_templates.md`, `csrf_reports_and_writeups.md`; `scripts/csrf_probe.py`, `scripts/csrf_token_analyze.py` |
+| `xml-xxe-audit` + merged: `soap-api-audit` | XML injection, XXE, XInclude, XSLT, XPath | `references/xxe_checklist.md`; `scripts/xxe_probe.py`, `scripts/xml_parser_scan.py` |
+| `business-logic-vulns` + merged: `business-logic`, `race-conditions` | 20 business logic checks: price, quantity, currency, discounts, referrals, races, double spend, payment bypass, transfers, quotas, workflow/state, refunds, trials, feature flags, tiers, verification | `references/logic_vuln_checklist.md`; tracker `references/logic_vuln_tracker.md` |
+| `business-logic-vulns` + merged: `business-logic`, `race-conditions` | 15 race checks + "only N times" limit sweep (OTP resend, invites, votes, coupons, teams) | `references/race_checklist.md`; tracker `references/race_tracker.md`; probe `scripts/race_probe.py` |
+| `csrf-audit` + merged: `csrf-and-headers-audit`, `clickjacking-audit` | Deep CSRF: 20 core checks, bypass matrix, PoC templates, reports and writeups | `references/csrf_checklist.md`, `csrf_poc_templates.md`, `csrf_reports_and_writeups.md`; `scripts/csrf_probe.py`, `scripts/csrf_token_analyze.py` |
 | `cors-audit` | Deep CORS: 15 core checks, bypass origin matrix, impact chains, concepts, PoCs, tools and writeups | `references/cors_checklist.md`, `cors_concepts.md`, `cors_poc_templates.md`, `cors_reports_and_tools.md`; `scripts/cors_probe.py` |
-| `clickjacking-audit` | Clickjacking: 10 core checks, variants and bypasses, PoC templates | `references/clickjacking_checklist.md`, `clickjacking_poc_templates.md`; `scripts/clickjack_check.py` |
-| `postmessage-audit` | postMessage listeners and senders: origin/source checks, sinks, wildcard targets, iframes, extensions | `references/postmessage_checklist.md`, `postmessage_poc_templates.md`; `scripts/pm_scan.py` |
+| `csrf-audit` + merged: `csrf-and-headers-audit`, `clickjacking-audit` | Clickjacking: 10 core checks, variants and bypasses, PoC templates | `references/clickjacking_checklist.md`, `clickjacking_poc_templates.md`; `scripts/clickjack_check.py` |
+| `client-side-js-security` + merged: `postmessage-audit`, `websocket-audit` | postMessage listeners and senders: origin/source checks, sinks, wildcard targets, iframes, extensions | `references/postmessage_checklist.md`, `postmessage_poc_templates.md`; `scripts/pm_scan.py` |
 | `file-download-audit` | File download and access: traversal, listing, MIME, disposition, auth, IDOR, cloud URLs, sensitive files, symlinks, PDF generation | `references/download_checklist.md`; `scripts/download_check.py` |
-| `tls-audit` | TLS/SSL configuration: 20 checks plus extras | `references/tls_checklist.md`; `scripts/tls_quick.py`, `scripts/tls_map_testssl.py` |
+| `server-config-audit` + merged: `tls-audit` | TLS/SSL configuration: 20 checks plus extras | `references/tls_checklist.md`; `scripts/tls_quick.py`, `scripts/tls_map_testssl.py` |
 | `crypto-audit` | Cryptographic implementation: 15 checks plus variants, black-box procedures | `references/crypto_checklist.md`; `scripts/crypto_scan.py`, `scripts/cipher_analyze.py` |
-| `request-smuggling-audit` | HTTP request smuggling: CL.TE, TE.CL, TE.TE, H2.CL, H2.TE, chains, WAF and cache impact, variants | `references/smuggling_checklist.md`, `smuggling_poc_templates.md`; `scripts/smuggle_timing.py` |
+| `request-smuggling-audit` + merged: `http-protocol-cache` | HTTP request smuggling: CL.TE, TE.CL, TE.TE, H2.CL, H2.TE, chains, WAF and cache impact, variants | `references/smuggling_checklist.md`, `smuggling_poc_templates.md`; `scripts/smuggle_timing.py` |
 | `cache-poisoning-audit` | Web cache poisoning and deception: unkeyed inputs, normalization, deception, CPDoS, CDN notes | `references/cache_checklist.md`, `cache_poc_templates.md`; `scripts/cache_probe.py` |
 | `cloud-container-audit` | Cloud storage, metadata via SSRF, Docker/Kubernetes/etcd exposure, IAM, functions, databases, queues, CDN | `references/cloud_container_checklist.md`, `metadata_endpoints.md`, `iam_privesc.md`; `scripts/cloud_exposure_check.py` |
 | `data-exposure-audit` | Sensitive data in pages, JS, files, headers, cookies, storage, API responses, URLs, Referer | `references/data_exposure_checklist.md`, `browser_storage_dump.md`; `scripts/exposure_scan.py`, `scripts/api_pii_scan.py` |
 | `error-handling-audit` | Error disclosure, enumeration differentials, error pages, API status codes, GraphQL errors | `references/error_handling_checklist.md`; `scripts/error_probe.py` |
-| `websocket-audit` | WebSocket auth, CSWSH, Origin, tampering, replay, IDOR, injection, rate limits, session, downgrade | `references/websocket_checklist.md`, `websocket_poc_templates.md`; `scripts/ws_probe.py` |
+| `client-side-js-security` + merged: `postmessage-audit`, `websocket-audit` | WebSocket auth, CSWSH, Origin, tampering, replay, IDOR, injection, rate limits, session, downgrade | `references/websocket_checklist.md`, `websocket_poc_templates.md`; `scripts/ws_probe.py` |
 | `graphql-audit` | GraphQL schema exposure, cost controls, authorization, injection, subscriptions, persisted queries | `references/graphql_checklist.md`, `graphql_queries.md`; `scripts/gql_probe.py` |
 | `api-security` (extended) | API auth/authz AA-001 to AA-025 and injection AI-001 to AI-015 | `references/api_auth_checklist.md`, `api_injection_checklist.md`; `scripts/api_probe.py` |
 | `rest-api-audit` | REST CRUD authz lifecycle, methods, HEAD/OPTIONS, headers, status codes, HATEOAS, pagination, sort/filter, versions | `references/rest_checklist.md`; `scripts/rest_probe.py` |
-| `soap-api-audit` | SOAP/WSDL, SOAPAction, XML injection, XXE, WS-Security, replay, faults, encoding, namespaces | `references/soap_checklist.md`, `soap_templates.md`; `scripts/soap_probe.py` |
+| `xml-xxe-audit` + merged: `soap-api-audit` | SOAP/WSDL, SOAPAction, XML injection, XXE, WS-Security, replay, faults, encoding, namespaces | `references/soap_checklist.md`, `soap_templates.md`; `scripts/soap_probe.py` |
 | `grpc-audit` | gRPC reflection, auth, protobuf, transport (TLS/h2c/gRPC-Web), metadata, deadlines, credentials | `references/grpc_checklist.md`, `grpc_commands.md`; `scripts/grpc_probe.py` |
 
 Existing skills gained extension files (listed in each `SKILL.md` under "Extended checklist (added)"). Class policy applies to every row: `passive` and `bounded` run in scope with stated limits, and `authorized-only` needs explicit approval for that check.
@@ -115,7 +114,7 @@ The framework includes actionable step-by-step reproduction playbooks extracted 
 - **Authentication & Session:** `.agents/skills/authbypass/references/session_puzzling_and_otp_playbook.md` — Session Puzzling, Response Manipulation ATO, and HPP OTP routing.
 - **Credential Attacks & Rate Limits:** `.agents/skills/credentialattacks/references/otp_rate_limiting_and_dos_playbook.md` — OTP rate-limiting bypass via IP headers and SMS financial exhaustion.
 - **SSRF & Cloud Metadata:** `.agents/skills/ssrf-audit/references/realworld_ssrf_reproduction_guide.md` — Image proxy SSRF, AWS IMDSv1 extraction, and internal port scanning timing deltas.
-- **Business Logic Flaws:** `.agents/skills/business-logic/references/realworld_logic_flaws_playbook.md` — Comment/portal HTML injection, invite email abuse, and state machine skipping.
+- **Business Logic Flaws:** `.agents/skills/business-logic-vulns/references/merged/business-logic/references/realworld_logic_flaws_playbook.md` — Comment/portal HTML injection, invite email abuse, and state machine skipping.
 - **Access Control & IDOR:** `.agents/skills/access-control/references/idor_and_privilege_reproduction_playbook.md` — Horizontal IDOR in KYC states and multi-tenant boundary tampering.
 - **CI/CD & DevOps Exposure:** `.agents/skills/contentdiscovery/references/cicd_devops_exposure_playbook.md` — Jenkins workspace & credentials store leakage, Jira CVE-2019-14994, and EXIF geolocation leaks.
 - **Recon & Attack Surface:** `.agents/skills/subdomainenum/references/haddix_lecture_recon_playbook.md` — Jason Haddix TBHM Lectures 1–8 scoping, dorking, and JS pipeline.

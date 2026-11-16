@@ -359,7 +359,7 @@ Tags: `idor` `multi-step` `workflow` · Subagent: ID-E
 
 Checkout/confirm, approval, delete-confirmation, export-then-download, upload-then-attach, password/email change confirmations. Capture B's legitimate step 1 → step 2 → step 3, then replay the **later** step with A's object ID (PortSwigger lab: *Multi-step process with no access control on one step*).
 - **Fail:** final step acts on A's object.
-- **Refs:** `PS-AC` (multi-step processes) · `business-logic` skill
+- **Refs:** `PS-AC` (multi-step processes) · `business-logic-vulns` skill
 
 ### ID-35 · Blind IDOR and leakage in redirects / errors / side effects — `MEDIUM`
 Tags: `idor` `blind` `redirect-leak` · Subagent: ID-E

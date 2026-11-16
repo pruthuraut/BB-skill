@@ -12,7 +12,7 @@ description: Audit authorized sites for web cache poisoning and web cache decept
 - Templates: `references/cache_poc_templates.md`.
 - Tracker: `references/cache_tracker.md`.
 - Probe: `scripts/cache_probe.py` (detects caching and hit indicators, tests unkeyed headers, cookies, and query parameters with a canary under a unique cache buster, fat GET, method override, Vary, and cache deception variants with your own data marker).
-- Related: `http-protocol-cache` (CACHE-001 to CACHE-006), `request-smuggling-audit` (RS-010), `server-config-audit` (SMC-012, SMC-013 Host/X-Forwarded-Host), `xss` (payload delivery), `open-redirect-and-header-injection`.
+- Related: `request-smuggling-audit` (CACHE-001 to CACHE-006), `request-smuggling-audit` (RS-010), `server-config-audit` (SMC-012, SMC-013 Host/X-Forwarded-Host), `xss` (payload delivery), `open-redirect-and-header-injection`.
 
 ## Procedure
 

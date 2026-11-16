@@ -33,8 +33,15 @@ Checklist: `references/prototype_postmessage_storage_sw.md` (about 30 rows).
 
 ## Deep postMessage testing
 
-- Use `postmessage-audit` (`../postmessage-audit/SKILL.md`) for the 10-check postMessage assessment, weak origin patterns, PoC templates, and `scripts/pm_scan.py`. PM-001 to PM-004 here map to PMX-001, PMX-006, PMX-004, and PMX-V-007.
+- Use `client-side-js-security` (`../client-side-js-security/references/merged/postmessage-audit/SKILL.md`) for the 10-check postMessage assessment, weak origin patterns, PoC templates, and `../client-side-js-security/scripts/pm_scan.py`. PM-001 to PM-004 here map to PMX-001, PMX-006, PMX-004, and PMX-V-007.
 
 ## Deep WebSocket testing
 
-- Use `websocket-audit` (`../websocket-audit/SKILL.md`) for the 15-check WebSocket assessment and `scripts/ws_probe.py`. WS-001 to WS-003 map to WSK-001/WSK-009, WSK-002/WSK-007, and WSK-012.
+- Use `client-side-js-security` (`../client-side-js-security/references/merged/websocket-audit/SKILL.md`) for the 15-check WebSocket assessment and `../client-side-js-security/scripts/ws_probe.py`. WS-001 to WS-003 map to WSK-001/WSK-009, WSK-002/WSK-007, and WSK-012.
+
+## Merged skills (content preserved)
+
+These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
+
+- `postmessage-audit`: full content in `references/merged/postmessage-audit/` (SKILL.md, references, rule); scripts in `scripts/`
+- `websocket-audit`: full content in `references/merged/websocket-audit/` (SKILL.md, references, rule); scripts in `scripts/`

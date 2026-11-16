@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications for path traversal, local/remote file inclusion and file-access flaws across 39 checks — ../ and ..\ sequences, URL / double / overlong-UTF-8 / Unicode / custom encodings, null-byte and exte
+globs: ["**/*path*"]
+alwaysApply: false
+---
+
+# path-traversal Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/path-traversal/references/` and the master skill `.agents/skills/path-traversal/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.

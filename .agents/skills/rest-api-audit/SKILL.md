@@ -17,7 +17,7 @@ REST APIs expose resources through URLs and HTTP methods. Authorization must hol
 ## Procedure
 
 1. Confirm scope with `scripts/scope_check.sh TARGET`.
-2. Map resources: from the OpenAPI spec, JS, and proxy history, list collections and item routes with their methods and ID formats. Run `api-security/scripts/api_probe.py` first for the generic AA checks.
+2. Map resources: from the OpenAPI spec, JS, and proxy history, list collections and item routes with their methods and ID formats. Run `api-security/../api-security/scripts/api_probe.py` first for the generic AA checks.
 3. CRUD authorization (RST-001, RST-005): pick a resource type you can create harmlessly (note, draft, address, test item) and write `crud.json`:
 
    ```json

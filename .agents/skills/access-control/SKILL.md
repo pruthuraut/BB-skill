@@ -28,7 +28,7 @@ Primary methodology sources:
 1. HAR captures per role (ADM first, exercising every admin feature; then U1 doing everything a user can)
 2. Role/permission model: docs, pricing page (plans/entitlements), UI menus per role, API spec (`api-security`), JS route tables and feature-flag configs (`jsrecon`)
 3. `artifacts/discovered_endpoints.txt` (admin/internal paths from `contentdiscovery`), `artifacts/idor/object_matrix.md`
-4. Tokens per role (decode with `session-management/scripts/jwt_inspect.py`)
+4. Tokens per role (decode with `session-management/../session-management/scripts/jwt_inspect.py`)
 
 ## Workflow
 
@@ -89,7 +89,7 @@ python3 -I $S/priv_mutator.py --path /admin/users --json '{"name":"bbtest"}'
 python3 -I $S/race_burst.py --target example.com --request artifacts/access_control/accept_invite.req --count 10
 ```
 
-Burp: **Autorize** (low-priv replay), **Auth Analyzer**, **JWT Editor**, **InQL**, Repeater *send group in parallel* (single-packet attack), **Param Miner**. Shared tools: `session-management/scripts/jwt_inspect.py`, `idor/scripts/idor_replay.py`, `authbypass/scripts/bypass_matrix.sh` (path/header bypass matrix for one admin URL).
+Burp: **Autorize** (low-priv replay), **Auth Analyzer**, **JWT Editor**, **InQL**, Repeater *send group in parallel* (single-packet attack), **Param Miner**. Shared tools: `session-management/../session-management/scripts/jwt_inspect.py`, `idor/../idor/scripts/idor_replay.py`, `authbypass/../authbypass/scripts/bypass_matrix.sh` (path/header bypass matrix for one admin URL).
 
 ## Required artifacts
 
@@ -110,7 +110,7 @@ Burp: **Autorize** (low-priv replay), **Auth Analyzer**, **JWT Editor**, **InQL*
 - `authbypass` — unauthenticated bypasses (X-Original-URL, method switching, path normalisation, registration mass assignment)
 - `session-management` — JWT forging primitives (SM-21…30) for PE-04; privilege retention via sessions (SM-34)
 - `oauth-sso` — scope escalation (OA-07), SSO group/role mapping
-- `api-security` — API inventory, BFLA in specs, GraphQL; `business-logic` — races and workflow states
+- `api-security` — API inventory, BFLA in specs, GraphQL; `business-logic-vulns` — races and workflow states
 
 ## Authorization Gate (applies to every run)
 

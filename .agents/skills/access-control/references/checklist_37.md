@@ -96,7 +96,7 @@ asrole U1 PUT "$T/api/admin/users/$U1_ID" '{"role":"admin"}'
 ### PE-09 · Privilege escalation via API parameter tampering — `HIGH`
 Tags: `privesc` `api` `parameter-tampering` · Subagent: PE-A
 
-Admin-only *behaviours* exposed through parameters on user endpoints: `?all=true`, `?scope=global`, `?include=deleted,internal`, `?as_admin=1`, `?tenant=*`, `?fields=password_hash,api_key`, `"notify":false`, `"skip_approval":true`, `"verified":true`, `"price":0` (hand price to `business-logic`).
+Admin-only *behaviours* exposed through parameters on user endpoints: `?all=true`, `?scope=global`, `?include=deleted,internal`, `?as_admin=1`, `?tenant=*`, `?fields=password_hash,api_key`, `"notify":false`, `"skip_approval":true`, `"verified":true`, `"price":0` (hand price to `business-logic-vulns`).
 - **Fail:** parameter unlocks admin-only data or behaviour for U1.
 - **Refs:** `API5` · `API3` · `WSTG-ATHZ-02`
 
@@ -385,7 +385,7 @@ Tags: `privesc` `workflow` `approval` · Subagent: PE-E
 
 Self-approval (requester approves own request), approving with a role that should only request, skipping pending states (`status: "approved"` on create), editing an approved object back to draft and re-submitting, forcing transitions out of order (old check 17).
 - **Fail:** U1 completes a workflow that requires a higher role or another person.
-- **Refs:** https://portswigger.net/web-security/logic-flaws · `business-logic` skill
+- **Refs:** https://portswigger.net/web-security/logic-flaws · `business-logic-vulns` skill
 
 ### PE-34 · Step-up authentication / re-auth bypass for privileged actions — `HIGH`
 Tags: `privesc` `step-up` `mfa` · Subagent: PE-E
@@ -397,9 +397,9 @@ Privileged actions (role change, API key creation, ownership transfer, disabling
 ### PE-37 · Plan / entitlement bypass (paid features) — `MEDIUM`
 Tags: `privesc` `entitlements` `billing` · Subagent: PE-E
 
-Free-plan U1 calls paid-plan endpoints (SSO config, audit logs, exports, extra seats, API rate tiers), flips `plan`/`tier`/`subscription` fields in requests or responses, uses trial-only features after expiry. No payment manipulation (hand to `business-logic`).
+Free-plan U1 calls paid-plan endpoints (SSO config, audit logs, exports, extra seats, API rate tiers), flips `plan`/`tier`/`subscription` fields in requests or responses, uses trial-only features after expiry. No payment manipulation (hand to `business-logic-vulns`).
 - **Fail:** paid functionality available server-side to a lower plan.
-- **Refs:** `API5` · `business-logic` skill
+- **Refs:** `API5` · `business-logic-vulns` skill
 
 ---
 

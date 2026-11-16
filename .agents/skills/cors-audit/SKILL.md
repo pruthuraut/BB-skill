@@ -13,7 +13,7 @@ CORS relaxes the same-origin policy: the server names which origins may **read**
 - Reports, tools, research: `references/cors_reports_and_tools.md`.
 - Tracker: `references/cors_tracker.md` (copy to `artifacts/<target>/`, update 0/15 to 15/15).
 - Probe: `scripts/cors_probe.py` (sends the Origin matrix plus preflights to your URLs with your own session, classifies each response, and can write a PoC HTML for the best finding; scope-gated, GET/HEAD/OPTIONS only).
-- Related: `api-security` (API-X-008 to API-X-012), `csrf-audit` (XSRF-020, CORS-to-CSRF), `csrf-and-headers-audit` (CORS-EXTRA-001), `client-side-js-security` and `csrf-audit` XSRF-011 (WebSockets), `subdomain-takeover`, `xss`, `http-protocol-cache` (cache poisoning), `idor`.
+- Related: `api-security` (API-X-008 to API-X-012), `csrf-audit` (XSRF-020, CORS-to-CSRF), `csrf-audit` (CORS-EXTRA-001), `client-side-js-security` and `csrf-audit` XSRF-011 (WebSockets), `subdomain-takeover`, `xss`, `request-smuggling-audit` (cache poisoning), `idor`.
 
 ## Subagents
 

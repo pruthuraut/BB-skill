@@ -118,7 +118,7 @@ Related tools: Burp Suite (Repeater groups / single-packet attack for races, Int
 - `credentialattacks` — password policy, brute force, reset-flow depth, 2FA/MFA (overlaps AB-08, AB-15, AB-36: run once, cross-reference)
 - `session-management` — session rotation after login/reset/email change (SM-03/04/08)
 - `oauth-sso` — SSO account linking and pre-account takeover (OA-31), LDAP injection on IdP login (OA-25)
-- `access-control` — impact of escalated roles; `business-logic` — races and multi-account abuse
+- `access-control` — impact of escalated roles; `business-logic-vulns` — races and multi-account abuse
 
 ## Authorization Gate (applies to every run)
 

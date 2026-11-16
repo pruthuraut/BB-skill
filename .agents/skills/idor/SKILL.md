@@ -105,7 +105,7 @@ Burp: **Autorize** (low-priv cookie replay on every request), **Auth Analyzer** 
 - `api-security` — BOLA/BFLA in REST/GraphQL specs, mass assignment (BOPLA)
 - `linkparamdiscovery` / `jsrecon` — endpoints, hidden parameters and IDs embedded in JS
 - `session-management` / `oauth-sso` — tokens and identities used as object keys (`sub`, org UUIDs in OAuth buttons)
-- `business-logic` — race conditions on object state; export/report and file-handler skills for document IDORs
+- `business-logic-vulns` — race conditions on object state; export/report and file-handler skills for document IDORs
 
 ## Authorization Gate (applies to every run)
 

@@ -36,73 +36,103 @@ SKILLS = os.path.join(REPO, ".agents", "skills")
 
 # Parameter name -> skills that should start when it appears. Names are lowercased.
 PARAM_ROUTES: dict[str, list[str]] = {
-    "ssrf-audit": ["url", "uri", "dest", "destination", "target", "fetch", "feed", "image", "img",
-                   "src", "webhook", "callback_url", "proxy", "remote", "load", "import", "link"],
-    "open-redirect-and-header-injection": ["redirect", "redirect_url", "redirect_uri", "return",
-                   "returnurl", "return_to", "returnto", "next", "continue", "goto", "rurl",
-                   "forward", "out", "to"],
-    "path-traversal": ["file", "filename", "path", "folder", "dir", "document", "doc", "page",
-                   "include", "inc", "view", "download", "read", "log", "name"],
-    "command-injection-audit": ["cmd", "exec", "execute", "command", "ping", "traceroute", "dns",
-                   "lookup", "process", "run", "exe", "payload", "code", "func", "option", "feature", "module"],
-    "nosql-injection-audit": ["filter", "where", "regex", "sort", "username", "password"],
-    "ldap-injection-audit": ["cn", "uid", "dn", "search", "samaccountname", "ldap"],
-    "xml-xxe-audit": ["xml", "soap", "wsdl", "feed", "rss", "saml", "samlresponse", "xslt", "xpath", "svg"],
-    "ssti-audit": ["template", "preview", "view", "activity", "content", "message", "tpl"],
-    "server-side-injection": ["template", "tpl", "cmd", "command", "exec", "ping", "host",
-                   "xml", "ldap", "filter", "where", "payload"],
-    "sqli": ["id", "query", "q", "search", "sort", "order", "orderby", "category", "cat", "item",
-             "product", "from", "limit", "offset", "column", "keyword"],
-    "idor": ["uid", "user_id", "userid", "account", "account_id", "order_id", "invoice_id",
-             "doc_id", "object_id", "ref", "profile", "owner"],
-    "access-control": ["role", "roles", "admin", "isadmin", "is_admin", "group", "permission",
-                   "permissions", "plan", "tier", "tenant", "org", "org_id", "team"],
-    "xss": ["callback", "jsonp", "cb", "message", "msg", "comment", "text", "title", "s"],
-    "oauth-sso": ["redirect_uri", "client_id", "state", "code", "id_token", "response_type",
-                  "nonce", "saml", "samlresponse", "relaystate"],
-    "session-management": ["token", "jwt", "session", "sessionid", "sid", "access_token",
-                   "refresh_token", "auth", "authorization"],
-    "file-upload-audit": ["upload", "attachment", "avatar", "photo", "import_file"],
-    "credentialattacks": ["username", "user", "login", "password", "otp", "mfa", "pin", "2fa"],
-    "authbypass": ["reset_token", "verify", "activation", "password_reset", "email"],
-    "client-side-js-security": ["__proto__", "constructor", "prototype"],
-    "api-security": ["operationname", "variables", "graphql", "swagger", "openapi"],
-    "business-logic": ["price", "amount", "quantity", "qty", "discount", "coupon", "voucher",
-                   "total", "currency"],
-    "business-logic-vulns": ["price", "unit_price", "amount", "quantity", "qty", "currency",
-                   "discount", "coupon", "promo", "voucher", "referral", "referral_code", "referrer",
-                   "balance", "credits", "points", "wallet", "transfer", "rate", "apr", "interest",
-                   "refund", "status", "state", "step", "stage", "plan", "tier", "subscription",
-                   "trial", "trial_end", "expires_at", "feature", "beta", "flags", "verified",
-                   "email_verified", "phone_verified", "skip_payment", "payment_method"],
-    "race-conditions": ["coupon", "promo", "voucher", "redeem", "gift_card", "giftcard", "balance",
-                   "transfer", "amount", "vote", "like", "poll", "otp", "resend", "code",
-                   "reset_token", "verify", "invite", "quantity", "stock", "reserve", "credits"],
-    "csrf-audit": ["csrf", "csrf_token", "csrftoken", "csrfmiddlewaretoken", "_csrf", "_csrf_token",
-                   "xsrf", "_xsrf", "xsrf_token", "_token", "authenticity_token", "__requestverificationtoken",
-                   "anticsrf", "_method", "new_password", "current_password", "new_email", "email"],
-    "cors-audit": ["origin", "cors", "callback", "jsonp", "api_key", "apikey", "access_token", "token",
-                   "graphql", "me", "profile", "account", "user"],
-    "postmessage-audit": ["origin", "targetorigin", "parent_origin", "parentorigin", "embed", "widget", "iframe",
-                   "message", "channel"],
-    "file-download-audit": ["file", "filename", "download", "attachment", "export", "path", "doc", "document",
-                   "report", "invoice", "pdf", "key", "object", "bucket", "fileid", "file_id"],
-    "crypto-audit": ["token", "encrypted", "enc", "cipher", "iv", "nonce", "signature", "sig", "hmac", "hash",
-                   "jwt", "viewstate", "__viewstate", "data"],
-    "cache-poisoning-audit": ["utm_source", "utm_content", "utm_campaign", "fbclid", "gclid", "callback", "cb",
-                   "lang", "locale", "currency", "_"],
-    "server-config-audit": ["debug", "trace", "_method", "redirect", "next", "url", "return", "returnurl"],
-    "cloud-container-audit": ["bucket", "s3", "blob", "container", "key", "object", "region", "function",
-                   "lambda", "queue", "topic"],
-    "data-exposure-audit": ["debug", "token", "access_token", "api_key", "apikey", "key", "secret", "email", "password",
-                   "session", "sessionid", "sid", "ssn", "phone", "export", "backup", "log"],
-    "error-handling-audit": ["id", "debug", "error", "format", "type", "sort", "order", "page", "limit"],
-    "websocket-audit": ["ws", "wss", "socket", "websocket", "room", "channel", "topic", "subscribe", "eio", "transport"],
-    "graphql-audit": ["query", "operationname", "variables", "extensions", "persistedquery", "graphql", "gql"],
-    "rest-api-audit": ["sort", "order", "order_by", "orderby", "filter", "$filter", "$select", "$expand", "fields", "expand",
-                   "include", "limit", "per_page", "page_size", "offset", "cursor", "version", "api-version"],
-    "soap-api-audit": ["soap", "wsdl", "soapaction", "xml", "envelope", "singlewsdl", "disco"],
-    "grpc-audit": ["grpc", "grpc-web", "proto", "protobuf"],
+    "ssrf-audit": [
+       "url", "uri", "dest", "destination", "target", "fetch", "feed", "image", "img", "src",
+       "webhook", "callback_url", "proxy", "remote", "load", "import", "link"],
+    "open-redirect-and-header-injection": [
+       "redirect", "redirect_url", "redirect_uri", "return", "returnurl", "return_to",
+       "returnto", "next", "continue", "goto", "rurl", "forward", "out", "to"],
+    "path-traversal": [
+       "file", "filename", "path", "folder", "dir", "document", "doc", "page", "include",
+       "inc", "view", "download", "read", "log", "name"],
+    "command-injection-audit": [
+       "cmd", "exec", "execute", "command", "ping", "traceroute", "dns", "lookup", "process",
+       "run", "exe", "payload", "code", "func", "option", "feature", "module"],
+    "nosql-injection-audit": [
+       "filter", "where", "regex", "sort", "username", "password"],
+    "ldap-injection-audit": [
+       "cn", "uid", "dn", "search", "samaccountname", "ldap"],
+    "xml-xxe-audit": [
+       "xml", "soap", "wsdl", "feed", "rss", "saml", "samlresponse", "xslt", "xpath", "svg",
+       "soapaction", "envelope", "singlewsdl", "disco"],
+    "ssti-audit": [
+       "template", "preview", "view", "activity", "content", "message", "tpl"],
+    "server-side-injection": [
+       "template", "tpl", "cmd", "command", "exec", "ping", "host", "xml", "ldap", "filter",
+       "where", "payload"],
+    "sqli": [
+       "id", "query", "q", "search", "sort", "order", "orderby", "category", "cat", "item",
+       "product", "from", "limit", "offset", "column", "keyword"],
+    "idor": [
+       "uid", "user_id", "userid", "account", "account_id", "order_id", "invoice_id", "doc_id",
+       "object_id", "ref", "profile", "owner"],
+    "access-control": [
+       "role", "roles", "admin", "isadmin", "is_admin", "group", "permission", "permissions",
+       "plan", "tier", "tenant", "org", "org_id", "team"],
+    "xss": [
+       "callback", "jsonp", "cb", "message", "msg", "comment", "text", "title", "s"],
+    "oauth-sso": [
+       "redirect_uri", "client_id", "state", "code", "id_token", "response_type", "nonce",
+       "saml", "samlresponse", "relaystate"],
+    "session-management": [
+       "token", "jwt", "session", "sessionid", "sid", "access_token", "refresh_token", "auth",
+       "authorization"],
+    "file-upload-audit": [
+       "upload", "attachment", "avatar", "photo", "import_file"],
+    "credentialattacks": [
+       "username", "user", "login", "password", "otp", "mfa", "pin", "2fa"],
+    "authbypass": [
+       "reset_token", "verify", "activation", "password_reset", "email"],
+    "client-side-js-security": [
+       "__proto__", "constructor", "prototype", "origin", "targetorigin", "parent_origin",
+       "parentorigin", "embed", "widget", "iframe", "message", "channel", "ws", "wss",
+       "socket", "websocket", "room", "topic", "subscribe", "eio", "transport"],
+    "api-security": [
+       "operationname", "variables", "graphql", "swagger", "openapi"],
+    "business-logic-vulns": [
+       "price", "unit_price", "amount", "quantity", "qty", "currency", "discount", "coupon",
+       "promo", "voucher", "referral", "referral_code", "referrer", "balance", "credits",
+       "points", "wallet", "transfer", "rate", "apr", "interest", "refund", "status", "state",
+       "step", "stage", "plan", "tier", "subscription", "trial", "trial_end", "expires_at",
+       "feature", "beta", "flags", "verified", "email_verified", "phone_verified",
+       "skip_payment", "payment_method", "total", "redeem", "gift_card", "giftcard", "vote",
+       "like", "poll", "otp", "resend", "code", "reset_token", "verify", "invite", "stock",
+       "reserve"],
+    "csrf-audit": [
+       "csrf", "csrf_token", "csrftoken", "csrfmiddlewaretoken", "_csrf", "_csrf_token",
+       "xsrf", "_xsrf", "xsrf_token", "_token", "authenticity_token",
+       "__requestverificationtoken", "anticsrf", "_method", "new_password", "current_password",
+       "new_email", "email"],
+    "cors-audit": [
+       "origin", "cors", "callback", "jsonp", "api_key", "apikey", "access_token", "token",
+       "graphql", "me", "profile", "account", "user"],
+    "file-download-audit": [
+       "file", "filename", "download", "attachment", "export", "path", "doc", "document",
+       "report", "invoice", "pdf", "key", "object", "bucket", "fileid", "file_id"],
+    "crypto-audit": [
+       "token", "encrypted", "enc", "cipher", "iv", "nonce", "signature", "sig", "hmac",
+       "hash", "jwt", "viewstate", "__viewstate", "data"],
+    "cache-poisoning-audit": [
+       "utm_source", "utm_content", "utm_campaign", "fbclid", "gclid", "callback", "cb",
+       "lang", "locale", "currency", "_"],
+    "server-config-audit": [
+       "debug", "trace", "_method", "redirect", "next", "url", "return", "returnurl"],
+    "cloud-container-audit": [
+       "bucket", "s3", "blob", "container", "key", "object", "region", "function", "lambda",
+       "queue", "topic"],
+    "data-exposure-audit": [
+       "debug", "token", "access_token", "api_key", "apikey", "key", "secret", "email",
+       "password", "session", "sessionid", "sid", "ssn", "phone", "export", "backup", "log"],
+    "error-handling-audit": [
+       "id", "debug", "error", "format", "type", "sort", "order", "page", "limit"],
+    "graphql-audit": [
+       "query", "operationname", "variables", "extensions", "persistedquery", "graphql", "gql"],
+    "rest-api-audit": [
+       "sort", "order", "order_by", "orderby", "filter", "$filter", "$select", "$expand",
+       "fields", "expand", "include", "limit", "per_page", "page_size", "offset", "cursor",
+       "version", "api-version"],
+    "grpc-audit": [
+       "grpc", "grpc-web", "proto", "protobuf"],
 }
 
 SCOPE_ROUTES = {

@@ -11,7 +11,7 @@ Smuggling happens when two servers in a chain (CDN, load balancer, reverse proxy
 - PoC templates: `references/smuggling_poc_templates.md` (timing probes, differential confirmation on own path, H2 variants, CL.0, client-side desync, impact demonstrations for approved labs).
 - Tracker: `references/smuggling_tracker.md`.
 - Probe: `scripts/smuggle_timing.py` (raw-socket timing detection for CL.TE, TE.CL, and TE obfuscations in the safe order; scope-gated; one request per variant; never sends a confirmation prefix).
-- Related: `http-protocol-cache` (SMG-001 to SMG-009), `cache-poisoning-audit`, `server-config-audit` (proxy config, SMC-014), `techfingerprint` (`waf_cdn_origin.md`), `tls-audit` (ALPN/HTTP/2).
+- Related: `request-smuggling-audit` (SMG-001 to SMG-009), `cache-poisoning-audit`, `server-config-audit` (proxy config, SMC-014), `techfingerprint` (`waf_cdn_origin.md`), `server-config-audit` (ALPN/HTTP/2).
 
 ## Procedure
 
@@ -47,3 +47,9 @@ Smuggling happens when two servers in a chain (CDN, load balancer, reverse proxy
 ## Sources
 
 PortSwigger Research "HTTP Desync Attacks" (2019), "HTTP/2: The Sequel is Always Worse" (2021), "Browser-Powered Desync Attacks" (2022), "Smashing the State Machine" pause-based techniques, PortSwigger Web Security Academy request smuggling labs, RFC 9112 section 6, CWE-444, Bishop Fox h2csmuggler, defparam smuggler.py.
+
+## Merged skills (content preserved)
+
+These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
+
+- `http-protocol-cache`: full content in `references/merged/http-protocol-cache/` (SKILL.md, references, rule); scripts in `scripts/`

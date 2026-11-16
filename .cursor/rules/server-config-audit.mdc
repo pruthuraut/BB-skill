@@ -1,0 +1,12 @@
+---
+description: Audit authorized Apache, Nginx, IIS, Tomcat, Jetty, WildFly, WebLogic, WebSphere, JBoss, GlassFish, and HTTP/2 deployments for default content, exposed modules and consoles, unsafe headers, routing weaknesses, and protoc
+globs: ["**/*server*"]
+alwaysApply: false
+---
+
+# server-config-audit Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/server-config-audit/references/` and the master skill `.agents/skills/server-config-audit/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.

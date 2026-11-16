@@ -245,7 +245,7 @@ Hidden/older registration endpoints (`/admin/register`, `/api/v1/users`, invite 
 ### AB-23 · Disposable email acceptance — `INFO`
 Tags: `registration` `disposable-email`
 
-Register test accounts with a few disposable domains. Usually `INFO` unless the program's business rules (free trials, referral credits, one-account-per-person) make it impactful — then chain with `business-logic`.
+Register test accounts with a few disposable domains. Usually `INFO` unless the program's business rules (free trials, referral credits, one-account-per-person) make it impactful — then chain with `business-logic-vulns`.
 
 - **Refs:** `WSTG-IDNT`02
 

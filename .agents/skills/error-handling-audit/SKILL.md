@@ -9,7 +9,7 @@ Errors should tell the user what went wrong in general terms, return the correct
 
 - Checklist: `references/error_handling_checklist.md` (EH-001 to EH-010, crafted input catalog, default error page signatures, status-code expectations).
 - Tracker: `references/error_handling_tracker.md`.
-- `scripts/error_probe.py`: scope-gated crafted-input probe. Per parameter it sends type, syntax, length, encoding, and structure variants, then fingerprints stack traces, DB errors with query text, framework versions, internal IPs and paths, default error pages, and 5xx on client errors. `--enum` mode compares responses for a known-valid and a known-invalid value (EH-006). Signatures are shared with `server-config-audit/scripts/misconfig_probe.py`.
+- `scripts/error_probe.py`: scope-gated crafted-input probe. Per parameter it sends type, syntax, length, encoding, and structure variants, then fingerprints stack traces, DB errors with query text, framework versions, internal IPs and paths, default error pages, and 5xx on client errors. `--enum` mode compares responses for a known-valid and a known-invalid value (EH-006). Signatures are shared with `server-config-audit/../server-config-audit/scripts/misconfig_probe.py`.
 - Related: `server-config-audit` (SMC-005, SMC-006, SMC-015, SMC-017), `data-exposure-audit` (DE-005), `sqli` (error-based SQLi), `graphql-audit` (GQL-009, GQL-010), `authbypass` and `credentialattacks` (enumeration), `api-security`.
 
 ## Procedure

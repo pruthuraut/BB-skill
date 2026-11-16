@@ -11,7 +11,7 @@ Find places where the application uses cryptography wrongly: weak primitives, ba
 - Tracker: `references/crypto_tracker.md`.
 - `scripts/crypto_scan.py`: offline scanner for source, configs, and decompiled apps (weak hashes for passwords, weak ciphers and ECB, static IVs, hardcoded keys and private keys, low KDF iterations, insecure RNG, non-constant-time comparisons, JWT `none`/verify disabled, TLS verification disabled).
 - `scripts/cipher_analyze.py`: offline analyzer for captured ciphertexts or tokens (encoding detection, block-size guess, repeated blocks for ECB, shared prefixes suggesting IV reuse or deterministic encryption, entropy, embedded timestamps).
-- Related: `session-management` (JWT attack rows, token entropy), `csrf-audit` (`csrf_token_analyze.py`), `jsrecon` and `cloud-supplychain` (secrets in JS and repos), `tls-audit` (transport, pinning detection), `authbypass` and `credentialattacks` (reset tokens), `api-security`.
+- Related: `session-management` (JWT attack rows, token entropy), `csrf-audit` (`csrf_token_analyze.py`), `jsrecon` and `cloud-supplychain` (secrets in JS and repos), `server-config-audit` (transport, pinning detection), `authbypass` and `credentialattacks` (reset tokens), `api-security`.
 
 ## Procedure
 

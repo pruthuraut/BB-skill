@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications and APIs for Insecure Direct Object References / Broken Object Level Authorization across 35 checks — every identifier location (path, query, form, JSON, nested objects, headers, cookies, ad
+globs: ["**/*idor*"]
+alwaysApply: false
+---
+
+# idor Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/idor/references/` and the master skill `.agents/skills/idor/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.

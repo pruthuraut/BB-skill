@@ -9,7 +9,7 @@ Find places where the server trusts the client to describe value, sequence, limi
 
 - Checklist: `references/logic_vuln_checklist.md` (BLV-001 to BLV-020, with class and safe verification per row, plus per-check test steps).
 - Tracker: `references/logic_vuln_tracker.md` (copy to `artifacts/<target>/` and update from 0/20 to 20/20).
-- Related: `race-conditions` (15 race checks, limit sweep, and `race_probe.py` for BLV-006 and BLV-007), `business-logic` (25-check umbrella skill, `BL-X-*` rows in `../business-logic/references/payment_checkout_extended.md`), `access-control` (role and plan claims), `authbypass` (verification and OTP flows), `resource-exhaustion` (velocity limits), `file-upload-audit` (upload handling).
+- Related: `business-logic-vulns` (15 race checks, limit sweep, and `race_probe.py` for BLV-006 and BLV-007), `business-logic-vulns` (25-check umbrella skill, `BL-X-*` rows in `../business-logic-vulns/references/merged/business-logic/references/payment_checkout_extended.md`), `access-control` (role and plan claims), `authbypass` (verification and OTP flows), `resource-exhaustion` (velocity limits), `file-upload-audit` (upload handling).
 
 ## Subagents
 
@@ -59,3 +59,10 @@ Find places where the server trusts the client to describe value, sequence, limi
 ## Sources
 
 PortSwigger Web Security Academy (business logic vulnerabilities, race conditions), OWASP WSTG-BUSL-01 to 09, OWASP API6:2023 (Unrestricted Access to Sensitive Business Flows), CWE-840, CWE-362, and public HackerOne business-logic reports.
+
+## Merged skills (content preserved)
+
+These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
+
+- `business-logic`: full content in `references/merged/business-logic/` (SKILL.md, references, rule); scripts in `scripts/`
+- `race-conditions`: full content in `references/merged/race-conditions/` (SKILL.md, references, rule); scripts in `scripts/`

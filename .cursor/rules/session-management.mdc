@@ -1,0 +1,12 @@
+---
+description: Audit authorized web applications across 40 session-management checks covering token entropy and length, fixation and rotation, logout/timeout/password-change invalidation, cookie attributes and prefixes, token leakage (
+globs: ["**/*session*"]
+alwaysApply: false
+---
+
+# session-management Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/session-management/references/` and the master skill `.agents/skills/session-management/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.

@@ -13,7 +13,7 @@ CSRF makes a logged-in victim's browser send a state-changing request the victim
 - Tracker: `references/csrf_tracker.md` (copy to `artifacts/<target>/`, update 0/20 to 20/20).
 - Probe: `scripts/csrf_probe.py` (replays one own-account request with token, method, content-type, Origin, and Referer variants; scope-gated, max 20 requests, 1 per second).
 - Token analyzer: `scripts/csrf_token_analyze.py` (offline: length, charset, entropy, duplicates, static prefix/suffix, timestamp and hash hints).
-- Related: `csrf-and-headers-audit` (CSRF-001 to CSRF-009, clickjacking, headers), `session-management` (cookie attributes), `oauth-sso` (state parameter), `cors-audit` and `api-security` (CORS), `client-side-js-security` (WebSocket), `xss` (token theft chains), `subdomain-takeover`.
+- Related: `csrf-audit` (CSRF-001 to CSRF-009, clickjacking, headers), `session-management` (cookie attributes), `oauth-sso` (state parameter), `cors-audit` and `api-security` (CORS), `client-side-js-security` (WebSocket), `xss` (token theft chains), `subdomain-takeover`.
 
 ## Subagents
 
@@ -66,3 +66,10 @@ CSRF makes a logged-in victim's browser send a state-changing request the victim
 ## Sources
 
 OWASP CSRF Prevention Cheat Sheet and WSTG-SESS-05, CWE-352, PortSwigger Web Security Academy CSRF and SameSite labs, Detectify login/logout CSRF research, the user-supplied methodology notes, writeups, and HackerOne reports listed in `references/csrf_reports_and_writeups.md`.
+
+## Merged skills (content preserved)
+
+These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
+
+- `csrf-and-headers-audit`: full content in `references/merged/csrf-and-headers-audit/` (SKILL.md, references, rule); scripts in `scripts/`
+- `clickjacking-audit`: full content in `references/merged/clickjacking-audit/` (SKILL.md, references, rule); scripts in `scripts/`

@@ -33,5 +33,5 @@ Checklist: `references/smuggling_cache_h2.md` (about 30 rows).
 
 ## Deep testing skills
 
-- `request-smuggling-audit` (`../request-smuggling-audit/SKILL.md`): RS-001 to RS-010 plus variants, safe-order timing probe `scripts/smuggle_timing.py`. SMG-001 to SMG-004 map to RS-001 to RS-005.
-- `cache-poisoning-audit` (`../cache-poisoning-audit/SKILL.md`): CP-001 to CP-010 plus variants, buster-only probe `scripts/cache_probe.py`. CACHE-001 to CACHE-005 map to CP-001, CP-003, CP-004, CP-005.
+- `request-smuggling-audit` (`../request-smuggling-audit/SKILL.md`): RS-001 to RS-010 plus variants, safe-order timing probe `../request-smuggling-audit/scripts/smuggle_timing.py`. SMG-001 to SMG-004 map to RS-001 to RS-005.
+- `cache-poisoning-audit` (`../cache-poisoning-audit/SKILL.md`): CP-001 to CP-010 plus variants, buster-only probe `../cache-poisoning-audit/scripts/cache_probe.py`. CACHE-001 to CACHE-005 map to CP-001, CP-003, CP-004, CP-005.

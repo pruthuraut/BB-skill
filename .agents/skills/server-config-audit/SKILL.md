@@ -85,4 +85,10 @@ scripts/scope_check.sh TARGET_DOMAIN
 
 ## Deep TLS testing
 
-- Use `tls-audit` (`../tls-audit/SKILL.md`) for the 20-check TLS/SSL assessment, testssl.sh mapping, and `scripts/tls_quick.py`. TLS-001 to TLS-006 here map to TLSX-001, 002, 006, 008, 007, and 017/018.
+- Use `server-config-audit` (`../server-config-audit/references/merged/tls-audit/SKILL.md`) for the 20-check TLS/SSL assessment, testssl.sh mapping, and `../server-config-audit/scripts/tls_quick.py`. TLS-001 to TLS-006 here map to TLSX-001, 002, 006, 008, 007, and 017/018.
+
+## Merged skills (content preserved)
+
+These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
+
+- `tls-audit`: full content in `references/merged/tls-audit/` (SKILL.md, references, rule); scripts in `scripts/`

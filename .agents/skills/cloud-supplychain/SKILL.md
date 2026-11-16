@@ -98,4 +98,4 @@ scripts/scope_check.sh TARGET_DOMAIN
 
 ## Cloud and container exposure
 
-- Use `cloud-container-audit` (`../cloud-container-audit/SKILL.md`) for metadata-via-SSRF rules, Docker/Kubernetes/kubelet/etcd exposure, IAM privilege-escalation review, functions, databases, queues, and CDN checks (CC-001 to CC-015), with `scripts/cloud_exposure_check.py`.
+- Use `cloud-container-audit` (`../cloud-container-audit/SKILL.md`) for metadata-via-SSRF rules, Docker/Kubernetes/kubelet/etcd exposure, IAM privilege-escalation review, functions, databases, queues, and CDN checks (CC-001 to CC-015), with `../cloud-container-audit/scripts/cloud_exposure_check.py`.

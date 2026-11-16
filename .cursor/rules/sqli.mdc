@@ -1,0 +1,12 @@
+---
+description: Audit authorized applications for SQL injection across 50 checks — quote/break-repair probing of every input, URL parameters, Cookie/User-Agent/Referer/X-Forwarded-For and other headers, UNION column-count, error-based m
+globs: ["**/*sqli*"]
+alwaysApply: false
+---
+
+# sqli Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/sqli/references/` and the master skill `.agents/skills/sqli/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.

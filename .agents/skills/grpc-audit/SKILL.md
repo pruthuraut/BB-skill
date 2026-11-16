@@ -11,7 +11,7 @@ gRPC runs over HTTP/2 with protobuf messages. Clients normally need `.proto` def
 - Templates: `references/grpc_commands.md` (grpcurl commands for reflection, describe, calls with/without metadata, proto-file mode, gRPC-Web with curl, fuzzing notes).
 - Tracker: `references/grpc_tracker.md`.
 - `scripts/grpc_probe.py`: transport checks without dependencies (TCP, TLS + ALPN `h2`, certificate summary, plaintext HTTP/2 preface/SETTINGS, gRPC-Web on HTTP/1.1), then, if `grpcurl` is installed, reflection `list`/`describe`, health check, sensitive-service flags, verbose metadata capture, and own read-only `--call` operations with and without `--auth` metadata.
-- Related: `tls-audit` (TLS details), `api-security` (AA rows), `access-control`, `idor`, `resource-exhaustion`, `network-portscan` (find gRPC ports such as 50051, 9090, 8443), `request-smuggling-audit` (h2c upgrade smuggling).
+- Related: `server-config-audit` (TLS details), `api-security` (AA rows), `access-control`, `idor`, `resource-exhaustion`, `network-portscan` (find gRPC ports such as 50051, 9090, 8443), `request-smuggling-audit` (h2c upgrade smuggling).
 
 ## Procedure
 

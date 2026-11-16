@@ -1,0 +1,12 @@
+---
+description: Audit authorized domains for subdomain takeover risk across 50 dangling DNS and decommissioned SaaS/cloud conditions
+globs: ["**/*subdomain*"]
+alwaysApply: false
+---
+
+# subdomain-takeover Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/subdomain-takeover/references/` and the master skill `.agents/skills/subdomain-takeover/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.

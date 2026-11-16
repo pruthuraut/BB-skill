@@ -1,0 +1,12 @@
+---
+description: Scan every TCP port on explicitly authorized hosts, then identify listening services and versions with Naabu, Nmap, or Masscan
+globs: ["**/*network*"]
+alwaysApply: false
+---
+
+# network-portscan Rule
+
+When auditing with this skill:
+1. Follow the checklist in `.agents/skills/network-portscan/references/` and the master skill `.agents/skills/network-portscan/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick the rows that apply from recon artifacts.
