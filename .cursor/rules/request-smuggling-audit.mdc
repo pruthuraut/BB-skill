@@ -1,0 +1,11 @@
+---
+description: HTTP request smuggling detection - CL.TE, TE.CL, TE.TE obfuscation, H2.CL, H2.TE, header techniques, proxy and load balancer chains, WAF and cache impact, CL.0, client-side and pause-based desync, h2c
+globs: ["**/*smuggl*", "**/*desync*"]
+alwaysApply: false
+---
+
+# request-smuggling-audit Rule
+
+1. Follow `.agents/skills/request-smuggling-audit/references/smuggling_checklist.md` (RS-001 to RS-010, RS-V-*). Templates: `references/smuggling_poc_templates.md`.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/request-smuggling-audit/scripts/smuggle_timing.py` (CL.TE before TE.CL) on an idempotent endpoint.
+3. Detection only on production. Confirmation with a smuggled prefix and any impact demonstration are authorized-only.

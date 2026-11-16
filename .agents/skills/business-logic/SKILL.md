@@ -100,3 +100,7 @@ scripts/scope_check.sh TARGET_DOMAIN
 - File: `references/payment_checkout_extended.md` (Price, coupon, checkout, and payment flow checks).
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## Focused companion skill
+
+- `business-logic-vulns` (`../business-logic-vulns/SKILL.md`): 20-check BLV checklist with per-check test steps and a 0/20 tracker, covering interest-rate and transfer tampering, unlimited resource creation, trial dates, feature flags, subscription tiers, and verification bypass in addition to the pricing, race, and workflow checks above.

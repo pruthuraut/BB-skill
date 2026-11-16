@@ -1,0 +1,13 @@
+---
+description: Business logic vulnerabilities audit (20 checks) - price, quantity, currency, discounts, referrals, races, double spend, payment bypass, transfers, negative balances, quotas, workflow and state machine, refunds, trials, feature flags, subscription tiers, verification bypass
+globs: ["**/*checkout*", "**/*cart*", "**/*payment*", "**/*coupon*", "**/*referral*", "**/*subscription*"]
+alwaysApply: false
+---
+
+# business-logic-vulns Rule
+
+When auditing business logic:
+1. Follow the checklist in `.agents/skills/business-logic-vulns/references/logic_vuln_checklist.md` (BLV-001 to BLV-020).
+2. Master skill: `.agents/skills/business-logic-vulns/SKILL.md`. Track progress with `references/logic_vuln_tracker.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.
+4. Never complete real-money payments, transfers, or refunds. Race tests are authorized-only and capped at 2 to 5 parallel requests.

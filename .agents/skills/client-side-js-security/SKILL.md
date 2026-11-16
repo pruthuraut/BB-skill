@@ -30,3 +30,11 @@ Checklist: `references/prototype_postmessage_storage_sw.md` (about 30 rows).
 
 - Any finding that needs a victim to visit an attacker page must be shown with your own two accounts or a local test page.
 - Never capture real session data from storage or sockets. Record key names only.
+
+## Deep postMessage testing
+
+- Use `postmessage-audit` (`../postmessage-audit/SKILL.md`) for the 10-check postMessage assessment, weak origin patterns, PoC templates, and `scripts/pm_scan.py`. PM-001 to PM-004 here map to PMX-001, PMX-006, PMX-004, and PMX-V-007.
+
+## Deep WebSocket testing
+
+- Use `websocket-audit` (`../websocket-audit/SKILL.md`) for the 15-check WebSocket assessment and `scripts/ws_probe.py`. WS-001 to WS-003 map to WSK-001/WSK-009, WSK-002/WSK-007, and WSK-012.

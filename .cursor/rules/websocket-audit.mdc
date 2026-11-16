@@ -1,0 +1,11 @@
+---
+description: WebSocket security audit - unauthenticated sockets, CSWSH and Origin bypass, message tampering and replay, IDOR in rooms, injection, rate limits, token hijacking, ws/wss downgrade
+globs: ["**/*socket*", "**/*ws*"]
+alwaysApply: false
+---
+
+# websocket-audit Rule
+
+1. Follow `.agents/skills/websocket-audit/references/websocket_checklist.md` (WSK-001 to WSK-015). PoCs: `references/websocket_poc_templates.md`.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/websocket-audit/scripts/ws_probe.py` with your own accounts and channels.
+3. Flooding is authorized-only (bursts above 50 need --approved); never post into channels real users read.

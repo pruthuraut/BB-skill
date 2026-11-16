@@ -1,0 +1,11 @@
+---
+description: postMessage security audit - origin and source validation, weak origin patterns, wildcard targetOrigin, sinks, iframe and popup channels, extensions; passive JS scanner and PoCs
+globs: ["**/*postmessage*", "**/*message*"]
+alwaysApply: false
+---
+
+# postmessage-audit Rule
+
+1. Follow `.agents/skills/postmessage-audit/references/postmessage_checklist.md` (PMX-001 to PMX-010, PMX-V-*). PoCs: `references/postmessage_poc_templates.md`.
+2. Run `.agents/skills/postmessage-audit/scripts/pm_scan.py` on saved JS first; confirm leads with PoCs on your own origin in your own session.
+3. Run `scripts/scope_check.sh TARGET` before any active step.

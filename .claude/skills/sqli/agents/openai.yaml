@@ -1,0 +1,4 @@
+interface:
+  display_name: "SQL Injection"
+  short_description: "Audit 50 SQL injection checks with safe detection and proof"
+  default_prompt: "Use $sqli to test an authorized target for SQL injection with detection-only payloads by default (balanced payloads in write sinks, no OR, no data extraction); escalate to data access, file access or command paths only with explicit permission."

@@ -1,0 +1,11 @@
+---
+description: Sensitive data exposure audit - page source, JS and source maps, client keys, meta and hidden fields, errors, debug endpoints, robots/sitemap, .env/config, backups, VCS, logs, headers, cookies, web storage, IndexedDB, API PII and excess data, URL params, autocomplete, Referer
+globs: ["**/*.har", "**/*exposure*", "**/*.env*", "**/*.map"]
+alwaysApply: false
+---
+
+# data-exposure-audit Rule
+
+1. Follow `.agents/skills/data-exposure-audit/references/data_exposure_checklist.md` (DE-001 to DE-020).
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/data-exposure-audit/scripts/exposure_scan.py`; analyze own HAR exports offline with `scripts/api_pii_scan.py`.
+3. Never use exposed credentials; stop at proof for files; redact all secrets and PII.

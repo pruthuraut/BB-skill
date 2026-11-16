@@ -1,0 +1,13 @@
+---
+description: Deep CSRF / XSRF audit - 20 core checks, 45 bypass rows (token tricks, double submit, method and content-type switching, Referer/Origin bypasses, SameSite, chains), PoC templates, token-variant probe, token entropy analyzer
+globs: ["**/*csrf*", "**/*xsrf*", "**/*poc*.html"]
+alwaysApply: false
+---
+
+# csrf-audit Rule
+
+When auditing CSRF:
+1. Follow `.agents/skills/csrf-audit/references/csrf_checklist.md` (XSRF-001 to XSRF-020, XSRF-B-*). PoCs: `references/csrf_poc_templates.md`.
+2. Master skill: `.agents/skills/csrf-audit/SKILL.md`. Track progress with `references/csrf_tracker.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `.agents/skills/csrf-audit/scripts/csrf_probe.py` on a harmless own-account request and `scripts/csrf_token_analyze.py` offline on collected tokens.
+4. Victim is always your own second account in a separate browser profile. Never send PoCs to real users.

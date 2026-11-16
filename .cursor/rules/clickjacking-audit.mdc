@@ -1,0 +1,13 @@
+---
+description: Clickjacking (UI redressing) audit - 10 core checks, about 25 variants (XFO/CSP frame-ancestors parsing, coverage gaps, frame-buster sandbox bypass, double-clickjacking, cursorjacking, drag-and-drop, multi-step, prefilled forms, auth and OAuth consent pages), PoC templates, defense checker
+globs: ["**/*clickjack*", "**/*frame*"]
+alwaysApply: false
+---
+
+# clickjacking-audit Rule
+
+When auditing clickjacking:
+1. Follow `.agents/skills/clickjacking-audit/references/clickjacking_checklist.md` (CJ-001 to CJ-010, CJ-V-*). PoCs: `references/clickjacking_poc_templates.md`.
+2. Master skill: `.agents/skills/clickjacking-audit/SKILL.md`. Track progress with `references/clickjacking_tracker.md`.
+3. Run `scripts/scope_check.sh TARGET` first, then `.agents/skills/clickjacking-audit/scripts/clickjack_check.py` with your own session.
+4. Frameable is a lead; a finding is a sensitive action completed on your own victim account through the frame, logged in, in a current browser.

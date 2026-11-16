@@ -1,0 +1,11 @@
+---
+description: GraphQL security audit - introspection, suggestions, errors, depth/complexity/batching/alias/directive limits, mutation and field authorization, IDOR, injection, subscriptions, persisted queries, CSRF transports
+globs: ["**/*.graphql", "**/*.gql", "**/*graphql*", "**/schema.json"]
+alwaysApply: false
+---
+
+# graphql-audit Rule
+
+1. Follow `.agents/skills/graphql-audit/references/graphql_checklist.md` (GQL-001 to GQL-015, GQL-V-*). Queries: `references/graphql_queries.md`.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/graphql-audit/scripts/gql_probe.py`; authorization tests via `--ops-file` with two own accounts.
+3. Mutations only on your own disposable objects (`--allow-mutations`); large cost tests and brute force via batching are authorized-only.

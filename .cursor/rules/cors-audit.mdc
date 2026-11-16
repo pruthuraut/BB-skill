@@ -1,0 +1,13 @@
+---
+description: Deep CORS misconfiguration audit - 15 core checks, about 40 bypass origins (null, subdomain, suffix/prefix, regex, parser and encoding tricks, third-party), impact chains (credentialed theft, CSRF token theft, IDOR, internal pivot, TLS break, XSS trust, Vary cache), concepts, PoC templates, Origin-matrix probe
+globs: ["**/*cors*", "**/*origin*"]
+alwaysApply: false
+---
+
+# cors-audit Rule
+
+When auditing CORS:
+1. Follow `.agents/skills/cors-audit/references/cors_checklist.md` (CORS-001 to CORS-015, CORS-B-*, CORS-I-*). Concepts: `references/cors_concepts.md`. PoCs: `references/cors_poc_templates.md`.
+2. Master skill: `.agents/skills/cors-audit/SKILL.md`. Track progress with `references/cors_tracker.md`.
+3. Run `scripts/scope_check.sh TARGET` first, then `.agents/skills/cors-audit/scripts/cors_probe.py` with your own session.
+4. Reflection is a lead; a finding is your own data read cross-origin in a real browser. Never read other users' data.

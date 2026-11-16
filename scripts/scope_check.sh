@@ -2,9 +2,12 @@
 # Scope gate for all active testing. Exits 0 only if the target is listed in
 # its own scope file. Nothing is assumed authorized.
 #
-# Usage: scope_check.sh TARGET_DOMAIN [WORKSPACE_ROOT]
+# Usage: scope_check.sh TARGET_DOMAIN [WORKSPACE_ROOT] [PROGRAM]
 #
 # Scope file: $WORKSPACE_ROOT/<target>/scope.txt (default root: ~/Documents/bugbounty)
+# With PROGRAM, the scope file is $WORKSPACE_ROOT/<PROGRAM>/scope.txt and TARGET_DOMAIN
+# (for example a subdomain, bucket host, or IP) must be listed in it. An empty
+# WORKSPACE_ROOT argument uses the default root.
 # Required lines:
 #   authorized-by: <who granted the testing, e.g. program name or "owner">
 #   date: <YYYY-MM-DD>
@@ -15,10 +18,16 @@ set -euo pipefail
 
 target="${1:-}"
 root="${2:-${BB_WORKSPACE:-$HOME/Documents/bugbounty}}"
-[ -n "$target" ] || { echo "usage: scope_check.sh TARGET_DOMAIN [WORKSPACE_ROOT]" >&2; exit 2; }
+program="${3:-}"
+[ -n "$target" ] || { echo "usage: scope_check.sh TARGET_DOMAIN [WORKSPACE_ROOT] [PROGRAM]" >&2; exit 2; }
 
 target="$(printf '%s' "$target" | tr '[:upper:]' '[:lower:]' | sed -E 's#^https?://##; s#/.*$##; s#\.$##')"
-scope_file="$root/$target/scope.txt"
+if [ -n "$program" ]; then
+  program="$(printf '%s' "$program" | tr '[:upper:]' '[:lower:]' | sed -E 's#^https?://##; s#/.*$##; s#\.$##')"
+  scope_file="$root/$program/scope.txt"
+else
+  scope_file="$root/$target/scope.txt"
+fi
 
 deny() { echo "SCOPE DENIED: $1" >&2; exit 3; }
 

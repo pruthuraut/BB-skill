@@ -97,3 +97,19 @@ scripts/scope_check.sh TARGET_DOMAIN
 - File: `references/graphql_cors_extended.md` (GraphQL, CORS, and API documentation checks).
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## API authentication, authorization, and injection checklists (added)
+
+- `references/api_auth_checklist.md`: AA-001 to AA-025 (broken auth, keys in JS/URLs, bearer and OAuth tokens, rate limits, methods, versions, mass assignment, validation, field filtering, excess data, tampering, enumeration, docs, GraphQL, verb tampering, CORS, content types, pagination, key and token lifecycle, scopes, gateway bypass, Referer leaks).
+- `references/api_injection_checklist.md`: AI-001 to AI-015 (SQL/NoSQL/command injection, SSRF, IDOR, parameter pollution, batch abuse, rate-limit bypass via headers and IP rotation, smuggling, response manipulation, content-type switching, compression bombs, timeouts, error disclosure).
+- Tracker: `references/api_auth_injection_tracker.md` (0/40).
+- API probe: `scripts/api_probe.py --target T --base https://api.host --spec openapi.json --header 'Authorization: Bearer OWN' --param id=OWN_ID` runs docs, unauthenticated access, invalid-token acceptance (only on endpoints that enforce auth), method matrix on random IDs, method override, alternate versions, field-expansion parameters, pagination caps, gateway path/header bypasses, parameter pollution, content-type switching (`--sample-request`), and a ≤ 30-request rate-limit test with IP-header bypass (`--rl-endpoint`).
+- Protocol-specific skills: `rest-api-audit` (RST-*), `soap-api-audit` (SOAP-*), `grpc-audit` (GRPC-*), `graphql-audit` (GQL-*).
+
+## Deep CORS testing
+
+- For the full CORS assessment (15 core checks, about 40 bypass origins, impact chains, PoCs, and `scripts/cors_probe.py`), use `cors-audit` (`../cors-audit/SKILL.md`). API-X-008 to API-X-012 here map to CORS-001, 002, 005, 006, and 007.
+
+## Deep GraphQL testing
+
+- Use `graphql-audit` (`../graphql-audit/SKILL.md`) for the 15-check GraphQL assessment and `scripts/gql_probe.py`. API-X-001 to API-X-007 map to GQL-001, GQL-009, GQL-003, GQL-002/GQL-014, GQL-012, GQL-008, and GQL-006.

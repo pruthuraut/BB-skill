@@ -1,0 +1,4 @@
+interface:
+  display_name: "Network Port Scan"
+  short_description: "Full TCP discovery and service fingerprinting"
+  default_prompt: "Use $network-portscan to scan authorized live recon targets across all TCP ports and identify exposed services."

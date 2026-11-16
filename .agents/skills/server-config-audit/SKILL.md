@@ -78,5 +78,11 @@ scripts/scope_check.sh TARGET_DOMAIN
 ## Extended checklist (added)
 
 - File: `references/webserver_appserver_tls.md` (Web and app server product checks, version CVEs, and TLS).
+- File: `references/server_misconfig_checklist.md` (SMC-001 to SMC-020 generic misconfiguration: default credentials, unnecessary services, directory listing, version disclosure, stack traces, debug mode, HTTP methods, TRACE/XST, OPTIONS, server-level CORS, open redirect, Host and X-Forwarded-Host injection, proxy misconfiguration, error handling, Node.js SSJI, verbose errors, CRLF injection, response splitting; plus debug signatures and paths). Tracker: `references/server_misconfig_tracker.md`.
+- Probe: `scripts/misconfig_probe.py --target T --url https://host/ [--crlf-url 'https://host/r?next=FUZZ']` runs the bounded SMC checks (version headers, OPTIONS and method status on a random path, one TRACE, error triggers with stack-trace/debug signatures, debug paths by status, directory listings, Host/X-Forwarded-Host canaries, CRLF and splitting payloads). It never tries credentials, writes to real resources, or calls execution endpoints.
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## Deep TLS testing
+
+- Use `tls-audit` (`../tls-audit/SKILL.md`) for the 20-check TLS/SSL assessment, testssl.sh mapping, and `scripts/tls_quick.py`. TLS-001 to TLS-006 here map to TLSX-001, 002, 006, 008, 007, and 017/018.

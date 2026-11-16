@@ -1,0 +1,11 @@
+---
+description: File download and access audit - traversal, directory listing, MIME and Content-Disposition, auth, file IDOR, cloud and signed URLs, sensitive files, symlinks, PDF generation
+globs: ["**/*download*", "**/*export*", "**/*attachment*"]
+alwaysApply: false
+---
+
+# file-download-audit Rule
+
+1. Follow `.agents/skills/file-download-audit/references/download_checklist.md` (FD-001 to FD-010, FD-V-*).
+2. Run `scripts/scope_check.sh TARGET` first, then `.agents/skills/file-download-audit/scripts/download_check.py` with two own accounts.
+3. Use only your own files; stop at proof for IDOR and sensitive file exposure.

@@ -1,0 +1,11 @@
+---
+description: gRPC security audit - reflection, unauthenticated access, protobuf serialization, plaintext/h2c, metadata, stream DoS (approval), TLS/ALPN and gRPC-Web, enumeration, deadlines, channel credentials
+globs: ["**/*.proto", "**/*grpc*"]
+alwaysApply: false
+---
+
+# grpc-audit Rule
+
+1. Follow `.agents/skills/grpc-audit/references/grpc_checklist.md` (GRPC-001 to GRPC-010). Commands: `references/grpc_commands.md`.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/grpc-audit/scripts/grpc_probe.py --addr host:port` (grpcurl for reflection and calls).
+3. Only own read-only calls; no stream floods or admin/write methods without approval.

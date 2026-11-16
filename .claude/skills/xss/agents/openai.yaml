@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cross-Site Scripting (XSS)"
+  short_description: "Audit 60 reflected, stored, blind, DOM and XSSI checks"
+  default_prompt: "Use $xss to map reflections and DOM sinks on an authorized target with inert canaries first, prove execution with alert(document.domain) in your own session, and demonstrate impact only between your own test accounts; stored and blind payloads only where the program allows them, using your own callback host."

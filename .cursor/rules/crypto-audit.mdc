@@ -1,0 +1,11 @@
+---
+description: Cryptographic implementation audit - password hashing, weak ciphers and ECB, hardcoded keys, key management, IV reuse, padding oracle, KDF, RNG, timing, pinning bypass, JWT confusion, repo key exposure
+globs: ["**/*crypto*", "**/*encrypt*", "**/*hash*", "**/*jwt*"]
+alwaysApply: false
+---
+
+# crypto-audit Rule
+
+1. Follow `.agents/skills/crypto-audit/references/crypto_checklist.md` (CRY-001 to CRY-015, CRY-V-*).
+2. Run `.agents/skills/crypto-audit/scripts/crypto_scan.py` on source and `scripts/cipher_analyze.py` on your own tokens.
+3. Never use exposed keys against production or crack real users' hashes; padding-oracle and timing tests are detection-only.

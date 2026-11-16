@@ -1,0 +1,11 @@
+---
+description: Error handling audit - stack traces, DB errors, versions, internal IPs/paths, crafted input, valid/invalid differentials, custom error pages, debug pages, API status codes, GraphQL errors
+globs: ["**/*error*", "**/*exception*"]
+alwaysApply: false
+---
+
+# error-handling-audit Rule
+
+1. Follow `.agents/skills/error-handling-audit/references/error_handling_checklist.md` (EH-001 to EH-010).
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/error-handling-audit/scripts/error_probe.py` (use `--enum` with your own account as the valid value).
+3. No crash or exhaustion payloads; keep enumeration to a handful of requests.

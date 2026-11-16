@@ -95,3 +95,7 @@ scripts/scope_check.sh TARGET_DOMAIN
 - File: `references/cloud_services.md` (Object storage, serverless, API gateways, PaaS, and hosting checks).
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## Cloud and container exposure
+
+- Use `cloud-container-audit` (`../cloud-container-audit/SKILL.md`) for metadata-via-SSRF rules, Docker/Kubernetes/kubelet/etcd exposure, IAM privilege-escalation review, functions, databases, queues, and CDN checks (CC-001 to CC-015), with `scripts/cloud_exposure_check.py`.

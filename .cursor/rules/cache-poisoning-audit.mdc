@@ -1,0 +1,11 @@
+---
+description: Web cache poisoning and deception - unkeyed headers, cookies, params, deception paths and extensions, normalization, method override, Vary, fat GET, header injection, CPDoS, CDN behaviors
+globs: ["**/*cache*"]
+alwaysApply: false
+---
+
+# cache-poisoning-audit Rule
+
+1. Follow `.agents/skills/cache-poisoning-audit/references/cache_checklist.md` (CP-001 to CP-010, CP-V-*). Templates: `references/cache_poc_templates.md`.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/cache-poisoning-audit/scripts/cache_probe.py`.
+3. Every probe uses a unique cache buster or unique path; never poison real keys or purge caches. Deception uses a dedicated test account marker.

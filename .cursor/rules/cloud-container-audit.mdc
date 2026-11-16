@@ -1,0 +1,11 @@
+---
+description: Cloud and container security - S3/Blob/GCS public access, AWS/Azure/GCP metadata via SSRF, Docker API, Kubernetes API, kubelet, etcd, dashboard, container escape exposure, IAM, functions, databases, queues, CDN
+globs: ["**/*cloud*", "**/*k8s*", "**/*kube*", "**/*docker*", "**/*terraform*", "**/*.tf"]
+alwaysApply: false
+---
+
+# cloud-container-audit Rule
+
+1. Follow `.agents/skills/cloud-container-audit/references/cloud_container_checklist.md` (CC-001 to CC-015, CC-V-*), `metadata_endpoints.md`, and `iam_privesc.md`.
+2. List cloud hosts in the program's scope.txt, then run `.agents/skills/cloud-container-audit/scripts/cloud_exposure_check.py --target PROGRAM`.
+3. Read-only status and version requests only. Never read metadata credentials, use found keys, exec into containers, or write to storage or queues.

@@ -1,0 +1,11 @@
+---
+description: REST API audit - own-object CRUD authorization lifecycle, method handling, HEAD/OPTIONS disclosure, URL/body/header manipulation, status codes, error consistency, HATEOAS, pagination, sort/filter injection, version deprecation and compatibility
+globs: ["**/*openapi*", "**/*swagger*", "**/*rest*"]
+alwaysApply: false
+---
+
+# rest-api-audit Rule
+
+1. Follow `.agents/skills/rest-api-audit/references/rest_checklist.md` (RST-001 to RST-015); run api-security `api_probe.py` first for AA rows.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/rest-api-audit/scripts/rest_probe.py` with `--crud` on an own disposable resource and two own accounts.
+3. Writes only on objects created in the same run; confirm cleanup.

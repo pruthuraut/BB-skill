@@ -9,6 +9,8 @@ Test state-changing actions on your own test account with and without the anti-C
 
 Checklist: `references/csrf_clickjacking_headers.md` (about 30 rows).
 
+For a deep CSRF assessment (20 core checks, about 45 bypass rows, PoC templates, token probe and entropy analyzer), use `csrf-audit` (`../csrf-audit/SKILL.md`). This skill keeps the quick CSRF rows next to clickjacking and header checks. For deep clickjacking work (10 core checks, variants, PoCs, `clickjack_check.py`), use `clickjacking-audit` (`../clickjacking-audit/SKILL.md`).
+
 ## Procedure
 
 1. Confirm scope with `scripts/scope_check.sh TARGET`.

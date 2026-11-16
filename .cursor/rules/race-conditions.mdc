@@ -1,0 +1,13 @@
+---
+description: Race condition audit (15 checks + limit sweep) - balance, coupons, votes, uploads, signup, reset tokens, gift cards, inventory, Turbo Intruder bursts, email verification, 2FA, sessions, rate limits, read-modify-write, distributed consistency
+globs: ["**/*race*", "**/*coupon*", "**/*otp*", "**/*vote*", "**/*redeem*"]
+alwaysApply: false
+---
+
+# race-conditions Rule
+
+When auditing race conditions:
+1. Follow `.agents/skills/race-conditions/references/race_checklist.md` (RC-001 to RC-015, RC-L-* limit sweep).
+2. Master skill: `.agents/skills/race-conditions/SKILL.md`. Track progress with `references/race_tracker.md`.
+3. Run `scripts/scope_check.sh TARGET` first. Use `.agents/skills/race-conditions/scripts/race_probe.py` for small synchronized bursts (5 by default, more needs --approved, cap 20).
+4. Money, coupons, gift cards, inventory, and distributed tests are authorized-only. One burst per attempt; never loop.

@@ -41,3 +41,7 @@ Checklist: `references/xxe_checklist.md`. Tools: `scripts/xxe_probe.py` (black-b
 - Read only a benign file (default `/etc/hostname`) and only with written approval. Do not read credentials, keys, or other users' data.
 - For SAML, use your own IdP test tenant or your own captured assertion. Do not forge assertions for accounts you do not own.
 - Report the endpoint, the parser behaviour, the evidence, and the fix: disable DTDs (`disallow-doctype-decl`), disable external entities and XInclude, and use secure-processing settings.
+
+## SOAP services
+
+- For SOAP-specific checks (SOAPAction spoofing, WSDL enumeration, WS-Security, replay, faults, namespaces), use `soap-api-audit` (`../soap-api-audit/SKILL.md`) and `scripts/soap_probe.py`; return here for deep XXE, XInclude, XSLT, and XPath testing.

@@ -7,6 +7,6 @@ alwaysApply: false
 # file-upload-audit Rule
 
 When auditing with this skill:
-1. Follow the checklist in `.agents/skills/file-upload-audit/references/` (IDs, classes, and safe verifications).
+1. Follow the checklists in `.agents/skills/file-upload-audit/references/`: `upload_checks.md` (UP-*) and `upload_vuln_checklist.md` (FU-001 to FU-020). Generate harmless test files with `scripts/upload_testfiles.py`.
 2. Master skill: `.agents/skills/file-upload-audit/SKILL.md`.
 3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

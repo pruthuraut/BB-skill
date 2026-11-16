@@ -1,0 +1,11 @@
+---
+description: TLS/SSL configuration audit - protocols, ciphers, known attacks, HSTS, certificates, mixed content, cookies, revocation, pinning, forward secrecy, CT, downgrade, renegotiation
+globs: ["**/*tls*", "**/*ssl*", "**/testssl*.json"]
+alwaysApply: false
+---
+
+# tls-audit Rule
+
+1. Follow `.agents/skills/tls-audit/references/tls_checklist.md` (TLSX-001 to TLSX-020, TLSX-E-*).
+2. Run `scripts/scope_check.sh TARGET`, then `testssl.sh --jsonfile ...` and `.agents/skills/tls-audit/scripts/tls_map_testssl.py`; `scripts/tls_quick.py` for a fast check.
+3. Detection only; no renegotiation floods or exploit tools.

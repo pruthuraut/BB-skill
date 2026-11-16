@@ -1,0 +1,11 @@
+---
+description: SOAP and XML web service audit - SOAPAction spoofing, XML injection, XXE, WSDL enumeration, WS-Security, replay, faults, attachments, encoding and type confusion, namespace manipulation
+globs: ["**/*.wsdl", "**/*soap*", "**/*.asmx", "**/*.svc"]
+alwaysApply: false
+---
+
+# soap-api-audit Rule
+
+1. Follow `.agents/skills/soap-api-audit/references/soap_checklist.md` (SOAP-001 to SOAP-010). Templates: `references/soap_templates.md`.
+2. Run `scripts/scope_check.sh TARGET`, then `.agents/skills/soap-api-audit/scripts/soap_probe.py --discover` and tests on an own read-only sample request.
+3. No write operations, entity bombs, or file reads beyond proof; OOB only to your own host.

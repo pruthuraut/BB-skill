@@ -7,7 +7,11 @@ description: Audit authorized applications for file upload weaknesses: extension
 
 Find where uploaded files are stored, named, parsed, or served in a way that breaks security. Use harmless test files with benign markers on your own account. Executable uploads and parser exploit files are authorized-only.
 
-Checklist: `references/upload_checks.md` (20 rows).
+Checklists:
+- `references/upload_checks.md` (UP-001 to UP-020: handling, parsers, PUT/WebDAV, product CVEs).
+- `references/upload_vuln_checklist.md` (FU-001 to FU-020: unrestricted types, blacklist and whitelist bypass, double extension, null byte, Content-Type, magic bytes, SVG and HTML XSS, inclusion, destination traversal, race, polyglot, ZIP bomb, cloud ACL, EXIF XSS, oversized files, document metadata, zip slip, SVG XXE; plus extension, filename, Content-Type, and magic-byte bypass tables).
+- Tracker: `references/upload_tracker.md` (0/20 to 20/20, plus an endpoint inventory).
+- Test files: `scripts/upload_testfiles.py --out <dir> --marker <m> [--oob <your host>]` writes harmless marker files (double and uncommon extensions, magic-byte and polyglot files, SVG/HTML XSS, EXIF/comment XSS, zip slip, optional OOB XXE) and a MANIFEST.md.
 
 ## Procedure
 
@@ -19,7 +23,8 @@ Checklist: `references/upload_checks.md` (20 rows).
 6. Archives: harmless archive with a `../marker.txt` entry on your own account (UP-011). Confirm placement, not overwrite of real files.
 7. CSV export: harmless formula marker on your own record, export, inspect (UP-013).
 8. PUT and WebDAV: OPTIONS Allow header first (UP-015). PUT only a harmless text file if approved.
-9. Save results to `artifacts/<target>/file_upload.json`.
+9. Work through FU-001 to FU-020 with the generated files; for every accepted upload run the serving checks in `upload_vuln_checklist.md` (origin, Content-Type, nosniff, Disposition, auth).
+10. Save results to `artifacts/<target>/file_upload.json` and the tracker to `artifacts/<target>/upload_tracker.md`.
 
 ## Classes
 
