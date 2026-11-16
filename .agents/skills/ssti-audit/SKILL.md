@@ -49,4 +49,4 @@ Template engines combine fixed templates with data. When user input becomes part
 
 ## Sources
 
-Primary references are PortSwigger's Web Security Academy (server-side template injection), CWE-1336, the PayloadsAllTheThings SSTI collection, the SSTImap and tplmap projects (detection mode), and the public HackerOne reports listed in the reference file.
+Primary references are PortSwigger's Web Security Academy (server-side template injection), CWE-1336, the PayloadsAllTheThings SSTI collection, the SSTImap project (detection mode), and the public HackerOne reports listed in the reference file.

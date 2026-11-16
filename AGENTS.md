@@ -103,6 +103,8 @@ Smart start: `scripts/route_target.py` reads recon artifacts (fingerprints, para
 | `rest-api-audit` | REST CRUD authz lifecycle, methods, HEAD/OPTIONS, headers, status codes, HATEOAS, pagination, sort/filter, versions | `references/rest_checklist.md`; `scripts/rest_probe.py` |
 | `xml-xxe-audit` + merged: `soap-api-audit` | SOAP/WSDL, SOAPAction, XML injection, XXE, WS-Security, replay, faults, encoding, namespaces | `references/soap_checklist.md`, `soap_templates.md`; `scripts/soap_probe.py` |
 | `grpc-audit` | gRPC reflection, auth, protobuf, transport (TLS/h2c/gRPC-Web), metadata, deadlines, credentials | `references/grpc_checklist.md`, `grpc_commands.md`; `scripts/grpc_probe.py` |
+| `dns-security-audit` | DNS zone, DNSSEC, DoH/DoT, recursion, record disclosure | `references/dns_checklist.md`; `scripts/dns_probe.py` (Kali dig, dnsrecon, nmap, openssl) |
+| `microservices-gateway-audit` | Service discovery, gateway bypass, tracing, mesh, CORS | `references/gateway_checklist.md`; `scripts/gateway_probe.py` (Kali nmap) |
 | `google-dorking-osint` | Passive search-engine and OSINT recon: 49 dorks, third-party leak sites, Wayback, GitHub code search | `references/dork_checklist.md`, `dork_extras.md`; `scripts/dork_gen.py`, `scripts/dork_triage.py` |
 | `jsrecon` (extended) | JavaScript analysis JSA-001 to JSA-050: secrets, routes, sinks, frameworks, browser APIs, storage, workers, CSP/Trusted Types gadgets, third-party scripts | `references/js_analysis_checklist.md`; `scripts/js_analyzer.py`, `scripts/js_sink_audit.py` |
 

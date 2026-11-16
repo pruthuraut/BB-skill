@@ -45,3 +45,10 @@ These skills covered the same topic and were merged here. Nothing was removed: e
 
 - `postmessage-audit`: full content in `references/merged/postmessage-audit/` (SKILL.md, references, rule); scripts in `scripts/`
 - `websocket-audit`: full content in `references/merged/websocket-audit/` (SKILL.md, references, rule); scripts in `scripts/`
+
+## Additional checklist and tools (added)
+
+- Covers: Prototype pollution (20 checks) and WebSocket deep testing (15 checks).
+- Checklist: `references/prototype_pollution_checks.md and references/websocket_deep_checks.md`.
+- Tools: scripts/pp_scan.py (passive sink scanner); scripts/ws_probe.py for frames.
+- Class policy: `passive` and `bounded` run in scope with the stated limits. `authorized-only` needs explicit approval for that check. These probes never send gadget, execution, or flood payloads.

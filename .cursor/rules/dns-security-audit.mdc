@@ -1,0 +1,11 @@
+---
+description: DNS security audit: zone transfer, DNSSEC, DoH/DoT, recursion, record disclosure, Kali dig and dnsrecon
+globs: ["**/*dns*"]
+alwaysApply: false
+---
+
+# dns-security-audit Rule
+
+1. Follow `.agents/skills/dns-security-audit/references/` and `.agents/skills/dns-security-audit/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick rows from recon artifacts.

@@ -196,6 +196,27 @@ gem install wpscan      # WordPress plugin and theme data (needs Ruby)
 
 ---
 
+### Category F: Kali Tools Used by the Skills
+`setup.sh` installs these from Kali's repositories (best effort, one package at a time) or via Go, pip, and the optional cargo step:
+
+```bash
+sudo apt-get install -y dnsutils dnsrecon dnsenum fierce commix sqlmap wafw00f nmap openssl \
+  hashcat gobuster dirsearch feroxbuster dalfox libimage-exiftool-perl ldap-utils netcat-openbsd gh
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+go install github.com/assetnote/kiterunner/cmd/kr@latest   # binary is `kr` (kiterunner)
+.venv/bin/pip install degoogle flask-unsign
+```
+
+Manual (not installed automatically):
+
+- **Burp Suite**: GUI application, install from PortSwigger. Several checklists reference its Sequencer and Intruder workflows.
+- **ysoserial and PHPGGC**: gadget-chain generators for lab use only, referenced by the deserialization checklists (authorized-only). Install them only in an isolated lab.
+- **slackcat**: optional Slack alerting used by the jsrecon subagent (guarded by `command -v`).
+- **websocat**: installed by `setup.sh` when cargo is present, otherwise install it manually.
+- **noseyparker**: installed by `setup.sh` when cargo is present; used by cloud-supplychain secret hunts.
+
+---
+
 ## 4. API Keys & Configuration Setup
 
 Passive OSINT tools achieve exponentially higher coverage when supplied with free API keys.

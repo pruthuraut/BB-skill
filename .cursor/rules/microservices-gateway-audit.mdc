@@ -1,0 +1,11 @@
+---
+description: Microservices and API gateway audit: discovery endpoints, backend bypass, tracing and CORS, Kali nmap
+globs: ["**/*microservices*"]
+alwaysApply: false
+---
+
+# microservices-gateway-audit Rule
+
+1. Follow `.agents/skills/microservices-gateway-audit/references/` and `.agents/skills/microservices-gateway-audit/SKILL.md`.
+2. Run `scripts/scope_check.sh TARGET` before any active step.
+3. Use `scripts/route_target.py` to pick rows from recon artifacts.

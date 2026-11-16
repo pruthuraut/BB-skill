@@ -136,3 +136,10 @@ scripts/scope_check.sh TARGET_DOMAIN
 - File: `references/cookies_and_jwt_extended.md` (Cookie attributes, session lifecycle, and JWT checks).
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## Additional checklist and tools (added)
+
+- Covers: Deep JWT testing (20 checks).
+- Checklist: `references/jwt_deep_checks.md`.
+- Tools: scripts/jwt_variant_probe.py (variants of your own token; no signing key) and jwt_tool (Kali-installed via setup).
+- Class policy: `passive` and `bounded` run in scope with the stated limits. `authorized-only` needs explicit approval for that check. These probes never send gadget, execution, or flood payloads.

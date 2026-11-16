@@ -29,3 +29,10 @@ Checklist: `references/redirect_and_crlf.md`.
 
 - Open redirect alone is usually low severity. Report it with a concrete chain (OAuth code theft, token leakage) when one exists, and link to oauth-sso.
 - Never deliver redirects to real users or submit forms that notify third parties.
+
+## Additional checklist and tools (added)
+
+- Covers: Open redirect (15 checks) and CRLF injection (10 checks).
+- Checklist: `references/open_redirect_crlf_checks.md`.
+- Tools: scripts/redirect_crlf_probe.py (bounded, own OOB host and marker).
+- Class policy: `passive` and `bounded` run in scope with the stated limits. `authorized-only` needs explicit approval for that check. These probes never send gadget, execution, or flood payloads.

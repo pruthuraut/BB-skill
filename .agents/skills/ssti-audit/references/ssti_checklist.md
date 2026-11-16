@@ -114,4 +114,4 @@ Use the expected results below to narrow the engine. Confirm on a lab instance b
 | SSTI-REF-002 | PortSwigger | Server-side template injection (Web Security Academy) | passive | Read the detection and identification sections |
 | SSTI-REF-003 | CWE | CWE-1336 improper neutralization in a template engine | passive | Classification for the report |
 | SSTI-REF-004 | PayloadsAllTheThings | SSTI payload collection | passive | Use for engine names and detection characters only |
-| SSTI-REF-005 | SSTImap / tplmap | Detection-mode tooling | passive | Install per SETUP.md; use detection flags only |
+| SSTI-REF-005 | SSTImap | Detection-mode tooling | passive | Install per SETUP.md; use detection flags only |

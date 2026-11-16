@@ -55,9 +55,12 @@ PARAM_ROUTES: dict[str, list[str]] = {
     "xml-xxe-audit": [
        "xml", "soap", "wsdl", "feed", "rss", "saml", "samlresponse", "xslt", "xpath", "svg",
        "soapaction", "envelope", "singlewsdl", "disco"],
+    "dns-security-audit": ["dns", "domain", "zone", "nameserver", "ns", "dnssec", "doh", "dot", "resolver"],
+    "microservices-gateway-audit": ["service", "svc", "route", "backend", "upstream", "gateway", "discovery", "eureka", "consul", "nacos", "trace"],
     "ssti-audit": [
        "template", "preview", "view", "activity", "content", "message", "tpl"],
     "server-side-injection": [
+        "ssi", "shtml", "include", "exec",
        "template", "tpl", "cmd", "command", "exec", "ping", "host", "xml", "ldap", "filter",
        "where", "payload"],
     "sqli": [

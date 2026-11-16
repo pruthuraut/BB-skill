@@ -59,6 +59,12 @@ if command -v apt-get &>/dev/null; then
     whatweb \
     whois \
     dnsutils \
+    dnsrecon \
+    fierce \
+    commix \
+    sqlmap \
+    wafw00f \
+    openssl \
     libssl-dev \
     libffi-dev \
     make \
@@ -73,6 +79,14 @@ fi
 # Ensure pipx path
 pipx ensurepath 2>/dev/null || true
 export PATH="$HOME/.local/bin:$PATH"
+
+# ------------------------------------------------------------------------------
+# Kali packages used by the DNS, injection, WAF, and gateway skills (best effort: one missing package does not stop the rest)
+if command -v apt-get &>/dev/null; then
+  for pkg in dnsenum hashcat gobuster dirsearch feroxbuster dalfox libimage-exiftool-perl ldap-utils netcat-openbsd gh; do
+    sudo apt-get install -y "$pkg" >/dev/null 2>&1 || echo -e "${YELLOW}  -> apt package not available: ${pkg}${NC}"
+  done
+fi
 
 # ------------------------------------------------------------------------------
 # STEP 2: Golang Environment Setup
@@ -140,6 +154,8 @@ GO_TOOLS=(
   "github.com/Josue87/gotator@latest"
   "github.com/owasp-amass/amass/v4/cmd/amass@master"
   "github.com/praetorian-inc/fingerprintx/cmd/fingerprintx@latest"
+  "github.com/fullstorydev/grpcurl/cmd/grpcurl@latest"
+  "github.com/assetnote/kiterunner/cmd/kr@latest"
 )
 
 GO_FAILED=()
@@ -184,6 +200,8 @@ PYTHON_TOOLS=(
   "sqlmap"
   "sslyze"
   "dnsrecon"
+  "degoogle"
+  "flask-unsign"
 )
 
 PY_FAILED=()
@@ -376,6 +394,25 @@ REQUIRED_TOOLS=(
   "dnsrecon"
   "whatweb"
   "nikto"
+  "fierce"
+  "commix"
+  "wafw00f"
+  "openssl"
+  "dig"
+  "dnsenum"
+  "hashcat"
+  "gobuster"
+  "dirsearch"
+  "feroxbuster"
+  "dalfox"
+  "exiftool"
+  "ldapsearch"
+  "nc"
+  "gh"
+  "grpcurl"
+  "kr"
+  "degoogle"
+  "flask-unsign"
   "testssl.sh"
   "jwt_tool"
   "smuggler"
@@ -479,6 +516,12 @@ fi
 if [ -x "$SSTIMAP_DIR/.venv/bin/python" ] && [ ! -x "$HOME/.local/bin/sstimap" ]; then
   printf '#!/usr/bin/env bash\nexec "%s/.venv/bin/python" "%s/sstimap.py" "$@"\n' "$SSTIMAP_DIR" "$SSTIMAP_DIR" > "$HOME/.local/bin/sstimap"
   chmod +x "$HOME/.local/bin/sstimap"
+fi
+
+# Optional tools (only when cargo is available; others are manual, see SETUP.md)
+if command -v cargo &>/dev/null; then
+  command -v noseyparker &>/dev/null || cargo install --git https://github.com/praetorian-inc/noseyparker >/tmp/bb_noseyparker.log 2>&1 || echo -e "${YELLOW}  -> noseyparker not installed (see /tmp/bb_noseyparker.log)${NC}"
+  command -v websocat &>/dev/null || cargo install websocat >/tmp/bb_websocat.log 2>&1 || echo -e "${YELLOW}  -> websocat not installed (see /tmp/bb_websocat.log)${NC}"
 fi
 
 # x8: hidden parameter discovery (Rust crate). Optional when cargo is not installed.

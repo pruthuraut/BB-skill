@@ -8,7 +8,7 @@ A production-grade offensive reconnaissance, technology fingerprinting, content 
 
 Modern offensive audits fail when a single AI agent attempts to perform broad recon, parameter mining, and vulnerability exploitation simultaneously—resulting in token fatigue, hallucinations, missed assets, and shallow testing.
 
-This framework partitions complex security assessments across **49 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
+This framework partitions complex security assessments across **51 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
 
 ```
                                   [ TARGET ROOT DOMAIN / IP ]
@@ -99,7 +99,9 @@ BBskill/
 │       ├── session-management/         # Audit authorized web applications across 40 session-management checks covering t
 │       ├── sqli/                       # Audit authorized applications for SQL injection across 50 checks — quote/break-r
 │       ├── subdomain-takeover/         # Audit authorized domains for subdomain takeover risk across 50 dangling DNS and 
-│       └── xss/                        # Audit authorized applications for cross-site scripting across 60 checks — reflec
+│       ├── xss/                        # Audit authorized applications for cross-site scripting across 60 checks — reflec
+│       ├── dns-security-audit/         # DNS zone, DNSSEC, DoH/DoT, recursion, record disclosure (Kali dig, dnsrecon)
+│       └── microservices-gateway-audit/# Audit skill
 ├── .cursor/
 │   └── rules/                          # Cursor IDE Rule (.mdc) files with glob auto-binding
 ├── wordlists/                          # Consolidated security dictionaries & payload files
@@ -142,7 +144,7 @@ Antigravity automatically discovers skills defined in `.agents/skills/<skill_nam
 
 ### 3. Claude Code (Anthropic CLI)
 Claude Code uses `CLAUDE.md` in the project root as its system prompt and rules configuration:
-1. **Pre-Configured:** `CLAUDE.md` already registers all 49 skills, tool prerequisites, and output paths.
+1. **Pre-Configured:** `CLAUDE.md` already registers all 51 skills, tool prerequisites, and output paths.
 2. **Execution:** Launch Claude Code from within the repository root:
    ```bash
    cd BBskill

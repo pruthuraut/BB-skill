@@ -31,3 +31,10 @@ Checklist: `references/ssti_cmdi_xxe_nosql_ldap_deser.md` (33 rows). For full te
 
 - A confirmed SSTI or command injection is critical. Stop at proof (arithmetic result or sleep difference) and report. Do not chain to a shell without approval.
 - Never send XXE entities that read real secrets. Use OOB confirmation only.
+
+## Additional checklist and tools (added)
+
+- Covers: Deserialization (21 checks) and SSI injection (10 checks).
+- Checklist: `references/deserialization_ssi_checks.md`.
+- Tools: scripts/deser_detect.py (passive format detector) and scripts/ssi_probe.py (echo directives only).
+- Class policy: `passive` and `bounded` run in scope with the stated limits. `authorized-only` needs explicit approval for that check. These probes never send gadget, execution, or flood payloads.

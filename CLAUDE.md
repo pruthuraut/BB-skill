@@ -19,7 +19,7 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 ### Authentication & Credential Security
 11. **`credentialattacks` (40 Checks):** `.agents/skills/credentialattacks/SKILL.md`
 12. **`authbypass` (40 Checks):** `.agents/skills/authbypass/SKILL.md` (Login/Registration Bypass, Verification & OTP Bypass, Identity Collisions, Email-Change ATO)
-13. **`session-management` (40 Checks):** `.agents/skills/session-management/SKILL.md` (Token Entropy, Fixation, Cookie Attributes, Logout/Timeout, JWT Attacks)
+13. **`session-management` (40 Checks):** `.agents/skills/session-management/SKILL.md` (Token Entropy, Fixation, Cookie Attributes, Logout/Timeout, JWT Attacks) + extended: deep JWT (20 checks, `scripts/jwt_variant_probe.py`)
 14. **`oauth-sso` (50 Checks):** `.agents/skills/oauth-sso/SKILL.md` (OAuth 2.0, OIDC, SAML, SSO: redirect_uri, state, PKCE, id_token, XSW)
 
 ### Vulnerability & Logic Auditing
@@ -40,9 +40,9 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 24. **`saas-third-party-exposure` (about 90 vendors):** `.agents/skills/saas-third-party-exposure/SKILL.md` (client-side keys and tags, public vs secret)
 
 ### Additional Vulnerability Classes
-25. **`open-redirect-and-header-injection`:** `.agents/skills/open-redirect-and-header-injection/SKILL.md` (open redirect, CRLF, Host header)
-26. **`server-side-injection` (33 checks):** `.agents/skills/server-side-injection/SKILL.md` (SSTI, command injection, XXE, NoSQL, LDAP, deserialization)
-27. **`client-side-js-security` (about 30 checks):** + merged: `postmessage-audit`, `websocket-audit` `.agents/skills/client-side-js-security/SKILL.md` (prototype pollution, postMessage, storage, service workers, WebSockets)
+25. **`open-redirect-and-header-injection`:** `.agents/skills/open-redirect-and-header-injection/SKILL.md` (open redirect, CRLF, Host header) + extended: open redirect (15 checks), CRLF (10 checks; `scripts/redirect_crlf_probe.py`)
+26. **`server-side-injection` (33 checks):** `.agents/skills/server-side-injection/SKILL.md` (SSTI, command injection, XXE, NoSQL, LDAP, deserialization) + extended: deserialization (21 checks, `scripts/deser_detect.py`), SSI (10 checks, `scripts/ssi_probe.py`)
+27. **`client-side-js-security` (about 30 checks):** + merged: `postmessage-audit`, `websocket-audit` `.agents/skills/client-side-js-security/SKILL.md` (prototype pollution, postMessage, storage, service workers, WebSockets) + extended: prototype pollution (20 checks, `scripts/pp_scan.py`), WebSocket deep (15 checks)
 28. **`file-upload-audit` (40 checks: UP + FU):** `.agents/skills/file-upload-audit/SKILL.md`
 29. **`email-security-audit` (14 MAIL + 25 EM checks):** `.agents/skills/email-security-audit/SKILL.md` (`scripts/email_dns_audit.py`: SPF/DKIM/DMARC/CAA/BIMI/MTA-STS/MX, subdomain spoofability, scope-gated SMTP VRFY/EXPN)
 30. **`ssti-audit` (about 70 checks):** `.agents/skills/ssti-audit/SKILL.md` (template injection detection across engines, injection points, blind SSTI; `scripts/ssti_probe.py` for scope-gated arithmetic probes)
@@ -55,7 +55,7 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 37. **`cors-audit` (15 core + about 40 bypass origins):** `.agents/skills/cors-audit/SKILL.md` (origin reflection, null, subdomain/suffix/prefix/regex, parser and encoding tricks, third-party trust, preflight, WebSocket; impact chains incl. CSRF-token theft, internal pivot, TLS break, Vary cache; concepts and PoC templates; `scripts/cors_probe.py`)
 38. **`file-download-audit` (10 core + variants):** `.agents/skills/file-download-audit/SKILL.md` (traversal download, listing, MIME, Content-Disposition, auth, file IDOR, cloud/signed URLs, sensitive files, symlinks, PDF generation; `scripts/download_check.py`)
 39. **`crypto-audit` (15 checks + variants):** `.agents/skills/crypto-audit/SKILL.md` (password hashing, weak ciphers/ECB, hardcoded keys, key management, IV reuse, padding oracle, KDF, RNG, timing, pinning bypass, JWT confusion, repo key exposure; `scripts/crypto_scan.py`, `scripts/cipher_analyze.py`)
-40. **`request-smuggling-audit` (10 core + variants):** + merged: `http-protocol-cache` `.agents/skills/request-smuggling-audit/SKILL.md` (CL.TE, TE.CL, TE.TE, H2.CL, H2.TE, header techniques, proxy/LB chains, WAF bypass, cache via smuggling, CL.0, client-side and pause-based desync, h2c; timing-first detection; `scripts/smuggle_timing.py`)
+40. **`request-smuggling-audit` (10 core + variants):** + merged: `http-protocol-cache` `.agents/skills/request-smuggling-audit/SKILL.md` (CL.TE, TE.CL, TE.TE, H2.CL, H2.TE, header techniques, proxy/LB chains, WAF bypass, cache via smuggling, CL.0, client-side and pause-based desync, h2c; timing-first detection; `scripts/smuggle_timing.py`) + extended: WAF bypass (25 checks, `scripts/waf_probe.py`)
 41. **`cache-poisoning-audit` (10 core + variants):** `.agents/skills/cache-poisoning-audit/SKILL.md` (unkeyed headers/cookies/params, deception path and extension tricks, normalization, method override, Vary, fat GET, header injection, CPDoS, CDN notes; buster-only probes; `scripts/cache_probe.py`)
 42. **`cloud-container-audit` (15 checks + variants):** `.agents/skills/cloud-container-audit/SKILL.md` (S3/Blob/GCS public access, AWS/Azure/GCP metadata via SSRF, Docker API, Kubernetes API, kubelet, etcd, dashboard, container escape exposure, IAM, functions, databases, queues, CDN; `scripts/cloud_exposure_check.py`)
 43. **`data-exposure-audit` (20 checks):** `.agents/skills/data-exposure-audit/SKILL.md` (page source/comments, JS and source maps, client keys, meta/hidden fields, errors, debug endpoints, robots/sitemap, .env/config, backups, VCS, logs, headers, cookies, web storage, IndexedDB, API PII and excess data, URL params, autocomplete, Referer; `scripts/exposure_scan.py`, `scripts/api_pii_scan.py`)
@@ -64,6 +64,8 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 46. **`rest-api-audit` (15 checks):** `.agents/skills/rest-api-audit/SKILL.md` (own-object CRUD authz lifecycle, method handling, HEAD/OPTIONS, URL/body/header manipulation, status codes, error consistency, HATEOAS, pagination, sort/filter injection, version deprecation and compatibility; `scripts/rest_probe.py`)
 47. **`grpc-audit` (10 checks):** `.agents/skills/grpc-audit/SKILL.md` (reflection, unauth access, protobuf serialization, plaintext/h2c hijacking, metadata, stream DoS (approval), TLS/ALPN/gRPC-Web, enumeration, deadlines, credentials; `scripts/grpc_probe.py` + grpcurl)
 48. **`google-dorking-osint` (49 checks):** `.agents/skills/google-dorking-osint/SKILL.md` (search-engine dorks for exposed files, listings, panels, sensitive paths, secrets, SQL errors, and leaks on pastebin/GitHub/Gist/Stack Overflow/Trello/Slack/Notion; `scripts/dork_gen.py` writes clickable dorks, `scripts/dork_triage.py` ranks and scope-verifies hits)
+49. **`dns-security-audit` (22 checks):** `.agents/skills/dns-security-audit/SKILL.md` (AXFR, DNSSEC, DoH/DoT, recursion, record disclosure, RRL, cookies; Kali dig, dnsrecon, nmap, openssl; `scripts/dns_probe.py`)
+50. **`microservices-gateway-audit` (22 checks):** `.agents/skills/microservices-gateway-audit/SKILL.md` (Eureka, Consul, Nacos discovery, gateway bypass, tracing and CORS, mesh and mTLS; Kali nmap; `scripts/gateway_probe.py`)
 
 Existing skills gained an "Extended checklist (added)" section that points to a `references/` file. Each row carries an ID, product, check, class, and safe verification.
 

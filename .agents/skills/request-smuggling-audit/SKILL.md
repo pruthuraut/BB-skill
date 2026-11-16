@@ -53,3 +53,10 @@ PortSwigger Research "HTTP Desync Attacks" (2019), "HTTP/2: The Sequel is Always
 These skills covered the same topic and were merged here. Nothing was removed: each original SKILL.md, reference file, and Cursor rule is kept under `references/merged/<name>/`, and each script is in `scripts/` (a prefix marks name collisions).
 
 - `http-protocol-cache`: full content in `references/merged/http-protocol-cache/` (SKILL.md, references, rule); scripts in `scripts/`
+
+## Additional checklist and tools (added)
+
+- Covers: WAF bypass (25 checks).
+- Checklist: `references/waf_bypass_checks.md`.
+- Tools: scripts/waf_probe.py (Kali wafw00f fingerprint plus benign encoding differentials, at most 40 requests).
+- Class policy: `passive` and `bounded` run in scope with the stated limits. `authorized-only` needs explicit approval for that check. These probes never send gadget, execution, or flood payloads.
