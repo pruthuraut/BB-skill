@@ -1,6 +1,6 @@
 ---
 name: file-upload-audit
-description: Audit authorized applications for file upload weaknesses: extension and MIME allowlist bypass, stored file types served unsafely (HTML, SVG), path traversal in filenames, zip slip and symlink extraction, image and office parser abuse (ImageMagick, Ghostscript, ExifTool, XXE in DOCX/SVG), CSV formula injection, HTTP PUT and WebDAV write, and upload-related CVEs. Triggers on "file upload", "upload endpoint", "attachment", "avatar upload", "import file", "zip extraction", "multipart", "PUT", "WebDAV", or when route_target.py routes upload, attachment, avatar, or import parameters.
+description: "Audit authorized applications for file upload weaknesses: extension and MIME allowlist bypass, stored file types served unsafely (HTML, SVG), path traversal in filenames, zip slip and symlink extraction, image and office parser abuse (ImageMagick, Ghostscript, ExifTool, XXE in DOCX/SVG), CSV formula injection, HTTP PUT and WebDAV write, and upload-related CVEs. Triggers on \"file upload\", \"upload endpoint\", \"attachment\", \"avatar upload\", \"import file\", \"zip extraction\", \"multipart\", \"PUT\", \"WebDAV\", or when route_target.py routes upload, attachment, avatar, or import parameters."
 ---
 
 # File Upload Audit

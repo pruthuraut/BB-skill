@@ -1,6 +1,6 @@
 ---
 name: client-side-js-security
-description: Audit authorized web front ends for client-side JavaScript security issues: prototype pollution (client and Node.js server), postMessage origin and sink bugs, DOM XSS and DOM clobbering, web storage and IndexedDB token exposure, service worker scope and caching, WebSocket authentication and cross-site hijacking, and JSONP callbacks. Triggers on "prototype pollution", "__proto__", "postMessage", "message listener", "localStorage token", "sessionStorage", "IndexedDB", "service worker", "WebSocket", "CSWSH", "JSONP", "DOM Invader", or when jsrecon finds message handlers, storage writes, or socket endpoints.
+description: "Audit authorized web front ends for client-side JavaScript security issues: prototype pollution (client and Node.js server), postMessage origin and sink bugs, DOM XSS and DOM clobbering, web storage and IndexedDB token exposure, service worker scope and caching, WebSocket authentication and cross-site hijacking, and JSONP callbacks. Triggers on \"prototype pollution\", \"__proto__\", \"postMessage\", \"message listener\", \"localStorage token\", \"sessionStorage\", \"IndexedDB\", \"service worker\", \"WebSocket\", \"CSWSH\", \"JSONP\", \"DOM Invader\", or when jsrecon finds message handlers, storage writes, or socket endpoints."
 ---
 
 # Client-Side JavaScript Security

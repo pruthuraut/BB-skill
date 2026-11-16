@@ -1,6 +1,6 @@
 ---
 name: server-side-injection
-description: Audit authorized applications for server-side injection classes that are not SQL or XSS: server-side template injection (SSTI), OS command injection, XML external entities (XXE), NoSQL operator injection, LDAP filter injection, unsafe deserialization, and input validation failures. Triggers on "SSTI", "template injection", "command injection", "XXE", "XML upload", "NoSQL injection", "$ne", "LDAP injection", "deserialization", "ysoserial", "unserialize", "input validation", or when route_target.py routes template, cmd, xml, ldap, or filter parameters.
+description: "Audit authorized applications for server-side injection classes that are not SQL or XSS: server-side template injection (SSTI), OS command injection, XML external entities (XXE), NoSQL operator injection, LDAP filter injection, unsafe deserialization, and input validation failures. Triggers on \"SSTI\", \"template injection\", \"command injection\", \"XXE\", \"XML upload\", \"NoSQL injection\", \"$ne\", \"LDAP injection\", \"deserialization\", \"ysoserial\", \"unserialize\", \"input validation\", or when route_target.py routes template, cmd, xml, ldap, or filter parameters."
 ---
 
 # Server-Side Injection
