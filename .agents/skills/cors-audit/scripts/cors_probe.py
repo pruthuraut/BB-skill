@@ -31,6 +31,13 @@ import sys
 import time
 from urllib.parse import urlsplit
 
+# Windows consoles (cp1252) cannot print every character in payloads; never crash on output.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 SCOPE = os.path.join(REPO, "scripts", "scope_check.sh")
 MAX_PER_URL = 80

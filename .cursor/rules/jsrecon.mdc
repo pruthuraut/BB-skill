@@ -16,3 +16,7 @@ When performing JavaScript asset harvesting, code de-minification, source map an
    - Subagent 05: Dynamic Runtime Hooking & Notification Dispatch
 3. For standalone automation runs, use `.agents/skills/jsrecon/scripts/jsx_pipeline.sh` or `.agents/skills/jsrecon/scripts/js_analyzer.py`.
 4. Never analyze minified JS without beautifying (`js-beautify`) first and checking for `.js.map` sourcemap exposures.
+
+## JavaScript analysis checklist
+
+- Follow `.agents/skills/jsrecon/references/js_analysis_checklist.md` (JSA-001 to JSA-050). After `js_analyzer.py`, run `.agents/skills/jsrecon/scripts/js_sink_audit.py` on the beautified output; confirm sink leads with the xss, client-side-js-security, and open-redirect skills.

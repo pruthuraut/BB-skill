@@ -8,7 +8,7 @@ Checks (TLSX IDs in brackets):
   - certificate: trust, hostname, expiry, SAN, wildcard, key size, signature, OCSP/CRL URLs [008, 009, 012, E-008]
   - HSTS on HTTPS, HTTP->HTTPS redirect, Set-Cookie Secure, mixed content on the landing page [007, 010, 011, E-009]
 Local OpenSSL builds often refuse TLS 1.0/1.1 and legacy ciphers; such results
-are reported as "not testable locally" — confirm with testssl.sh.
+are reported as "not testable locally" - confirm with testssl.sh.
 
 Safety: host must be the target or its subdomain and pass scripts/scope_check.sh.
 A handful of handshakes and two HTTP requests.
@@ -29,6 +29,13 @@ import ssl
 import subprocess
 import sys
 import warnings
+
+# Windows consoles (cp1252) cannot print every character in payloads; never crash on output.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))

@@ -10,7 +10,7 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 3. **`techfingerprint` (40 Checks):** `.agents/skills/techfingerprint/SKILL.md`
 4. **`contentdiscovery` (50 Checks):** `.agents/skills/contentdiscovery/SKILL.md`
 5. **`linkparamdiscovery` (40 Checks):** `.agents/skills/linkparamdiscovery/SKILL.md`
-6. **`jsrecon` (JS Mining & Secrets):** `.agents/skills/jsrecon/SKILL.md`
+6. **`jsrecon` (JS Mining & Secrets + 50 JSA checks):** `.agents/skills/jsrecon/SKILL.md` (`scripts/js_analyzer.py` secrets/routes/source maps; `scripts/js_sink_audit.py` sinks, browser APIs, storage, workers, CSP/Trusted Types gadgets, third-party scripts)
 7. **`cloud-supplychain` (Cloud & Dependency Confusion):** `.agents/skills/cloud-supplychain/SKILL.md`
 8. **`network-portscan` (Full TCP Port & Service Discovery):** `.agents/skills/network-portscan/SKILL.md` (Naabu/Nmap/Masscan on explicitly authorized hosts)
 9. **`subdomain-takeover` (50 Checks):** `.agents/skills/subdomain-takeover/SKILL.md` (Dangling CNAME/NS/MX/A records, decommissioned SaaS/cloud; non-destructive verification only)
@@ -44,7 +44,7 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 26. **`server-side-injection` (33 checks):** `.agents/skills/server-side-injection/SKILL.md` (SSTI, command injection, XXE, NoSQL, LDAP, deserialization)
 27. **`client-side-js-security` (about 30 checks):** + merged: `postmessage-audit`, `websocket-audit` `.agents/skills/client-side-js-security/SKILL.md` (prototype pollution, postMessage, storage, service workers, WebSockets)
 28. **`file-upload-audit` (40 checks: UP + FU):** `.agents/skills/file-upload-audit/SKILL.md`
-29. **`email-security-audit` (14 checks):** `.agents/skills/email-security-audit/SKILL.md`
+29. **`email-security-audit` (14 MAIL + 25 EM checks):** `.agents/skills/email-security-audit/SKILL.md` (`scripts/email_dns_audit.py`: SPF/DKIM/DMARC/CAA/BIMI/MTA-STS/MX, subdomain spoofability, scope-gated SMTP VRFY/EXPN)
 30. **`ssti-audit` (about 70 checks):** `.agents/skills/ssti-audit/SKILL.md` (template injection detection across engines, injection points, blind SSTI; `scripts/ssti_probe.py` for scope-gated arithmetic probes)
 31. **`command-injection-audit` (about 65 checks):** `.agents/skills/command-injection-audit/SKILL.md` (unix and Windows command injection; `scripts/cmdi_probe.py` for scope-gated split-marker and arithmetic probes; `scripts/sink_scan.py` for passive source review)
 32. **`nosql-injection-audit` (about 40 checks):** `.agents/skills/nosql-injection-audit/SKILL.md` (operator and syntax differential probes; `scripts/nosql_probe.py`)
@@ -63,6 +63,7 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 45. **`graphql-audit` (15 checks):** `.agents/skills/graphql-audit/SKILL.md` (introspection, depth, batching, aliases, directives, mutation authz, subscriptions, injection, suggestions, errors, nested DoS (approval), IDOR, field authz, complexity, persisted queries; `scripts/gql_probe.py`)
 46. **`rest-api-audit` (15 checks):** `.agents/skills/rest-api-audit/SKILL.md` (own-object CRUD authz lifecycle, method handling, HEAD/OPTIONS, URL/body/header manipulation, status codes, error consistency, HATEOAS, pagination, sort/filter injection, version deprecation and compatibility; `scripts/rest_probe.py`)
 47. **`grpc-audit` (10 checks):** `.agents/skills/grpc-audit/SKILL.md` (reflection, unauth access, protobuf serialization, plaintext/h2c hijacking, metadata, stream DoS (approval), TLS/ALPN/gRPC-Web, enumeration, deadlines, credentials; `scripts/grpc_probe.py` + grpcurl)
+48. **`google-dorking-osint` (49 checks):** `.agents/skills/google-dorking-osint/SKILL.md` (search-engine dorks for exposed files, listings, panels, sensitive paths, secrets, SQL errors, and leaks on pastebin/GitHub/Gist/Stack Overflow/Trello/Slack/Notion; `scripts/dork_gen.py` writes clickable dorks, `scripts/dork_triage.py` ranks and scope-verifies hits)
 
 Existing skills gained an "Extended checklist (added)" section that points to a `references/` file. Each row carries an ID, product, check, class, and safe verification.
 

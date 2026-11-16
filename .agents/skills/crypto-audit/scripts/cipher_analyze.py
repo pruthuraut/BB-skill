@@ -25,6 +25,12 @@ import sys
 import time
 from collections import Counter
 
+# Windows consoles (cp1252) cannot print every character in payloads; never crash on output.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
 def decode(tok: str) -> tuple[str, bytes | None]:
     t = tok.strip()
@@ -78,7 +84,7 @@ def main() -> int:
     decoded = []
     for t in toks:
         enc, raw = decode(t)
-        rec: dict = {"token": t[:24] + ("…" if len(t) > 24 else ""), "encoding": enc}
+        rec: dict = {"token": t[:24] + ("..." if len(t) > 24 else ""), "encoding": enc}
         if enc == "jwt":
             rec["jwt"] = jwt_info(t)
             per.append(rec); continue
@@ -121,7 +127,7 @@ def main() -> int:
             d = hashlib.new(algo, val.encode()).hexdigest()
             for t in set(toks):
                 if d in t.lower():
-                    findings.append(f"CRY-V-003: {algo}({val}) appears in token {t[:16]}…")
+                    findings.append(f"CRY-V-003: {algo}({val}) appears in token {t[:16]}...")
     lens = Counter(r.get("bytes") for r in per if "bytes" in r)
     report = {"tokens": len(toks), "length_distribution": dict(lens), "per_token": per[:50], "findings": findings}
     print(json.dumps({k: v for k, v in report.items() if k != "per_token"}, indent=2))

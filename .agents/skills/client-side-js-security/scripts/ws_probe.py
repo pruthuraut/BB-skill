@@ -12,7 +12,7 @@ Steps (each on its own short-lived connection):
      (XSS, SQL, NoSQL, template, command) and look for unencoded reflection or error signatures
      (WSK-011, WSK-012, WSK-013).
   4. --idor-message JSON: send a message referencing your second account's object/room (WSK-009).
-  5. --burst N: N copies of the first message as fast as allowed; N ≤ 50 unless --approved (WSK-010).
+  5. --burst N: N copies of the first message as fast as allowed; N <= 50 unless --approved (WSK-010).
   6. Every received frame is scanned for secrets and PII (WSK-006); token-in-URL is flagged (WSK-014).
 
 Safety: scope-gated; short timeouts; sockets closed after each step.
@@ -38,6 +38,13 @@ import subprocess
 import sys
 import time
 from urllib.parse import parse_qsl, urlsplit
+
+# Windows consoles (cp1252) cannot print every character in payloads; never crash on output.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 SCOPE = os.path.join(REPO, "scripts", "scope_check.sh")

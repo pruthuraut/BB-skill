@@ -8,7 +8,7 @@ A production-grade offensive reconnaissance, technology fingerprinting, content 
 
 Modern offensive audits fail when a single AI agent attempts to perform broad recon, parameter mining, and vulnerability exploitation simultaneously—resulting in token fatigue, hallucinations, missed assets, and shallow testing.
 
-This framework partitions complex security assessments across **48 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
+This framework partitions complex security assessments across **49 specialized skills** and **60+ dedicated subagents**, coordinated by the **`recon-hunter` 16-phase master pipeline**:
 
 ```
                                   [ TARGET ROOT DOMAIN / IP ]
@@ -52,11 +52,12 @@ BBskill/
 ├── .agents/
 │   └── skills/                         # Master Agent Skill Definitions
 │       ├── recon-hunter/               # 16-Phase continuous unauthenticated recon-to-bug pipeline
+│       ├── google-dorking-osint/       # 49 Google dorks + OSINT leak sites; dork generator and triage
 │       ├── subdomainenum/              # 50-Check subdomain enumeration & takeover audit
 │       ├── techfingerprint/            # 40-Check stack, CDN, origin IP, and unauth service audit
 │       ├── contentdiscovery/           # 50-Check fuzzing, historical archives, and config exposure
 │       ├── linkparamdiscovery/         # 40-Check modern crawling, SSRF params, and WebSockets
-│       ├── jsrecon/                    # JS de-minification, 60+ secret regexes & SSR extraction
+│       ├── jsrecon/                    # JS de-minification, 60+ secret regexes, SSR extraction, 50 JSA checks + js_sink_audit.py
 │       ├── cloud-supplychain/          # S3/GCS/Azure/Firebase & NPM dependency confusion
 │       ├── credentialattacks/          # 40-Check password policy, brute-force & MFA bypass
 │       ├── authbypass/                 # 30-Check login bypass, NoSQL/SQLi & JWT manipulation
@@ -71,7 +72,7 @@ BBskill/
 │       ├── server-side-injection/      # SSTI, command injection, XXE, NoSQL, LDAP, deserialization
 │       ├── client-side-js-security/    # Prototype pollution, postMessage, storage, service workers
 │       ├── file-upload-audit/          # Upload handling and parser abuse (UP + FU-001..020, test file generator)
-│       ├── email-security-audit/       # SPF, DKIM, DMARC, mail-form header injection
+│       ├── email-security-audit/       # SPF, DKIM, DMARC, CAA, BIMI, MX, mail forms, SMTP; email_dns_audit.py
 │       ├── ssti-audit/                 # Template injection: engine matrix, injection points, blind SSTI
 │       ├── command-injection-audit/    # OS command injection: separators, blind, OOB, source sinks
 │       ├── nosql-injection-audit/      # NoSQL operator and syntax differential probes
@@ -141,7 +142,7 @@ Antigravity automatically discovers skills defined in `.agents/skills/<skill_nam
 
 ### 3. Claude Code (Anthropic CLI)
 Claude Code uses `CLAUDE.md` in the project root as its system prompt and rules configuration:
-1. **Pre-Configured:** `CLAUDE.md` already registers all 48 skills, tool prerequisites, and output paths.
+1. **Pre-Configured:** `CLAUDE.md` already registers all 49 skills, tool prerequisites, and output paths.
 2. **Execution:** Launch Claude Code from within the repository root:
    ```bash
    cd BBskill

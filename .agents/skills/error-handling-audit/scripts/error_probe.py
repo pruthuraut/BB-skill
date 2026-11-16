@@ -37,6 +37,13 @@ import sys
 import time
 from urllib.parse import parse_qsl, quote, urlencode, urlsplit
 
+# Windows consoles (cp1252) cannot print every character in payloads; never crash on output.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 SCOPE = os.path.join(REPO, "scripts", "scope_check.sh")

@@ -600,3 +600,7 @@ scripts/scope_check.sh TARGET_DOMAIN
 - File: `references/scope_playbooks.md` (Large, medium, and small scope playbooks and OSINT dorks).
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## Search-engine dorking and OSINT
+
+- Use `google-dorking-osint` (`../google-dorking-osint/SKILL.md`) for the 49-dork checklist (GD-001 to GD-049), third-party leak sites, and `scripts/dork_gen.py` / `scripts/dork_triage.py`. OSINT-001 in `references/scope_playbooks.md` maps to GD-001 to GD-039.

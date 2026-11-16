@@ -8,5 +8,5 @@ alwaysApply: false
 
 When auditing with this skill:
 1. Follow the checklist in `.agents/skills/email-security-audit/references/` (IDs, classes, and safe verifications).
-2. Master skill: `.agents/skills/email-security-audit/SKILL.md`.
+2. Master skill: `.agents/skills/email-security-audit/SKILL.md`. Checklists: `spf_dkim_dmarc.md` (MAIL) and `email_checklist_extended.md` (EM-001 to EM-025); run `.agents/skills/email-security-audit/scripts/email_dns_audit.py` for DNS checks (SMTP only with --smtp and scope).
 3. Run `scripts/scope_check.sh TARGET` first. Use `scripts/route_target.py` to pick rows from recon artifacts.

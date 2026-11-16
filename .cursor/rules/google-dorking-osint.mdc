@@ -1,0 +1,11 @@
+---
+description: Google dorking and OSINT - 49 dorks for exposed files, listings, panels, sensitive paths, secrets, SQL errors, and third-party leaks (pastebin, GitHub, Gist, Stack Overflow, Trello, Slack, Notion), plus Wayback and GitHub code search
+globs: ["**/*dork*", "**/*osint*"]
+alwaysApply: false
+---
+
+# google-dorking-osint Rule
+
+1. Follow `.agents/skills/google-dorking-osint/references/dork_checklist.md` (GD-001 to GD-049); extras in `references/dork_extras.md`.
+2. Generate links with `.agents/skills/google-dorking-osint/scripts/dork_gen.py`; run dorks by hand (no scraping); rank hits with `scripts/dork_triage.py --verify` (scope-gated).
+3. Never use leaked credentials; stop at proof for files; do not test out-of-scope hosts found by dorks.

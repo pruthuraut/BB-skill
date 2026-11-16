@@ -7,7 +7,10 @@ description: Audit authorized domains for email security posture (SPF, DKIM, DMA
 
 Check DNS records that determine whether mail from the domain can be spoofed, and check application forms that send email for header injection or address misdirection. DNS lookups are passive. Form tests use only your own addresses.
 
-Checklist: `references/spf_dkim_dmarc.md` (14 rows).
+Checklists:
+- `references/spf_dkim_dmarc.md` (MAIL-001 to MAIL-014).
+- `references/email_checklist_extended.md` (EM-001 to EM-025: SPF validity, qualifier, and 10-lookup limit; DKIM existence, key length, and selector enumeration; DMARC policy, rua, ruf, pct, spoofability, and alignment; header, CRLF, and MIME injection; webmail XSS; open relay; VRFY/EXPN; DSN leakage; subscription email bombing; CAA; link rewriting and tracking pixels; BIMI; subdomain MX hygiene; auto-reply disclosure). Tracker: `references/email_tracker.md` (0/25).
+- Tool: `scripts/email_dns_audit.py --domain example.com [--subdomains subs.txt] [--selectors s1,s2]` runs the DNS checks (recursive SPF lookup count, DKIM sweep with wildcard detection and key size, DMARC tags with external-report authorization, spoofability, CAA, BIMI, MTA-STS, TLS-RPT, MX and dangling MX, per-subdomain spoofability). `--smtp --target PROGRAM` adds one SMTP session per MX host that passes the program's scope gate (banner, EHLO, STARTTLS, VRFY `postmaster` vs a random name, EXPN). It never sends mail or tests relaying.
 
 ## Procedure
 

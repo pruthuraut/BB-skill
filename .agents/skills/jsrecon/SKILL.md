@@ -120,3 +120,9 @@ scripts/scope_check.sh TARGET_DOMAIN
 - File: `references/js_library_versions.md` (Frontend library version triage, source maps, and bundle secrets).
 - Class policy: `passive` and `bounded` rows run in scope with the limits stated in the row. `authorized-only` rows need explicit approval for that check.
 - Start automatically when `scripts/route_target.py` matches a parameter or technology listed in that file.
+
+## JavaScript analysis checklist (JSA, 50 checks)
+
+- Checklist: `references/js_analysis_checklist.md` (JSA-001 to JSA-050: endpoints, keys and secrets by provider, feature flags, admin and debug routes, connection strings, crypto keys, OAuth client secrets, WebSocket endpoints, env config objects, JWT handling, web storage and IndexedDB, postMessage, sanitizers, eval/innerHTML/document.write sinks, React/Vue/AngularJS, prototype pollution, DOM clobbering, location redirects, fetch CORS and credentials, service and web workers, Notification/geolocation/media/clipboard APIs, SharedArrayBuffer, WebAssembly, CSP gadgets, nonce gadgets, Trusted Types, third-party scripts). Each row names the tool that covers it.
+- Tracker: `references/js_analysis_tracker.md` (0/50).
+- `scripts/js_sink_audit.py <beautified-dir> --host example.com --out artifacts/<target>/js_sink_audit.json`: offline audit for the rows `js_analyzer.py` does not cover. Sinks are raised to high when a user-controlled source (URL params, hash, referrer, postMessage data, storage) is within a few lines; third-party script hosts are listed with SRI and dynamic-injection counts. Run it after `js_analyzer.py` (on its beautified output and recovered source maps).

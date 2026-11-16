@@ -19,7 +19,7 @@ Testing:
   --ops-file F        JSONL operations run as A (--header/--cookie), B (--auth-b), anonymous;
                       compares data to flag IDOR / field authz / mutation access (GQL-006, GQL-012, GQL-013).
                       Mutations run only with --allow-mutations.
-Limits: depth ≤ 12, aliases 10, batch 5, directives 10 unless --approved raises them (still capped).
+Limits: depth <= 12, aliases 10, batch 5, directives 10 unless --approved raises them (still capped).
 
 Example:
   gql_probe.py --target example.com --url https://api.example.com/graphql --header 'Authorization: Bearer A' \
@@ -38,6 +38,13 @@ import subprocess
 import sys
 import time
 from urllib.parse import quote, urlsplit
+
+# Windows consoles (cp1252) cannot print every character in payloads; never crash on output.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 SCOPE = os.path.join(REPO, "scripts", "scope_check.sh")

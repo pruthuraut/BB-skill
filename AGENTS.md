@@ -77,7 +77,7 @@ Smart start: `scripts/route_target.py` reads recon artifacts (fingerprints, para
 | `request-smuggling-audit` + merged: `http-protocol-cache` | Smuggling, HTTP/2, cache, WAF | `references/smuggling_cache_h2.md` |
 | `client-side-js-security` + merged: `postmessage-audit`, `websocket-audit` | Prototype pollution, postMessage, storage, service workers, WebSockets | `references/prototype_postmessage_storage_sw.md` |
 | `file-upload-audit` | Upload handling (UP-* and FU-001 to FU-020) | `references/upload_checks.md`, `upload_vuln_checklist.md`; `scripts/upload_testfiles.py` |
-| `email-security-audit` | SPF, DKIM, DMARC, mail forms | `references/spf_dkim_dmarc.md` |
+| `email-security-audit` | SPF, DKIM, DMARC, CAA, BIMI, MX hygiene, mail forms, SMTP enumeration (MAIL + EM-001 to EM-025) | `references/spf_dkim_dmarc.md`, `email_checklist_extended.md`; `scripts/email_dns_audit.py` |
 | `ssti-audit` | Server-side template injection: engine matrix, injection points, blind SSTI | `references/ssti_checklist.md`; probe tool `scripts/ssti_probe.py` |
 | `command-injection-audit` | OS command injection: separators, substitution, blind and OOB, source sinks | `references/cmdi_checklist.md`; `scripts/cmdi_probe.py`, `scripts/sink_scan.py` |
 | `nosql-injection-audit` | NoSQL operator and syntax injection (MongoDB and similar) | `references/nosql_checklist.md`; `scripts/nosql_probe.py` |
@@ -103,6 +103,8 @@ Smart start: `scripts/route_target.py` reads recon artifacts (fingerprints, para
 | `rest-api-audit` | REST CRUD authz lifecycle, methods, HEAD/OPTIONS, headers, status codes, HATEOAS, pagination, sort/filter, versions | `references/rest_checklist.md`; `scripts/rest_probe.py` |
 | `xml-xxe-audit` + merged: `soap-api-audit` | SOAP/WSDL, SOAPAction, XML injection, XXE, WS-Security, replay, faults, encoding, namespaces | `references/soap_checklist.md`, `soap_templates.md`; `scripts/soap_probe.py` |
 | `grpc-audit` | gRPC reflection, auth, protobuf, transport (TLS/h2c/gRPC-Web), metadata, deadlines, credentials | `references/grpc_checklist.md`, `grpc_commands.md`; `scripts/grpc_probe.py` |
+| `google-dorking-osint` | Passive search-engine and OSINT recon: 49 dorks, third-party leak sites, Wayback, GitHub code search | `references/dork_checklist.md`, `dork_extras.md`; `scripts/dork_gen.py`, `scripts/dork_triage.py` |
+| `jsrecon` (extended) | JavaScript analysis JSA-001 to JSA-050: secrets, routes, sinks, frameworks, browser APIs, storage, workers, CSP/Trusted Types gadgets, third-party scripts | `references/js_analysis_checklist.md`; `scripts/js_analyzer.py`, `scripts/js_sink_audit.py` |
 
 Existing skills gained extension files (listed in each `SKILL.md` under "Extended checklist (added)"). Class policy applies to every row: `passive` and `bounded` run in scope with stated limits, and `authorized-only` needs explicit approval for that check.
 
