@@ -55,6 +55,8 @@ if command -v apt-get &>/dev/null; then
     libpcap-dev \
     nmap \
     masscan \
+    nikto \
+    whatweb \
     whois \
     dnsutils \
     libssl-dev \
@@ -134,6 +136,9 @@ GO_TOOLS=(
   "github.com/glebarez/cero@latest"
   "github.com/gwen001/github-subdomains@latest"
   "github.com/haccer/subjack@latest"
+  "github.com/PentestPad/subzy@latest"
+  "github.com/Josue87/gotator@latest"
+  "github.com/owasp-amass/amass/v4/cmd/amass@master"
   "github.com/praetorian-inc/fingerprintx/cmd/fingerprintx@latest"
 )
 
@@ -175,6 +180,10 @@ PYTHON_TOOLS=(
   "waymore"
   "dnsvalidator"
   "knockpy"
+  "git-dumper"
+  "sqlmap"
+  "sslyze"
+  "dnsrecon"
 )
 
 PY_FAILED=()
@@ -189,6 +198,7 @@ for ptool in "${PYTHON_TOOLS[@]}"; do
   case "$ptool" in
     dnsvalidator) pip_target="git+https://github.com/vortexau/dnsvalidator.git" ;;
     knockpy)      pip_target="git+https://github.com/guelfoweb/KnockPy.git" ;;
+    dnsrecon)     pip_target="git+https://github.com/darkoperator/dnsrecon.git" ;;
     *)            pip_target="$ptool" ;;
   esac
   if ! "$PYTHON_VENV/bin/python" -m pip install "$pip_target"; then
@@ -342,6 +352,11 @@ REQUIRED_TOOLS=(
   "interactsh-client"
   "alterx"
   "dnsvalidator"
+  "findomain"
+  "knockpy"
+  "cloudlist"
+  "shosubgo"
+  "SubDomainizer"
   "paramspider"
   "js-beautify"
   "knockpy"
@@ -351,7 +366,132 @@ REQUIRED_TOOLS=(
   "masscan"
   "jq"
   "curl"
+  "chaos"
+  "amass"
+  "subzy"
+  "gotator"
+  "git-dumper"
+  "sqlmap"
+  "sslyze"
+  "dnsrecon"
+  "whatweb"
+  "nikto"
+  "testssl.sh"
+  "jwt_tool"
+  "smuggler"
+  "sstimap"
+  "x8"
 )
+
+# ------------------------------------------------------------------------------
+# STEP 8b: GitHub-hosted tools that have no package-manager install
+# ------------------------------------------------------------------------------
+echo -e "\n${YELLOW}[Step 8b] Installing GitHub-hosted tools (findomain, knockpy, SubDomainizer)...${NC}"
+mkdir -p "$HOME/.local/bin" "$HOME/tools"
+export PATH="$HOME/.local/bin:$HOME/go/bin:$PATH"
+
+# Go tools not in the list above: cloudlist and shosubgo
+for gotool in github.com/projectdiscovery/cloudlist/cmd/cloudlist@latest github.com/incogbyte/shosubgo@latest; do
+  bin=$(basename "$gotool" | cut -d'@' -f1)
+  command -v "$bin" &>/dev/null && continue
+  go install -v "$gotool" >/tmp/bb_go_"$bin".log 2>&1 || { echo -e "${RED}  -> FAILED: $bin${NC}"; GO_FAILED+=("$bin"); }
+done
+
+# findomain: prebuilt Linux binary from the latest GitHub release
+if ! command -v findomain &>/dev/null; then
+  echo -e "${BLUE}  -> Installing findomain from GitHub release...${NC}"
+  tmpdir=$(mktemp -d)
+  if curl -fsSL -o "$tmpdir/findomain.zip" "https://github.com/Findomain/Findomain/releases/latest/download/findomain-linux-i386.zip" \
+     && unzip -q -o "$tmpdir/findomain.zip" -d "$tmpdir/x" \
+     && install -m 755 "$(find "$tmpdir/x" -type f -name findomain | head -n 1)" "$HOME/.local/bin/findomain"; then
+    :
+  else
+    echo -e "${RED}  -> FAILED: findomain${NC}"
+  fi
+  rm -rf "$tmpdir"
+fi
+
+# knockpy: GitHub source (the PyPI name is unrelated)
+if ! command -v knockpy &>/dev/null; then
+  echo -e "${BLUE}  -> Installing knockpy from GitHub via pipx...${NC}"
+  pipx install git+https://github.com/guelfoweb/KnockPy.git >/tmp/bb_knockpy.log 2>&1 || echo -e "${RED}  -> FAILED: knockpy (see /tmp/bb_knockpy.log)${NC}"
+fi
+
+# SubDomainizer: script repo with requirements.txt, run from its own venv
+SUBDOM_DIR="$HOME/tools/SubDomainizer"
+if [ ! -f "$SUBDOM_DIR/SubDomainizer.py" ]; then
+  git clone --depth 1 https://github.com/nsonaniya2010/SubDomainizer.git "$SUBDOM_DIR" >/dev/null 2>&1 || echo -e "${RED}  -> FAILED: SubDomainizer clone${NC}"
+fi
+if [ -f "$SUBDOM_DIR/SubDomainizer.py" ] && [ ! -x "$SUBDOM_DIR/.venv/bin/python" ]; then
+  python3 -m venv "$SUBDOM_DIR/.venv" && "$SUBDOM_DIR/.venv/bin/pip" install -q -r "$SUBDOM_DIR/requirements.txt" || echo -e "${RED}  -> FAILED: SubDomainizer requirements${NC}"
+fi
+if [ -x "$SUBDOM_DIR/.venv/bin/python" ] && [ ! -x "$HOME/.local/bin/SubDomainizer" ]; then
+  printf '#!/usr/bin/env bash\nexec "%s/.venv/bin/python" "%s/SubDomainizer.py" "$@"\n' "$SUBDOM_DIR" "$SUBDOM_DIR" > "$HOME/.local/bin/SubDomainizer"
+  chmod +x "$HOME/.local/bin/SubDomainizer"
+fi
+
+# ------------------------------------------------------------------------------
+# STEP 8c: Scripted tools for the tech-stack, session, JWT, TLS, and smuggling checks
+# ------------------------------------------------------------------------------
+echo -e "\n${YELLOW}[Step 8c] Installing script-based audit tools (jwt_tool, testssl.sh, smuggler, x8)...${NC}"
+mkdir -p "$HOME/.local/bin" "$HOME/tools"
+
+# jwt_tool: used by session-management and authbypass JWT checks
+JWT_DIR="$HOME/tools/jwt_tool"
+if [ ! -f "$JWT_DIR/jwt_tool.py" ]; then
+  git clone --depth 1 https://github.com/ticarpi/jwt_tool.git "$JWT_DIR" >/dev/null 2>&1 || echo -e "${RED}  -> FAILED: jwt_tool clone${NC}"
+fi
+if [ -f "$JWT_DIR/jwt_tool.py" ] && [ ! -x "$JWT_DIR/.venv/bin/python" ]; then
+  python3 -m venv "$JWT_DIR/.venv" && "$JWT_DIR/.venv/bin/pip" install -q -r "$JWT_DIR/requirements.txt" || echo -e "${RED}  -> FAILED: jwt_tool requirements${NC}"
+fi
+if [ -x "$JWT_DIR/.venv/bin/python" ] && [ ! -x "$HOME/.local/bin/jwt_tool" ]; then
+  printf '#!/usr/bin/env bash\nexec "%s/.venv/bin/python" "%s/jwt_tool.py" "$@"\n' "$JWT_DIR" "$JWT_DIR" > "$HOME/.local/bin/jwt_tool"
+  chmod +x "$HOME/.local/bin/jwt_tool"
+fi
+
+# testssl.sh: used by server-config-audit TLS checks
+TESTSSL_DIR="$HOME/tools/testssl.sh"
+if [ ! -f "$TESTSSL_DIR/testssl.sh" ]; then
+  git clone --depth 1 https://github.com/drwetter/testssl.sh.git "$TESTSSL_DIR" >/dev/null 2>&1 || echo -e "${RED}  -> FAILED: testssl.sh clone${NC}"
+fi
+if [ -f "$TESTSSL_DIR/testssl.sh" ] && [ ! -x "$HOME/.local/bin/testssl.sh" ]; then
+  ln -sf "$TESTSSL_DIR/testssl.sh" "$HOME/.local/bin/testssl.sh"
+fi
+
+# smuggler: used by http-protocol-cache desync checks (local, no network from the wrapper)
+SMUGGLER_DIR="$HOME/tools/smuggler"
+if [ ! -f "$SMUGGLER_DIR/smuggler.py" ]; then
+  git clone --depth 1 https://github.com/defparam/smuggler.git "$SMUGGLER_DIR" >/dev/null 2>&1 || echo -e "${RED}  -> FAILED: smuggler clone${NC}"
+fi
+if [ -f "$SMUGGLER_DIR/smuggler.py" ] && [ ! -x "$HOME/.local/bin/smuggler" ]; then
+  printf '#!/usr/bin/env bash\nexec python3 "%s/smuggler.py" "$@"\n' "$SMUGGLER_DIR" > "$HOME/.local/bin/smuggler"
+  chmod +x "$HOME/.local/bin/smuggler"
+fi
+
+# SSTImap: detection-mode SSTI tooling for the ssti-audit skill (no os-cmd use)
+SSTIMAP_DIR="$HOME/tools/SSTImap"
+if [ ! -f "$SSTIMAP_DIR/sstimap.py" ]; then
+  git clone --depth 1 https://github.com/vladko312/SSTImap.git "$SSTIMAP_DIR" >/dev/null 2>&1 || echo -e "${RED}  -> FAILED: SSTImap clone${NC}"
+fi
+if [ -f "$SSTIMAP_DIR/sstimap.py" ] && [ ! -x "$SSTIMAP_DIR/.venv/bin/python" ]; then
+  python3 -m venv "$SSTIMAP_DIR/.venv" && "$SSTIMAP_DIR/.venv/bin/pip" install -q -r "$SSTIMAP_DIR/requirements.txt" || echo -e "${RED}  -> FAILED: SSTImap requirements${NC}"
+fi
+if [ -x "$SSTIMAP_DIR/.venv/bin/python" ] && [ ! -x "$HOME/.local/bin/sstimap" ]; then
+  printf '#!/usr/bin/env bash\nexec "%s/.venv/bin/python" "%s/sstimap.py" "$@"\n' "$SSTIMAP_DIR" "$SSTIMAP_DIR" > "$HOME/.local/bin/sstimap"
+  chmod +x "$HOME/.local/bin/sstimap"
+fi
+
+# x8: hidden parameter discovery (Rust crate). Optional when cargo is not installed.
+if command -v cargo &>/dev/null; then
+  command -v x8 &>/dev/null || cargo install x8 >/tmp/bb_x8.log 2>&1 || echo -e "${RED}  -> FAILED: x8 (see /tmp/bb_x8.log)${NC}"
+else
+  echo -e "${YELLOW}  -> cargo not found; skipping x8 (install Rust, then run: cargo install x8)${NC}"
+fi
+
+# WPScan: WordPress plugin and theme vulnerability data (Ruby gem). Optional.
+if command -v gem &>/dev/null; then
+  command -v wpscan &>/dev/null || gem install wpscan >/tmp/bb_wpscan.log 2>&1 || echo -e "${YELLOW}  -> wpscan not installed (see /tmp/bb_wpscan.log)${NC}"
+fi
 
 echo -e "\n${BOLD}Tool Status Matrix:${NC}"
 printf "%-25s %-12s %-30s\n" "TOOL" "STATUS" "PATH"
