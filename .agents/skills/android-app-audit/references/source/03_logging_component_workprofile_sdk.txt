@@ -1,0 +1,311 @@
+# Source checklist (part 3)
+
+@skill android-logging-audit
+## Logging Deep
+Test if application logs contain sensitive user data like passwords or tokens
+Check if Log.d and Log.v statements are removed from production builds
+Test if application uses ProGuard rules to strip logging calls in release
+Verify if logcat output can be read by other applications on the device
+Test if application logs authentication credentials during login flow
+Check if crash logs include stack traces revealing internal application logic
+Test if application logs API request and response bodies with sensitive data
+Verify if logging library properly sanitizes PII before writing to logs
+Test if application logs encryption keys or cryptographic operation details
+Check if debug builds with verbose logging are distributed to production
+Test if application logs session tokens or authentication headers
+Verify if Timber or similar logging library enforces release build policies
+Test if application logs database query results containing user data
+Check if log files are stored in application-private directories not world-readable
+Test if application logs user location data without proper consent
+Verify if application uses different log levels appropriately for security events
+Test if logging does not include full credit card numbers or SSNs
+Check if application logs intent extras that contain sensitive parameters
+Test if log rotation prevents unlimited log file growth on device
+Verify if application logs are cleared when user logs out
+Test if application logs biometric authentication details or template data
+Check if third-party SDK logging is properly suppressed in production
+Test if application logs network headers including authorization tokens
+Verify if application does not log content of push notifications with sensitive data
+Test if application logs can be used for user activity tracking without consent
+Check if application logs deep link parameters with authentication data
+Test if Firebase Crashlytics or similar tools mask sensitive data in reports
+Verify if application logs file paths revealing internal storage structure
+Test if application logs SQL queries with user input for debugging
+Check if application does not log device identifiers for tracking purposes
+Test if application logs custom events containing user personal information
+Verify if secure logging implementation uses OIDC claims filtering
+Test if application logs certificate chain details including private key references
+Check if log buffer overflow can cause crash or denial of service
+Test if application logs shared preference values with authentication data
+Verify if application handles log write failures without data exposure
+Test if application logs inter-process communication data between components
+Check if application logs reveal timing information useful for side-channel attacks
+Test if application logs permission grant and denial events appropriately
+Verify if application does not log WebView console messages in production
+Test if application logs keyboard input or form data entry
+Check if application logs Bluetooth pairing or NFC communication data
+Test if log file permissions prevent access from other applications
+Verify if application logs analytics events without user PII
+Test if application logs encryption algorithm and key size information
+Check if application fails to redact data when using toString() methods
+Test if application logs service binding and unbinding events with sensitive details
+Verify if application does not log backup and restore operation data
+Test if application logs background service execution with user activity patterns
+Check if application properly obfuscates logged data in production builds
+
+@skill android-component-audit
+## Component Deep
+Test if exported activities are properly protected with custom permissions
+Check if exported services validate the calling application identity
+Test if broadcast receivers handle malicious intent data securely
+Verify if content providers implement proper query parameter validation
+Test if activities with intent filters are unintentionally exported
+Check if services bound by external apps enforce permission checks
+Test if local broadcast manager is used for internal component communication
+Verify if content provider URI matching prevents unauthorized data access
+Test if pending intents use immutable flags to prevent hijacking
+Check if broadcast receivers do not expose sensitive data in result extras
+Test if exported components are minimized to reduce attack surface
+Verify if intent resolution does not allow component access via ambiguous targeting
+Test if task affinity manipulation allows activity hijacking
+Check if fragments are properly secured when used in exported activities
+Test if content providers use selection and selectionArgs to prevent SQL injection
+Verify if application components handle configuration changes without state leakage
+Test if intent extras are validated for type and size before processing
+Check if exported receivers do not process intents from untrusted sources
+Test if activity launch modes prevent unauthorized screen injection
+Verify if content providers implement proper insert/update/delete validation
+Test if application uses explicit intents for internal component communication
+Check if component enable/disable state is properly managed for security
+Test if dynamically loaded components validate code integrity
+Verify if content provider batch operations are atomic and consistent
+Test if application components properly handle intent redirection attacks
+Check if service intent filters do not allow third-party service binding
+Test if application restricts component access using android:permission attribute
+Verify if activities handle deep links without exposing internal component state
+Test if exported receivers validate broadcast action before processing
+Check if content provider calling package identity is verified
+Test if application does not export components with sensitive functionality unnecessarily
+Verify if intent data URI is validated before use in component operations
+Test if application handles component lifecycle events without data leakage
+Check if broadcast receiver result codes do not reveal internal state
+Test if content provider truncation of large result sets is handled securely
+Verify if application components validate caller UID and PID for authorization
+Test if activity result data is validated when returned to calling application
+Check if application uses package visibility filtering to limit component discovery
+Test if exported content providers implement rate limiting on queries
+Verify if service connection handles unbind gracefully without data exposure
+Test if application components do not leak information via toast messages
+Check if content provider openFile prevents path traversal in file serving
+Test if application enforces single-task or single-top launch modes appropriately
+Verify if ordered broadcast receivers cannot be prioritized to intercept data
+Test if application validates package name of bound service before IPC
+Check if component aliases do not expose unintended functionality
+Test if application properly handles component interaction with work profile
+Verify if intent MIME type validation prevents content type confusion attacks
+Test if application components are protected against intent smuggling attacks
+Check if content provider call method validates method name and arguments
+
+@skill android-enterprise-audit
+## Work Profile Security
+Test if application properly isolates data between personal and work profiles
+Check if work profile applications prevent data leakage to personal profile
+Test if cross-profile intent filters are properly configured and restricted
+Verify if application handles profile owner restrictions appropriately
+Test if work profile VPN configuration isolates traffic from personal profile
+Check if application does not share authentication sessions across profiles
+Test if work profile apps prevent clipboard sharing with personal apps
+Verify if application respects profile-specific network security configuration
+Test if device administrator policies are properly enforced in work profile
+Check if application handles work profile removal without data residue
+Test if cross-profile content sharing requires user confirmation
+Verify if work profile credentials are isolated from personal keystore
+Test if application prevents work profile data from being backed up to personal cloud
+Check if cross-profile widget interaction is properly restricted
+Test if work profile notifications are isolated from personal notifications
+Verify if application handles profile switching without session confusion
+Test if work profile app installation is restricted to approved sources
+Check if application prevents work profile contacts from mixing with personal contacts
+Test if cross-profile file sharing is properly mediated by device policy controller
+Verify if work profile remote wipe does not affect personal data
+Test if application properly handles disabled work profile scenarios
+Check if work profile apps enforce separate certificate pinning policies
+Test if application prevents work data from being shared via personal apps
+Verify if work profile VPN split tunneling is configured securely
+Test if application handles work profile specific storage encryption
+Check if cross-profile app linking prevents unauthorized navigation
+Test if work profile account management is isolated from personal accounts
+Verify if application enforces work profile specific permission policies
+Test if application prevents screen capture in work profile when restricted
+Check if work profile specific intent broadcasts are isolated from personal profile
+Test if application properly handles work profile specific app restrictions
+Verify if work profile browser data is isolated from personal browsing
+Test if application enforces work profile specific password complexity requirements
+Check if cross-profile accessibility service access is restricted
+Test if work profile applications validate device compliance before operation
+Verify if application handles work profile suspension gracefully
+Test if application prevents work profile data exfiltration via debug interfaces
+Check if work profile specific network restrictions are enforced
+Test if application handles work profile provisioning without security gaps
+Verify if cross-profile notification listeners are properly isolated
+Test if work profile applications enforce separate biometric authentication
+Check if application prevents work data leakage via personal printing services
+Test if work profile specific lock screen policies are enforced
+Verify if application handles work profile specific certificate management
+Test if application prevents work profile data sharing via NFC
+Check if work profile applications enforce separate location sharing policies
+Test if application handles multi-user device work profile isolation
+Verify if work profile specific intent forwarding rules are restrictive
+Test if application prevents work profile data leakage via accessibility services
+Check if work profile application updates are controlled by enterprise policy
+## Android Work Profile Security
+@prefix Test for work profile
+data leakage to personal profile
+personal profile data access from work profile
+app installation from personal side
+file access from personal apps
+contact leakage to personal contacts
+calendar event leakage
+email content leakage
+notification content exposure
+clipboard data leakage across profiles
+VPN routing bypass
+network traffic leakage
+MDM policy bypass
+device admin deactivation
+password policy bypass
+encryption requirement bypass
+camera restriction bypass
+screen capture restriction bypass
+app restriction bypass
+account type restriction bypass
+Bluetooth restriction bypass
+Wi-Fi configuration abuse
+location sharing abuse
+NFC data leakage
+USB data transfer abuse
+backup data leakage
+system update bypass
+factory reset protection bypass
+remote wipe bypass
+lock screen bypass
+keyguard requirement bypass
+timeout policy bypass
+auto-lock bypass
+biometric requirement bypass
+credential storage vulnerability
+certificate pinning bypass
+TLS configuration weakness
+proxy configuration abuse
+DNS configuration manipulation
+per-app VPN bypass
+always-on VPN bypass
+network logging bypass
+security logging evasion
+compliance check bypass
+attestation bypass
+safetyNet attestation bypass
+play integrity bypass
+device owner privilege escalation
+profile owner privilege escalation
+delegation abuse
+app restriction manipulation
+managed configuration bypass
+enterprise app installation abuse
+system app installation vulnerability
+certificate installation vulnerability
+CA certificate installation abuse
+key generation and import vulnerability
+lock task mode bypass
+kiosk mode escape vulnerability
+COSU mode escape vulnerability
+single-purpose device bypass
+dedicated device escape
+fully managed device escape
+work profile deletion bypass
+provisioning vulnerability
+QR code provisioning abuse
+NFC provisioning vulnerability
+zero-touch enrollment abuse
+Google account enrollment vulnerability
+Knox guard bypass (Samsung)
+OEM-specific MDM bypass
+Samsung Knox vulnerability
+Samsung E-FOTA bypass
+enterprise firmware update abuse
+Samsung KPE (Knox Platform for Enterprise) vulnerability
+Android Enterprise vulnerability
+EMM (Enterprise Mobility Management) bypass
+MDM (Mobile Device Management) bypass
+UEM (Unified Endpoint Management) bypass
+container encryption bypass
+keystore separation vulnerability
+intent firewall bypass
+network security config bypass
+per-profile network policy bypass
+cross-profile intent delivery abuse
+cross-profile clipboard sharing abuse
+cross-profile data sharing bypass
+cross-profile app communication vulnerability
+cross-profile file sharing abuse
+admin configurable network bypass
+organization-owned device vulnerability
+personally-owned device vulnerability
+BYOD (Bring Your Own Device) security
+COPE (Corporate-Owned Personally-Enabled) security
+COBO (Corporate-Owned Business-Only) security
+COSU (Corporate-Owned Single-Use) security
+@prefix
+
+@skill android-sdk-payment-audit
+## Android Third-Party SDK Deep
+Test for Facebook SDK data leakage vulnerability
+Test for Google Analytics SDK data exposure
+Test for Firebase Analytics data leakage
+Test for Firebase Crashlytics sensitive data in crash reports
+Test for Mixpanel SDK data exposure
+Test for Amplitude SDK data leakage
+Test for Segment SDK data exposure
+Test for Branch SDK deep link manipulation
+Test for AppsFlyer SDK attribution manipulation
+Test for Adjust SDK attribution fraud
+Test for CleverTap SDK data leakage
+Test for Leanplum SDK data exposure
+Test for Braze SDK data leakage
+Test for OneSignal SDK notification security
+Test for Pusher SDK WebSocket security
+Test for PubNub SDK real-time data security
+Test for Ably SDK real-time communication security
+Test for Twilio SDK communication security
+Test for SendGrid SDK email security
+Test for AWS SDK credential exposure
+Test for Azure SDK credential exposure
+Test for Google Cloud SDK credential exposure
+Test for Stripe SDK payment security
+Test for PayPal SDK payment security
+Test for Braintree SDK payment security
+Test for AdMob SDK ad fraud vulnerability
+Test for MoPub SDK ad security
+Test for IronSource SDK ad mediation security
+Test for Unity Ads SDK security
+Test for Vungle SDK ad security
+Test for Chartboost SDK ad security
+Test for AppLovin SDK ad security
+Test for InMobi SDK ad security
+Test for Smaato SDK ad security
+Test for Fyber SDK ad mediation security
+Test for OkHttp SDK certificate pinning bypass
+Test for Retrofit SDK API communication security
+Test for Glide SDK image loading security
+Test for Picasso SDK image loading security
+Test for Coil SDK image loading security
+Test for Room database encryption security
+Test for SQLCipher database encryption security
+Test for Realm database security configuration
+Test for ObjectBox database security configuration
+Test for LruCache memory cache data leakage
+Test for SharedPreferences encryption security
+Test for EncryptedSharedPreferences implementation
+Test for Jetpack Security crypto library usage
+Test for WorkManager background task security
+Test for AlarmManager scheduled task security

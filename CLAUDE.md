@@ -67,6 +67,29 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 49. **`dns-security-audit` (22 checks):** `.agents/skills/dns-security-audit/SKILL.md` (AXFR, DNSSEC, DoH/DoT, recursion, record disclosure, RRL, cookies; Kali dig, dnsrecon, nmap, openssl; `scripts/dns_probe.py`)
 50. **`microservices-gateway-audit` (22 checks):** `.agents/skills/microservices-gateway-audit/SKILL.md` (Eureka, Consul, Nacos discovery, gateway bypass, tracing and CORS, mesh and mTLS; Kali nmap; `scripts/gateway_probe.py`)
 
+51. **`phpmyadmin-audit` (143 checks):** `.agents/skills/phpmyadmin-audit/SKILL.md` (phpMyAdmin discovery, fingerprinting, config and backup exposure, login token and cookies, version-only CVE checks, bounded XSS and SQL-error probes, approval-gated file reads, authorized-only database steps; Kali ffuf, gobuster, dirsearch, nuclei, nikto, nmap NSE, searchsploit, sqlmap, hydra; `scripts/pma_probe.py`)
+
+52. **`android-app-audit`:** `.agents/skills/android-app-audit/SKILL.md` (orchestrator for Android app testing: 19 category skills, 1,011 checklist rows, `android_static.py`, `android_device.py`, `firebase_probe.py`, `deeplink_probe.py`, Frida hooks; setup.sh installs jadx, apktool, adb, frida, objection, drozer, apkleaks, mobsfscan)
+53. **`android-static-audit`:** `.agents/skills/android-static-audit/SKILL.md` (41 checks: jadx and apktool decompilation, manifest exposure, secrets, SDK versions, obfuscation)
+54. **`android-dynamic-audit`:** `.agents/skills/android-dynamic-audit/SKILL.md` (30 checks: Frida, Objection, Burp, Drozer, adb intents, file permissions (test device, approval for active checks))
+55. **`android-data-storage-audit`:** `.agents/skills/android-data-storage-audit/SKILL.md` (15 checks: SharedPreferences and SQLite plaintext, file permissions, cache, backups, logcat, Keystore use)
+56. **`android-network-audit`:** `.agents/skills/android-network-audit/SKILL.md` (30 checks: cleartext, network security config, pinning, TrustManager, hostname verifier, TLS)
+57. **`android-reverse-protection-audit`:** `.agents/skills/android-reverse-protection-audit/SKILL.md` (15 checks: root, emulator, Frida and debugger detection, obfuscation, repackaging, dynamic code loading)
+58. **`android-ipc-intent-audit`:** `.agents/skills/android-ipc-intent-audit/SKILL.md` (30 checks: exported components, intent injection and redirection, PendingIntent, providers, task hijacking)
+59. **`android-webview-audit`:** `.agents/skills/android-webview-audit/SKILL.md` (20 checks: JavaScript interface, file and content access, SSL error handler, saved passwords, URL override)
+60. **`android-crypto-keystore-audit`:** `.agents/skills/android-crypto-keystore-audit/SKILL.md` (80 checks: ECB, hardcoded keys, KDFs, IV reuse, Keystore KeyGenParameterSpec, biometric crypto objects)
+61. **`android-firebase-audit`:** `.agents/skills/android-firebase-audit/SKILL.md` (15 checks: Realtime Database, Firestore, Storage, Remote Config, google-services.json (read-only, scope-gated))
+62. **`android-deeplink-audit`:** `.agents/skills/android-deeplink-audit/SKILL.md` (50 checks: deep link validation, App Links and assetlinks.json, scheme hijacking, parameter injection)
+63. **`android-notification-audit`:** `.agents/skills/android-notification-audit/SKILL.md` (50 checks: lock-screen content, pending intents, channels, listeners, remote views)
+64. **`android-permission-audit`:** `.agents/skills/android-permission-audit/SKILL.md` (50 checks: minimum permissions, dangerous and custom permission protection levels, runtime checks)
+65. **`android-backup-audit`:** `.agents/skills/android-backup-audit/SKILL.md` (50 checks: allowBackup, fullBackupContent, adb backup (gated), backup agents, secrets in backup)
+66. **`android-logging-audit`:** `.agents/skills/android-logging-audit/SKILL.md` (50 checks: sensitive data in logs, release log stripping, logcat exposure, crash reports)
+67. **`android-component-audit`:** `.agents/skills/android-component-audit/SKILL.md` (50 checks: exported activities, services, receivers and providers, caller identity, provider paths)
+68. **`android-enterprise-audit`:** `.agents/skills/android-enterprise-audit/SKILL.md` (145 checks: work profile isolation and MDM/enterprise behaviour; device-platform bypasses recorded as not tested)
+69. **`android-sdk-payment-audit`:** `.agents/skills/android-sdk-payment-audit/SKILL.md` (100 checks: third-party SDK data flows, ad and analytics SDKs, in-app purchase and wallet logic)
+70. **`android-accessibility-audit`:** `.agents/skills/android-accessibility-audit/SKILL.md` (98 checks, defensive only: FLAG_SECURE, password and card fields, overlay and tapjacking defences)
+71. **`android-forensic-audit`:** `.agents/skills/android-forensic-audit/SKILL.md` (92 checks: residue of the app's own data on the owner's test device after uninstall or clearing)
+
 Existing skills gained an "Extended checklist (added)" section that points to a `references/` file. Each row carries an ID, product, check, class, and safe verification.
 
 ## Environment Setup & Tooling

@@ -1,0 +1,254 @@
+# Source checklist (part 4)
+
+@skill android-sdk-payment-audit
+## Android Payment Security Deep
+Test for in-app purchase verification bypass
+Test for in-app purchase replay attack
+Test for in-app purchase refund abuse
+Test for in-app purchase price manipulation
+Test for in-app purchase signature verification bypass
+Test for Google Play Billing Library security
+Test for Google Play Billing client-side verification bypass
+Test for Google Play Billing server-side verification gaps
+Test for purchase token manipulation and reuse
+Test for purchase order ID enumeration
+Test for subscription purchase status manipulation
+Test for subscription cancellation bypass
+Test for subscription trial period abuse
+Test for subscription grace period exploitation
+Test for subscription pause/resume manipulation
+Test for promotional offer code abuse
+Test for promo code brute force enumeration
+Test for reward-based ad viewing bypass
+Test for rewarded video ad fraud
+Test for offerwall fraud and manipulation
+Test for payment intent manipulation in Google Pay
+Test for payment token reuse in Google Pay integration
+Test for Stripe mobile SDK payment security
+Test for Braintree mobile SDK payment security
+Test for PayPal mobile SDK payment security
+Test for Razorpay mobile SDK payment security
+Test for payment method storage security on device
+Test for payment card data storage compliance (PCI DSS)
+Test for payment card number exposure in logs
+Test for payment card CVV exposure in memory
+Test for payment form autocomplete on card fields
+Test for payment form screenshot protection
+Test for payment form screen recording protection
+Test for payment form clipboard data leakage
+Test for payment form accessibility service data theft
+Test for payment notification interception
+Test for payment callback URL manipulation
+Test for payment deep link hijacking
+Test for payment intent filter hijacking
+Test for payment app switching security
+Test for wallet balance manipulation via API
+Test for wallet transaction history access control
+Test for wallet withdrawal authorization bypass
+Test for wallet deposit confirmation race condition
+Test for wallet currency conversion manipulation
+Test for wallet exchange rate manipulation
+Test for wallet minimum transaction amount bypass
+Test for wallet maximum transaction limit bypass
+Test for wallet daily limit bypass
+Test for wallet monthly limit bypass
+
+@skill android-accessibility-audit
+## Android Accessibility Security
+@prefix Test for accessibility service
+data theft vulnerability
+keylogging via event monitoring
+screen reading of sensitive data
+clickjacking via automated actions
+credential theft via form reading
+navigation to malicious pages
+permission grant automation
+installation of malicious apps
+SMS interception and reading
+notification data theft
+clipboard data monitoring
+password manager data theft
+banking app data theft
+2FA code interception
+biometric prompt bypass
+settings modification
+device admin activation
+package installation
+screen unlock bypass
+input event injection
+gesture injection
+text change monitoring
+content change monitoring
+window state monitoring
+window content monitoring
+view hierarchy traversal
+node info extraction
+action execution bypass
+focus manipulation
+scroll action abuse
+selection action abuse
+copy/paste action abuse
+cut action data theft
+paste action injection
+setText action abuse
+click action automation
+long click action abuse
+swipe action automation
+PIN entry monitoring
+pattern lock monitoring
+password field reading
+credit card field theft
+SSN field data theft
+email content monitoring
+chat message reading
+contact list extraction
+location data theft
+camera/microphone activation
+VPN configuration abuse
+network config manipulation
+overlay attack facilitation
+tapjacking facilitation
+screen recording bypass
+secure flag bypass
+FLAG_SECURE bypass
+screenshot prevention bypass
+screen capture prevention bypass
+window flag manipulation
+system UI manipulation
+status bar manipulation
+notification shade abuse
+quick settings abuse
+power menu abuse
+device reboot execution
+emergency dialer abuse
+device encryption bypass
+account creation automation
+account deletion automation
+app data clearing automation
+app cache clearing automation
+app force stop automation
+app permission granting
+app permission revoking
+app notification channel abuse
+Do Not Disturb manipulation
+battery optimization bypass
+background restriction bypass
+data saver bypass
+developer options enabling
+USB debugging enabling
+ADB authorization abuse
+OEM unlocking enabling
+bootloader unlock abuse
+system backup abuse
+factory reset execution
+device provisioning abuse
+work profile manipulation
+enterprise policy bypass
+device owner abuse
+profile owner abuse
+MDM bypass via automation
+EMM policy bypass
+container escape facilitation
+kiosk mode escape
+COSU mode escape
+lockdown mode escape
+pin screen escape
+screen pinning bypass
+@prefix
+
+@skill android-forensic-audit
+## Android Forensic Security
+@prefix Test Android forensic: data recovery
+after application uninstall
+after cache clearing operation
+after shared preferences deletion
+after database file deletion
+after file deletion on internal storage
+after file deletion on external storage
+from SQLite WAL file residue
+from SQLite journal file residue
+from temporary file residue
+from backup file residue
+from log file residue
+from crash dump residue
+from memory dump after process exit
+from swap file on disk
+from hibernation image
+from ADB backup extraction
+from cloud backup (Google Drive)
+from auto-backup mechanism
+from device transfer mechanism
+from smart switch migration
+from deleted SQLite records (unallocated space)
+from deleted file slack space
+from RAM dump on rooted device
+from /proc/pid/mem access
+from core dump file analysis
+from tombstone crash file
+from dropbox (system) crash entries
+from logcat buffered entries
+from system property values
+from content provider cache
+from sync adapter cache
+from account manager data
+from package manager data
+from download manager database
+from media store database
+from contacts provider database
+from calendar provider database
+from call log database
+from SMS/MMS database
+from browser history database
+from browser cookie database
+from browser form data
+from browser cache directory
+from WebView data directory
+from WebView cache database
+from WebView local storage
+from WebView session storage
+from WebView indexedDB
+from WebView service worker cache
+from input method cache
+from keyboard prediction data
+from clipboard history
+from notification history
+from recent apps list
+from screenshot file residue
+from screen recording file
+from voice recording file
+from camera image thumbnail
+from gallery thumbnail cache
+from EXIF geolocation data
+from document thumbnail cache
+from download file residue
+from Bluetooth transfer history
+from WiFi configuration data
+from VPN configuration data
+from NFC tag history
+from location history database
+from activity recognition data
+from sensor event buffer
+from usage stats manager data
+from accessibility event log
+from autofill service data
+from content suggestion data
+from search provider data
+from app shortcut data
+from widget data residue
+from live wallpaper data
+from dream (screensaver) data
+from print service data
+from print spooler cache
+from scan service cache
+from CompanionDeviceManager data
+from NetworkScoreManager data
+from NetworkStatsManager data
+from ConnectivityService data
+from IpSecService data
+from VpnManager data
+from EuiccManager data
+from CarrierConfigManager data
+from SubscriptionManager data
+from TelephonyManager data
+from SmsManager data
+@prefix

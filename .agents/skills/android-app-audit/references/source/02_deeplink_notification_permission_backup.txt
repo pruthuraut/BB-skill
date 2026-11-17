@@ -1,0 +1,213 @@
+# Source checklist (part 2)
+
+@skill android-deeplink-audit
+## Deep Link Deep
+Test if deep links validate the source and integrity of incoming data
+Check if deep links allow unauthorized access to protected activities
+Test if deep link parameters can be manipulated for IDOR attacks
+Verify if deep links use proper URL scheme validation to prevent hijacking
+Test if deep links handle malformed URI data without crashing or exposing data
+Check if deep links can bypass authentication requirements on target activities
+Test if deep links allow path traversal to access unintended content providers
+Verify if deep links are protected by intent filters with proper permission checks
+Test if app links with auto-verify properly validate domain ownership
+Check if deep links can be used to inject JavaScript into WebView components
+Test if deep links allow arbitrary file access via file:// scheme handling
+Verify if deep link receivers validate data before passing to sensitive operations
+Test if deep links can be used to trigger unauthorized transactions
+Check if deep links expose sensitive information via query parameters in logs
+Test if custom URL schemes can be hijacked by malicious applications
+Verify if deep links enforce proper authorization before executing actions
+Test if deep links can be used to bypass pending intent security restrictions
+Check if deep links can launch exported activities without proper intent validation
+Test if deep links can be used to modify shared preferences or internal state
+Verify if deep link handlers sanitize input before using in SQL queries
+Test if deep links can be used to access content providers without authority checks
+Check if deep links with intent extras can override security configurations
+Test if deep links can redirect users to phishing pages within the app WebView
+Verify if deep link parameters are validated for type and length constraints
+Test if deep links can be used to enumerate internal app functionality
+Check if deep links can trigger broadcast receivers with malicious intent data
+Test if deep links can be used to exploit pending intents from other apps
+Verify if deep links properly handle multiple overlapping deep link navigations
+Test if deep links can bypass root detection or tamper detection mechanisms
+Check if deep links can access clipboard data or other sensitive shared resources
+Test if deep links can be used to exploit task affinity and back stack manipulation
+Verify if deep links validate callback URLs to prevent open redirect attacks
+Test if deep links can be used to exfiltrate data via custom scheme callbacks
+Check if deep links properly verify signature of the calling application
+Test if deep links can be used to grant unauthorized permissions via intent extras
+Verify if deep links can be used to add accounts via account manager intent
+Test if deep links can bypass certificate pinning by loading URLs in WebView
+Check if deep links can be used to install or launch malicious app components
+Test if deep links can trigger synchronization with malicious server endpoints
+Verify if deep links enforce HTTPS for all external URL navigation
+Test if deep links can be used to bypass biometric authentication prompts
+Check if deep links can manipulate notification content or actions
+Test if deep links can access content from other apps via content:// scheme
+Verify if deep links properly validate redirect chains to prevent SSRF
+Test if deep links can be used to exploit fragment injection vulnerabilities
+Check if deep links can bypass network security configuration restrictions
+Test if deep links can be used to load arbitrary code via dynamic feature modules
+Verify if deep links properly handle Unicode normalization in URL components
+Test if deep links can be used to exploit WebView addJavascriptInterface
+Check if deep links enforce rate limiting to prevent automated abuse
+
+@skill android-notification-audit
+## Notification Security
+Test if notifications contain sensitive data visible on lock screen
+Check if notification actions can be triggered without proper authentication
+Verify if notification channels have appropriate importance levels for sensitive data
+Test if direct reply notifications properly validate input before processing
+Check if notification pending intents use immutable flags to prevent hijacking
+Test if notifications can be intercepted by malicious accessibility services
+Verify if notification data is accessible to other applications via notification listener
+Test if notification content can be modified by malicious apps before display
+Check if notification badge count can reveal activity patterns to other apps
+Test if notification actions expose sensitive operations without user confirmation
+Verify if notification groups properly collapse sensitive and non-sensitive content
+Test if notification sound or vibration patterns leak information about content type
+Check if notification dismiss action triggers unintended side effects
+Test if notification builder allows injection of arbitrary pending intents
+Verify if notification channels properly separate sensitive and public notifications
+Test if foreground service notifications reveal internal application state
+Check if notification big text style exposes full message content on lock screen
+Test if notification remote views can be exploited for code execution
+Verify if notification extras bundle can be read by other applications
+Test if media notifications expose playback controls without authentication
+Check if notification styling can be manipulated for UI spoofing attacks
+Test if notification click intent can redirect to malicious activities
+Verify if notification data is persisted and accessible after reboot
+Test if notification API allows bypassing Do Not Disturb mode
+Check if notification permissions are properly requested and validated
+Test if notification listener services can exfiltrate notification data
+Verify if notification actions properly validate the source application
+Test if notification public version properly redacts sensitive content
+Check if notification progress indicators reveal sensitive operation details
+Test if notification timeout and auto-dismiss work correctly for sensitive data
+Verify if notification widget remote views prevent injection attacks
+Test if notification actions use explicit intents to prevent interception
+Check if notification icon can be used to spoof system or other app icons
+Test if notification category is properly set for sensitive communications
+Verify if notification color and LED patterns do not leak information
+Test if notifications can be used as covert channel between applications
+Check if notification deletion intent can be abused for unauthorized actions
+Test if notification bubble metadata can bypass screen pinning restrictions
+Verify if notification content intent properly authenticates user before action
+Test if notification shortcut ID can be manipulated to access other app features
+Check if notification template injection allows cross-app content spoofing
+Test if notification ticker text reveals sensitive information on status bar
+Verify if notification assistant can modify sensitive notification content
+Test if notification policy allows bypassing user-configured notification settings
+Check if notification of one app can spoof the identity of another app
+Test if notification reply action validates the response before sending
+Verify if notification content is properly encrypted when stored by system
+Test if notification history accessible via settings reveals sensitive data
+Check if notification channel description leaks internal application details
+Verify if notification rank and sort order can be manipulated for visibility abuse
+
+@skill android-permission-audit
+## Permission Deep
+Test if application requests only minimum necessary permissions in manifest
+Check if runtime permissions are requested at the time of need rather than upfront
+Test if custom permissions use signature protection level for inter-app communication
+Verify if dangerous permissions are properly justified and documented
+Test if permission checks are enforced on all exported components
+Check if application handles permission denial gracefully without crashing
+Test if custom permission definitions have proper protectionLevel attribute set
+Verify if application does not request permissions from other apps it does not need
+Test if permission groups are used appropriately without over-privileging
+Check if background location access requires user acknowledgment of risk
+Test if application properly checksSelfPermission before performing protected operations
+Verify if requestPermissions flow handles all possible user responses
+Test if application does not bypass permission checks via IPC or content providers
+Check if READ_PHONE_STATE permission is not misused for device fingerprinting
+Test if CAMERA and RECORD_AUDIO permissions are not requested unnecessarily
+Verify if application does not use deprecated permission protection levels
+Test if permission-protected activities verify calling application identity
+Check if application enforces its own custom permissions on exported services
+Test if WRITE_EXTERNAL_STORAGE is not used when scoped storage is available
+Verify if SYSTEM_ALERT_WINDOW permission usage is justified and minimal
+Test if application does not declare permissions with normal protection for dangerous operations
+Check if BIND_* permissions for services are properly enforced by the system
+Test if application does not expose functionality via components without permission checks
+Verify if onRequestPermissionsResult properly validates the request code origin
+Test if application uses checkCallingPermission for IPC permission validation
+Check if dangerous permission requests include clear user-facing rationale
+Test if application does not store permission state in insecure shared preferences
+Verify if application re-validates permissions on activity resume after background
+Test if application properly handles permission revocation while running
+Check if application does not use hidden APIs to bypass permission enforcement
+Test if permission enforcement is consistent across bound service interfaces
+Verify if application does not request package installation permission unnecessarily
+Test if application handles app standby bucket permission restrictions correctly
+Check if application uses NotificationListenerService with proper permission validation
+Test if application does not leverage AccessibilityService for permission bypass
+Verify if application properly restricts content provider queries by permission
+Test if application enforces permissions on broadcast receivers for protected actions
+Check if application does not use PROCESS_OUTGOING_CALLS permission without justification
+Test if application validates permissions for cross-profile data access
+Verify if application does not request both fine and coarse location permissions
+Test if application properly uses activity-alias permissions for component protection
+Check if application enforces permission on PendingIntent operations
+Test if application does not grant URI permissions to unauthorized packages
+Verify if application handles background activity launch restrictions properly
+Test if application uses BiometricPrompt instead of deprecated FingerprintManager
+Check if application validates granted permissions match requested permissions
+Test if application does not abuse USAGE_STATS permission for surveillance
+Verify if application properly implements permission-aware backup exclusion rules
+Test if application does not request SMS or CALL_LOG permissions without core functionality
+Check if application uses granular media permissions instead of broad storage access
+
+@skill android-backup-audit
+## Backup Security
+Test if android:allowBackup is set to false for applications with sensitive data
+Check if android:fullBackupContent specifies proper exclusion rules for sensitive files
+Test if ADB backup can extract sensitive data from the application
+Verify if application data backup excludes shared preferences with credentials
+Test if Google Play auto-backup excludes databases containing PII
+Check if backup agent implementation encrypts sensitive data before backup
+Test if application properly handles backup restoration on different devices
+Verify if android:backupAgent does not expose sensitive data to backup transport
+Test if backup includes files that contain encryption keys or certificates
+Check if application uses key-value backup for critical configuration data
+Test if restore operation validates the integrity of backed up data
+Verify if full backup content rules properly include and exclude files
+Test if backup data can be read by other applications on the same device
+Check if application prevents backup when device is not encrypted
+Test if backup transport encrypts data in transit to cloud storage
+Verify if backup data format does not allow injection on restore
+Test if application clears sensitive cached data before backup operation
+Check if SharedPreferences backup excludes authentication tokens
+Test if database backup excludes tables with sensitive user information
+Verify if file backup excludes external storage files with sensitive data
+Test if backup agent handles backup interruption without data corruption
+Check if restored data is properly re-encrypted with new device keys
+Test if backup of application does not include keystore entries
+Verify if backup operation does not log sensitive data being processed
+Test if backup data versioning prevents downgrade attacks on restore
+Check if application uses BackupManager dataChanged notification appropriately
+Test if backup includes generated keys that should be device-specific
+Verify if restore operation requires user authentication on target device
+Test if backup data is properly isolated between user profiles
+Check if backup agent implementation validates caller identity
+Test if backup excludes files in internal storage with financial data
+Verify if full backup device-to-device transfer is restricted appropriately
+Test if backup of content provider data respects original permission constraints
+Check if application does not store backup encryption key in accessible location
+Test if backup agent properly handles large data sets without timeout
+Verify if restored application validates data schema version compatibility
+Test if backup excludes crash logs that may contain sensitive information
+Check if application prevents backup of authentication session data
+Test if backup operation does not create temporary files with sensitive data
+Verify if backup agent is not exported to other applications
+Test if backup includes analytics data that reveals user behavior patterns
+Check if backup of WebView data excludes cookies and cached credentials
+Test if restore operation sanitizes data before writing to application storage
+Verify if backup data includes timestamp to prevent replay attacks
+Test if application handles backup quota limits without exposing partial data
+Check if backup excludes OAuth tokens and refresh tokens
+Test if backup agent uses secure random for any generated backup identifiers
+Verify if application prevents backup when screen lock is not set
+Test if backup data is bound to device identity preventing cross-device restore abuse
+Check if application provides user control over what data is included in backup

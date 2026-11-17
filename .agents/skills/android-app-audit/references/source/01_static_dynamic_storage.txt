@@ -1,0 +1,310 @@
+# Source checklist (part 1). Read by scripts/build_android_checklists.py.
+# Directives: @skill <name>   |   ## <section title>   |   @prefix <text>   |   @prefix (clears)
+# A line may end with "::passive|bounded|authorized-only" to set its class explicitly.
+
+@skill android-static-audit
+## Static Analysis
+Decompile APK with jadx for Java source code review
+Decompile APK with apktool for resource and manifest analysis
+Check AndroidManifest.xml for exported components without permission
+Check for exported activities accessible by other apps
+Check for exported services accessible by other apps
+Check for exported content providers with data access
+Check for exported broadcast receivers for intent injection
+Check for intent filter actions and categories exposed
+Analyze custom permissions and their protection levels
+Check for debuggable flag (android:debuggable=true) in manifest
+Check for allowBackup flag (android:allowBackup=true) in manifest
+Check for network security config (cleartext traffic allowed)
+Analyze permissions requested by the application
+Check for dangerous permissions usage without justification
+Look for hardcoded secrets in source code (API keys, tokens)
+Check for API keys and URLs in strings.xml and other resources
+Analyze third-party SDKs and libraries for known vulnerabilities
+Check for outdated or insecure library versions in build files
+Analyze ProGuard/R8 obfuscation effectiveness in decompiled code
+Check for data storage in SharedPreferences (plaintext credentials)
+Analyze SQLite database storage for sensitive data in plaintext
+Check for Firebase/FCM misconfiguration (open database access)
+Check for Google Maps API key restriction (Android app restriction)
+Analyze custom URL schemes (deep links) for hijacking potential
+Check for app linking verification (assetlinks.json presence)
+Analyze WebView configuration and security settings
+Check for JavaScript enabled in WebView (setJavaScriptEnabled(true))
+Check for addJavascriptInterface usage in WebView (RCE risk)
+Check for setAllowFileAccess in WebView (local file access)
+Check for setAllowContentAccess in WebView (content provider access)
+Check for WebView file:// URL access for local file theft
+Analyze network communication for HTTP (cleartext) usage
+Check for certificate pinning implementation in network calls
+Analyze custom TrustManager implementations (SSL bypass risk)
+Check for SSL error handler bypass (onReceivedSslError)
+Analyze broadcast receiver security for intent filtering
+Check for PendingIntent security and privilege escalation risk
+Analyze notification security for sensitive data exposure
+Check for shortcut security and deep link exposure
+Look for sensitive data in logging (Log.d, Log.v, Log.i calls)
+Analyze clipboard security for sensitive data leakage
+
+@skill android-dynamic-audit
+## Dynamic Analysis
+Use Frida for runtime hooking and function analysis
+Use Xposed framework for runtime method modification
+Hook SSL pinning bypass with Frida/Objection scripts
+Hook root detection bypass with Frida/Objection scripts
+Monitor network traffic with Burp Suite proxy interception
+Test with emulator detection bypass using Frida hooks
+Use Drozer for Android component testing and enumeration
+Test exported activities with Drozer activity launch
+Test content provider queries with Drozer provider scan
+Test broadcast receiver injection with Drozer broadcast
+Use adb for intent-based attacks on exported components
+Test deep link hijacking from malicious application
+Test task affinity attacks for activity hijacking
+Test for tapjacking vulnerability with overlay app
+Monitor file system changes during app usage with fsmon
+Check SharedPreferences file permissions on device
+Check database file permissions on device storage
+Monitor IPC communication between app components
+Test for screen overlay attacks on sensitive screens
+Analyze app behavior on lock screen for data leakage
+Test for clipboard data leakage between applications
+Monitor notification content for sensitive data exposure
+Test for content provider SQL injection via Drozer
+Test for content provider path traversal via crafted URIs
+Test for intent redirection attacks to internal components
+Analyze Keystore/Keychain usage for key storage security
+Test biometric authentication bypass with Frida hooking
+Check for keyboard cache leakage of sensitive input
+Test for screenshot prevention on sensitive screens
+Monitor memory for sensitive data exposure with Frida
+
+@skill android-data-storage-audit
+## Data Storage
+Check SharedPrefs for plaintext credential and token storage
+Check SQLite databases for sensitive data in plaintext
+Check internal storage file permissions (world-readable)
+Check external storage for sensitive data (world-readable by default)
+Check for sensitive data in cache directories
+Test for backup extraction via adb backup command
+Check for auto backup to Google Drive with sensitive data
+Test for data leakage through content providers
+Check for sensitive data in logcat output on device
+Test for secure deletion of sensitive data on logout
+Check for data encryption at rest using Android Keystore
+Test for data leakage through clipboard copy operations
+Check for sensitive data in intent extras passed between components
+Test for data persistence after user logout operation
+Check for secure key storage using Android Keystore system
+
+@skill android-network-audit
+## Network Communication
+Test for cleartext traffic (HTTP) usage in network calls
+Check for certificate pinning implementation and bypass
+Test for SSL/TLS version and cipher suite security
+Check for custom TrustManager implementation vulnerabilities
+Test for hostname verifier bypass in SSL connections
+Check for WebView SSL error handler bypass vulnerability
+Test for network security config enforcement on Android 7+
+Check for API communication over HTTPS only
+Test for sensitive data in network request parameters
+Check for proper session management in API network calls
+Test for network interception via proxy configuration
+Check for WebSocket security (wss vs ws protocol)
+Test for certificate transparency support in connections
+Check for proper OAuth token handling in network requests
+Test for API endpoint security against common web attacks
+## Android Network Deep Testing
+Test for cleartext traffic allowed in network security config
+Test for certificate pinning via OkHttp CertificatePinner
+Test for certificate pinning via TrustManager implementation
+Test for network security config domain-specific rules
+Test for debug-only certificate pinning bypass
+Test for custom hostname verifier bypass
+Test for proxy detection and SSL interception resistance
+Test for WebSocket connection security (wss vs ws)
+Test for server certificate validation completeness
+Test for certificate chain validation and ordering
+Test for OCSP stapling and CRL check implementation
+Test for TLS 1.3 support and fallback to TLS 1.2
+Test for session ticket encryption key rotation
+Test for ALPN protocol negotiation security
+Test for SNI (Server Name Indication) handling security
+
+@skill android-reverse-protection-audit
+## Reverse Engineering Protection
+Test for root detection implementation and bypass methods
+Test for emulator detection implementation and bypass
+Test for Frida detection implementation and bypass
+Test for Xposed detection implementation and bypass
+Test for debugging detection (android:debuggable check)
+Check for code obfuscation effectiveness in decompiled output
+Test for repackaging detection and signature verification
+Check for tamper detection mechanisms in the application
+Test for integrity verification of app resources
+Check for anti-hooking mechanisms and bypass methods
+Test for runtime integrity checks in application code
+Check for string encryption in decompiled source code
+Test for control flow obfuscation in critical methods
+Check for class encryption/packing (DEX protection)
+Test for dynamic code loading security (DexClassLoader)
+
+@skill android-ipc-intent-audit
+## IPC Security
+Test for intent injection attacks on exported components
+Test for intent redirection attacks to internal activities
+Test for PendingIntent privilege escalation attacks
+Test for broadcast receiver abuse and message injection
+Test for content provider SQL injection via crafted queries
+Test for content provider path traversal via crafted URIs
+Test for AIDL interface security and access control
+Test for Messenger-based IPC security and validation
+Check for implicit intent hijacking by malicious apps
+Test for component naming manipulation attacks
+Check for package name spoofing by malicious applications
+Test for activity hijacking via taskAffinity manipulation
+Test for task hijacking (Strandhogg) vulnerability
+Test for service binding abuse by external applications
+Check for unbound service security and data access
+## Android Intent Deep Testing
+Test for implicit intent interception by malicious apps
+Test for explicit intent to exported components without permission
+Test for intent extras manipulation and injection
+Test for intent data URI handling security
+Test for intent type/MIME type manipulation
+Test for intent category manipulation
+Test for intent flags for privilege escalation
+Test for deep link parameter injection
+Test for custom scheme URL hijacking
+Test for intent redirection via parcelable extras
+Test for broadcast intent information disclosure
+Test for sticky broadcast data leakage
+Test for local broadcast vs global broadcast security
+Test for ordered broadcast priority manipulation
+Test for broadcast receiver permission enforcement
+
+@skill android-webview-audit
+## Android WebView Deep Testing
+Test for JavaScript interface exposure via addJavascriptInterface
+Test for WebView file:// scheme access for local file theft
+Test for WebView content:// scheme access for data theft
+Test for WebView intent:// scheme for activity launch
+Test for WebView setSavePassword enabled (credential saving)
+Test for WebView setSaveFormData enabled (form data saving)
+Test for WebView mixed content mode allowance
+Test for WebView geolocation permission prompt bypass
+Test for WebView camera/microphone permission bypass
+Test for WebView setAllowUniversalAccessFromFileURLs
+Test for WebView setAllowFileAccessFromFileURLs
+Test for WebView database storage security
+Test for WebView DOM storage security
+Test for WebView cache directory data leakage
+Test for WebView SSL error handler bypass (proceed on error)
+Test for WebView URL override via shouldOverrideUrlLoading
+Test for WebView certificate pinning bypass
+Test for WebView deep link handling security
+Test for WebView postMessage security
+Test for WebView request interception security
+
+@skill android-crypto-keystore-audit
+## Android Cryptography Testing
+Check for use of ECB mode in symmetric encryption
+Check for hardcoded cryptographic keys in source code
+Check for weak key derivation (PBKDF1, low iteration PBKDF2)
+Check for IV reuse in CBC mode encryption
+Check for use of MD5/SHA1 for integrity verification
+Check for insecure random number generation (java.util.Random)
+Check for use of SecureRandom with predictable seed
+Check for custom cryptographic implementation instead of standard
+Check for key stored in SharedPreferences without encryption
+Check for certificate pinning bypass via TrustManager
+Check for SSL context using custom TrustManager
+Check for use of Android Keystore for key storage
+Check for KeyGenParameterSpec configuration security
+Check for biometric authentication crypto object security
+Check for AES key size (should be 256-bit)
+Check for RSA key size (should be 2048+ bit)
+Check for padding oracle vulnerability in decryption
+Check for key export from Android Keystore
+Check for key usage authorization requirements
+Check for hardware-backed key storage utilization
+## Keystore Deep
+Test if Android Keystore is used for storing cryptographic keys instead of hardcoded values
+Check if key entries in Keystore are properly protected with user authentication
+Test if Keystore keys have proper validity duration and expiration settings
+Verify if Keystore key generation uses secure random number generation
+Test if Keystore keys are bound to device hardware security module
+Check if key usage is restricted to specific cryptographic operations
+Test if Keystore key attestation certificates can be verified for authenticity
+Verify if Keystore key deletion properly removes all key material
+Test if Keystore access requires biometric or PIN authentication
+Check if Keystore keys use strong encryption algorithms (AES-256, RSA-2048+)
+Test if Keystore import of keys uses secure key wrapping mechanism
+Verify if Keystore key aliases follow secure naming convention without information leakage
+Test if Keystore keys are invalidated on fingerprint enrollment changes
+Check if application uses KeyGenParameterSpec with appropriate security parameters
+Test if Keystore keys have userAuthenticationValidityDurationSeconds set appropriately
+Verify if Keystore backed keys are used for TLS client certificate pinning
+Test if Keystore key export is disabled to prevent key extraction
+Check if Keystore key operations are performed within secure hardware TEE
+Test if Keystore handles key generation failure without falling back to insecure storage
+Verify if Keystore keys are invalidated on device lock change
+Test if Keystore provides attestation for key security level verification
+Check if Keystore key pair generation uses appropriate key sizes
+Test if Keystore supports key usage authorizations limiting operation scope
+Verify if Keystore keys are unique per application and not shared across apps
+Test if Keystore handles secure key rotation without exposing old key material
+Check if Keystore key creation includes proper purpose binding (encrypt, decrypt, sign, verify)
+Test if Keystore uses StrongBox security hardware when available on device
+Verify if Keystore key authentication binding prevents use without user presence
+Test if Keystore resists side-channel attacks on cryptographic operations
+Check if Keystore properly handles device compromise and key revocation
+Test if Keystore key validity start date prevents premature key usage
+Verify if Keystore key certificate serial number is unique and unpredictable
+Test if Keystore key certificate subject does not reveal sensitive information
+Check if Keystore handles concurrent key access from multiple threads safely
+Test if Keystore key authentication timeout prevents indefinite key availability
+Verify if Keystore encrypted key blob is properly protected at rest
+Test if Keystore key import only accepts keys in secure wrapped format
+Check if Keystore key usage counters prevent unlimited use without re-authentication
+Test if Keystore provides rollback protection for key material
+Verify if Keystore handles device restore scenarios without key compromise
+Test if Keystore key attestation includes application signature verification
+Check if Keystore master key is properly derived and not predictable
+Test if Keystore backup and restore does not leak key material
+Verify if Keystore key confirmation token is validated on signature operations
+Test if Keystore key generation includes proper random IV for encryption
+Check if Keystore handles hardware-backed key operation failure gracefully
+Test if Keystore key authorization confirmation message is displayed securely
+Verify if Keystore uses device-specific key derivation to prevent key portability
+Test if Keystore key attestation extension data includes security patch level
+Check if Keystore properly isolates keys between user profiles on multi-user devices
+## Android Biometric Security
+Test for biometric authentication bypass via Frida hooking
+Test for crypto object authentication vs simple authentication
+Test for biometric fallback to weak authentication (PIN)
+Test for biometric prompt cancellation bypass
+Test for biometric enrollment change detection
+Test for biometric authenticator strength requirement
+Test for BiometricPrompt vs deprecated FingerprintManager
+Test for biometric key invalidation on enrollment change
+Test for biometric authentication timeout and re-auth
+Test for biometric authentication on rooted device
+
+@skill android-firebase-audit
+## Android Firebase & Cloud
+Test for Firebase Realtime Database without authentication rules
+Test for Firebase Firestore without security rules
+Test for Firebase Storage without access control rules
+Test for Firebase Cloud Messaging security
+Test for Firebase Authentication configuration security
+Test for Firebase Remote Config manipulation
+Test for Firebase Analytics data leakage
+Test for Firebase Crashlytics sensitive data in reports
+Test for Firebase Performance Monitoring data exposure
+Test for Firebase Cloud Functions unauthorized access
+Test for google-services.json exposure and abuse
+Test for Firebase project enumeration and access
+Test for Firebase database URL guessing
+Test for Firebase rules playground exploitation
+Test for Firebase App Check implementation

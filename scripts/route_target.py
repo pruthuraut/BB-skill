@@ -56,6 +56,8 @@ PARAM_ROUTES: dict[str, list[str]] = {
        "xml", "soap", "wsdl", "feed", "rss", "saml", "samlresponse", "xslt", "xpath", "svg",
        "soapaction", "envelope", "singlewsdl", "disco"],
     "dns-security-audit": ["dns", "domain", "zone", "nameserver", "ns", "dnssec", "doh", "dot", "resolver"],
+    "phpmyadmin-audit": ["pma_username", "pma_password", "pma_servername", "server", "db", "table",
+                         "sql_query", "pos", "lang", "phpmyadmin", "pma"],
     "microservices-gateway-audit": ["service", "svc", "route", "backend", "upstream", "gateway", "discovery", "eureka", "consul", "nacos", "trace"],
     "ssti-audit": [
        "template", "preview", "view", "activity", "content", "message", "tpl"],
@@ -163,7 +165,7 @@ GENERIC_PRODUCTS = {
 TECH_SKILLS = {
     "tech-stack-audit", "saas-third-party-exposure", "server-config-audit", "subdomain-takeover",
     "cloud-supplychain", "jsrecon", "techfingerprint", "ssti-audit", "file-upload-audit",
-    "command-injection-audit",
+    "command-injection-audit", "phpmyadmin-audit",
 }
 
 CLASS_ORDER = {"passive": 0, "bounded": 1, "authorized-only": 2}

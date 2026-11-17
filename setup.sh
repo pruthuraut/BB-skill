@@ -518,6 +518,43 @@ if [ -x "$SSTIMAP_DIR/.venv/bin/python" ] && [ ! -x "$HOME/.local/bin/sstimap" ]
   chmod +x "$HOME/.local/bin/sstimap"
 fi
 
+# ------------------------------------------------------------------------------
+# Android app testing toolchain (best effort). Used by .agents/skills/android-*.
+# Static: apktool, jadx, aapt, apksigner, apkid, apkleaks, mobsfscan, androguard.
+# Device: adb (test device only), frida, objection, drozer (agent APK must be installed on the device).
+echo -e "\n${YELLOW}[Android] Installing Android app testing tools...${NC}"
+if command -v apt-get &>/dev/null; then
+  for pkg in apktool aapt apksigner adb jadx sslscan; do
+    sudo apt-get install -y "$pkg" >/dev/null 2>&1 || echo -e "${YELLOW}  -> apt package not available: ${pkg}${NC}"
+  done
+fi
+ANDROID_PY_TOOLS=(
+  "apkid"
+  "apkleaks"
+  "mobsfscan"
+  "androguard"
+  "frida-tools"
+  "objection"
+  "drozer"
+)
+ANDROID_FAILED=()
+for ptool in "${ANDROID_PY_TOOLS[@]}"; do
+  if "$PYTHON_VENV/bin/python" -m pip install "$ptool" >/tmp/bb_android_${ptool}.log 2>&1; then
+    echo -e "${GREEN}  -> ${ptool} installed in project virtual environment.${NC}"
+  else
+    echo -e "${RED}  -> FAILED: ${ptool} (see /tmp/bb_android_${ptool}.log)${NC}"
+    ANDROID_FAILED+=("$ptool")
+  fi
+done
+echo -e "${CYAN}  -> Drozer needs its agent APK on the test device: https://github.com/WithSecureLabs/drozer/releases${NC}"
+echo -e "${CYAN}  -> Android matrix:${NC}"
+for t in jadx apktool adb aapt apksigner sslscan apkid apkleaks mobsfscan androguard frida objection drozer; do
+  if command -v "$t" &>/dev/null; then printf "    %-12s ${GREEN}%s${NC}\n" "$t" "INSTALLED"; else printf "    %-12s ${RED}%s${NC}\n" "$t" "MISSING"; fi
+done
+if [ "${#ANDROID_FAILED[@]}" -gt 0 ]; then
+  echo -e "${RED}[!] Android Python installs failed: ${ANDROID_FAILED[*]}${NC}"
+fi
+
 # Optional tools (only when cargo is available; others are manual, see SETUP.md)
 if command -v cargo &>/dev/null; then
   command -v noseyparker &>/dev/null || cargo install --git https://github.com/praetorian-inc/noseyparker >/tmp/bb_noseyparker.log 2>&1 || echo -e "${YELLOW}  -> noseyparker not installed (see /tmp/bb_noseyparker.log)${NC}"
