@@ -1,0 +1,396 @@
+# Source checklist (part 4). Read by scripts/build_ios_checklists.py.
+# Platform rows (OS features, other apps' data, kernel exploitation) are classed not-tested by the builder.
+
+@skill ios-sdk-payment-audit
+## iOS Third-Party SDK Deep
+Test for Firebase iOS SDK data leakage
+Test for Google Analytics iOS SDK data exposure
+Test for Fabric/Crashlytics iOS SDK crash report security
+Test for Mixpanel iOS SDK data leakage
+Test for Amplitude iOS SDK data exposure
+Test for Segment iOS SDK data leakage
+Test for Branch iOS SDK deep link manipulation ::authorized-only
+Test for AppsFlyer iOS SDK attribution manipulation ::authorized-only
+Test for Adjust iOS SDK attribution fraud ::authorized-only
+Test for Braze iOS SDK data leakage
+Test for OneSignal iOS SDK notification security
+Test for Pusher iOS SDK WebSocket security
+Test for PubNub iOS SDK real-time security
+Test for Twilio iOS SDK communication security
+Test for SendGrid iOS SDK email security
+Test for AWS iOS SDK credential exposure
+Test for Azure iOS SDK credential exposure
+Test for Google Cloud iOS SDK credential exposure
+Test for Stripe iOS SDK payment security
+Test for PayPal iOS SDK payment security
+Test for Braintree iOS SDK payment security
+Test for AdMob iOS SDK ad fraud vulnerability
+Test for MoPub iOS SDK ad security
+Test for IronSource iOS SDK ad mediation security
+Test for Unity Ads iOS SDK security
+Test for Vungle iOS SDK ad security
+Test for AppLovin iOS SDK ad security
+Test for InMobi iOS SDK ad security
+Test for Alamofire certificate pinning bypass ::authorized-only
+Test for AFNetworking SSL pinning bypass ::authorized-only
+Test for SDWebImage image loading security
+Test for Kingfisher image loading security
+Test for Nuke image loading security
+Test for Core Data encryption security
+Test for SQLCipher database encryption security
+Test for Realm database security configuration
+Test for FMDB database security configuration
+Test for GRDB database security configuration
+Test for KeychainAccess library security
+Test for Locksmith Keychain helper security
+Test for SAMKeychain library security
+Test for CryptoKit usage and security
+Test for CommonCrypto usage and security
+Test for RNCryptor encryption library security
+Test for CryptoSwift library security
+Test for SwiftyRSA library security
+Test for Keychain services group access security
+Test for URLSession certificate validation security
+Test for WKWebView content security policy
+Test for SFSafariViewController security isolation
+
+## iOS Payment Security Deep
+Test for StoreKit in-app purchase verification bypass
+Test for StoreKit receipt validation bypass
+Test for StoreKit receipt replay attack
+Test for StoreKit refund abuse vulnerability
+Test for StoreKit price manipulation in purchase flow
+Test for StoreKit subscription purchase status manipulation
+Test for StoreKit subscription cancellation bypass
+Test for StoreKit subscription trial period abuse
+Test for StoreKit introductory offer abuse
+Test for StoreKit promotional offer code abuse
+Test for StoreKit offer code brute force enumeration
+Test for Apple Pay payment token manipulation
+Test for Apple Pay merchant ID validation bypass
+Test for Apple Pay payment method data exposure ::bounded
+Test for Apple Pay shipping address data leakage ::bounded
+Test for Apple Pay contact information exposure ::bounded
+Test for Apple Pay session security and validation
+Test for Stripe iOS SDK payment security
+Test for Braintree iOS SDK payment security
+Test for PayPal iOS SDK payment security
+Test for payment card data storage on iOS device ::bounded
+Test for payment card number exposure in Keychain ::bounded
+Test for payment card CVV exposure in memory ::authorized-only
+Test for payment form autocomplete on card fields ::passive
+Test for payment form screenshot protection ::bounded
+Test for payment form screen recording protection ::bounded
+Test for payment form clipboard data leakage ::bounded
+Test for payment notification interception on iOS ::not-tested
+Test for payment callback URL manipulation on iOS
+Test for payment universal link hijacking
+Test for payment URL scheme hijacking
+Test for payment app switching security on iOS ::bounded
+Test for wallet balance manipulation via iOS API
+Test for wallet transaction history access control
+Test for wallet withdrawal authorization bypass
+Test for wallet deposit confirmation race condition
+Test for wallet currency conversion manipulation
+Test for wallet exchange rate manipulation
+Test for wallet minimum transaction amount bypass
+Test for wallet maximum transaction limit bypass
+Test for wallet daily limit bypass on iOS
+Test for wallet monthly limit bypass on iOS
+Test for receipt validation server communication security
+Test for App Store receipt parsing vulnerability
+Test for App Store server notification security
+Test for App Store server-to-server notification authentication
+Test for in-app purchase restoration abuse
+Test for family sharing purchase abuse
+Test for volume purchase program abuse ::not-tested
+Test for managed distribution abuse ::not-tested
+
+@skill ios-accessibility-audit
+## iOS Accessibility Security
+Test for VoiceOver data reading of sensitive UI elements
+Test for VoiceOver password field content disclosure
+Test for VoiceOver credit card field content disclosure
+Test for VoiceOver SSN field content disclosure
+Test for VoiceOver token/secret field disclosure
+Test for Switch Control automated interaction abuse
+Test for Switch Control navigation to malicious pages
+Test for Switch Control credential form submission
+Test for Switch Control payment confirmation bypass
+Test for Switch Control permission grant automation
+Test for AssistiveTouch screenshot capture bypass
+Test for AssistiveTouch screen recording facilitation
+Test for AssistiveTouch notification reading abuse
+Test for AssistiveTouch control center access abuse
+Test for AssistiveTouch device settings modification
+Test for Guided Access escape vulnerability
+Test for Guided Access bypass via accessibility features
+Test for Guided Access bypass via hardware buttons
+Test for Guided Access bypass via Siri invocation
+Test for Guided Access bypass via notification action
+Test for Voice Control command injection vulnerability
+Test for Voice Control unauthorized app launch
+Test for Voice Control credential dictation abuse
+Test for Voice Control payment confirmation abuse
+Test for Voice Control sensitive action execution
+Test for Voice Control authentication bypass
+Test for Speak Screen sensitive data disclosure
+Test for Speak Selection sensitive data disclosure
+Test for Speak Auto-text sensitive data disclosure
+Test for audio description of secure content
+Test for Zoom accessibility feature security bypass
+Test for Zoom feature keyboard focus manipulation
+Test for Zoom feature screen content reading
+Test for Zoom feature secure window bypass
+Test for Zoom feature FLAG_SECURE bypass
+Test for Display Accommodation content manipulation
+Test for Invert Colors secure content bypass
+Test for Color Filters secure content bypass
+Test for Reduce Motion animation bypass security
+Test for Increase Contrast secure content disclosure
+Test for Reduce Transparency secure content exposure
+Test for On/Off Labels secure content identification
+Test for Button Shapes secure content identification
+Test for Bold Text secure content identification
+Test for Large Text secure content reading
+Test for Dynamic Type secure content exposure
+Test for Keyboard accessibility data theft
+Test for Keyboard autocomplete sensitive data
+Test for Keyboard autocorrection data leakage
+Test for Keyboard prediction data leakage
+Test for Custom keyboard data exfiltration
+Test for Custom keyboard network access abuse
+Test for Custom keyboard clipboard access abuse
+Test for Custom keyboard keylogging vulnerability
+Test for Custom keyboard input event monitoring
+Test for Custom keyboard full access abuse
+Test for Custom keyboard open access abuse
+Test for Custom keyboard secure input bypass
+Test for Custom keyboard password field access
+Test for Custom keyboard credit card field access
+Test for Custom keyboard sensitive field access
+Test for AssistiveTouch automation scripting abuse
+Test for Accessibility audit tool information disclosure
+Test for Accessibility inspector data extraction
+Test for Accessibility verification tool abuse
+Test for UI testing framework accessibility abuse
+Test for XCUITest accessibility identifier enumeration
+Test for XCUITest accessibility label information disclosure
+Test for XCUITest accessibility value data extraction
+Test for XCUITest accessibility hint information leakage
+Test for XCUITest accessibility trait bypass
+Test for Siri accessibility command abuse
+Test for Siri accessibility shortcut exploitation
+Test for Siri voice command unauthorized action
+Test for Siri dictation sensitive data capture
+Test for Siri suggestion sensitive data exposure
+Test for Back Tap accessibility feature abuse
+Test for Back Tap double/triple tap action execution
+Test for Back Tap sensitive action triggering
+Test for Back Tap authentication bypass via gesture
+Test for Reachability secure content exposure
+Test for Reachability notification content disclosure
+Test for Reachability control center access abuse
+Test for Assistive Access mode security bypass
+Test for Personal Voice data privacy vulnerability
+Test for Live Speech sensitive content injection
+Test for Live Captions sensitive data exposure
+Test for Sound Recognition security implications
+Test for Sound Recognition audio data processing
+Test for Sound Recognition background listening abuse
+Test for Hearing Devices pairing security vulnerability
+Test for Hearing Devices audio data interception
+Test for RTT/TTY communication data interception
+Test for RTT/TTY call content disclosure
+Test for RTT/TTY message content exposure
+Test for LED Flash for Alerts secure notification exposure
+Test for LED Flash notification content disclosure
+
+@skill ios-memory-audit
+## iOS Memory Security
+Test for sensitive data retention in process memory
+Test for credential persistence in application memory
+Test for encryption key exposure in application memory
+Test for API token exposure in application memory
+Test for session token exposure in application memory
+Test for password exposure in application memory after login
+Test for credit card number exposure in application memory
+Test for PII data exposure in application memory
+Test for encryption key not zeroed after use
+Test for secure buffer not properly deallocated
+Test for autorelease pool sensitive data retention
+Test for Objective-C object retention in memory
+Test for Swift object retention in memory after use
+Test for CoreData object cache retention vulnerability
+Test for UIImage cache retention of sensitive screenshots
+Test for UITextView content retention in memory
+Test for UITextField content retention in memory
+Test for WKWebView content retention in memory
+Test for JavaScript context retention in WKWebView
+Test for network response cache retention in memory
+Test for JSON/XML parsing buffer retention vulnerability
+Test for string literal retention in binary memory ::passive
+Test for static string retention in data section ::passive
+Test for global variable sensitive data retention
+Test for thread-local storage sensitive data exposure
+Test for stack-based buffer sensitive data retention
+Test for heap-based allocation sensitive data retention
+Test for malloc/free cycle sensitive data leak
+Test for new/delete cycle sensitive data leak in C++
+Test for ARC (Automatic Reference Counting) retention cycle ::passive
+Test for strong reference cycle causing memory leak ::passive
+Test for closure capture of sensitive data in memory
+Test for dispatch queue block retention of sensitive data
+Test for NSOperationQueue sensitive data retention
+Test for Timer/DispatchSource sensitive data retention
+Test for NotificationCenter observer data retention
+Test for KVO (Key-Value Observing) data retention vulnerability
+Test for delegate pattern sensitive data retention
+Test for singleton pattern sensitive data persistence
+Test for lazy initialization sensitive data exposure
+Test for background task sensitive data retention
+Test for background fetch sensitive data exposure
+Test for background transfer sensitive data persistence
+Test for URLSession cache sensitive data retention
+Test for URLCredential storage sensitive data exposure
+Test for cookie storage sensitive data persistence
+Test for URLSessionConfiguration credential retention
+Test for SSL/TLS session cache sensitive data retention ::not-tested
+Test for certificate pinning cache data exposure
+Test for network extension sensitive data retention
+Test for VPN configuration credential persistence
+Test for custom keyboard cache data retention
+Test for accessibility service data retention ::not-tested
+Test for VoiceOver accessibility data cache ::not-tested
+Test for Spotlight index sensitive data persistence
+Test for Handoff activity sensitive data exposure
+Test for AirDrop transfer sensitive data retention ::not-tested
+Test for Universal Clipboard cross-device data leak
+Test for iCloud sync sensitive data exposure
+Test for CloudKit record sensitive data retention
+Test for CKContainer data access vulnerability
+Test for NSUbiquitousKeyValueStore data exposure
+Test for shared container data access vulnerability
+Test for app group container sensitive data leak
+Test for pasteboard general data persistence vulnerability
+Test for pasteboard unique data persistence vulnerability
+Test for UIWebView (deprecated) memory leak vulnerability ::passive
+Test for JavaScriptCore context memory leak
+Test for CoreFoundation object memory management issue ::passive
+Test for CFString sensitive data retention vulnerability
+Test for CFData sensitive data retention vulnerability
+Test for CFDictionary sensitive data retention vulnerability
+Test for CoreGraphics image buffer data retention
+Test for CoreImage filter chain data exposure
+Test for CoreAnimation layer content data retention
+Test for Metal buffer sensitive data exposure
+Test for OpenGL ES buffer data retention vulnerability
+Test for Audio Unit buffer data exposure vulnerability
+Test for AVFoundation asset buffer data retention
+Test for PhotoKit asset data cache exposure
+Test for MapKit location data cache vulnerability
+Test for HealthKit data cache retention vulnerability
+Test for Contacts data cache retention vulnerability
+Test for EventKit data cache retention vulnerability
+Test for CoreMotion data cache retention vulnerability
+Test for CoreLocation data cache retention vulnerability
+Test for Bluetooth data cache retention vulnerability
+Test for NFC tag data cache retention vulnerability
+Test for SiriKit intent data retention vulnerability
+Test for CallKit data cache retention vulnerability
+Test for PushKit data cache retention vulnerability
+Test for WatchConnectivity data transfer vulnerability
+Test for MultipeerConnectivity data exposure vulnerability
+
+@skill ios-forensic-audit
+## iOS Data Recovery
+Test iOS data recovery: data recovery after application uninstall on iOS
+Test iOS data recovery: data recovery after app data clearing
+Test iOS data recovery: data recovery from Keychain after app deletion
+Test iOS data recovery: data recovery from UserDefaults after uninstall
+Test iOS data recovery: data recovery from CoreData database residue
+Test iOS data recovery: data recovery from SQLite database residue
+Test iOS data recovery: data recovery from Documents directory residue
+Test iOS data recovery: data recovery from Library directory residue
+Test iOS data recovery: data recovery from tmp directory residue
+Test iOS data recovery: data recovery from Cache directory residue
+Test iOS data recovery: data recovery from iCloud backup data
+Test iOS data recovery: data recovery from iTunes/Finder backup
+Test iOS data recovery: data recovery from iCloud Drive app data
+Test iOS data recovery: data recovery from CloudKit record residue
+Test iOS data recovery: data recovery from device-to-device migration
+Test iOS data recovery: data recovery from Quick Start transfer
+Test iOS data recovery: data recovery from deleted SQLite records
+Test iOS data recovery: data recovery from WAL file residue on iOS
+Test iOS data recovery: data recovery from journal file residue on iOS
+Test iOS data recovery: data recovery from temporary file residue
+Test iOS data recovery: data recovery from crash log residue
+Test iOS data recovery: data recovery from diagnostic report data
+Test iOS data recovery: data recovery from metricKit hang report
+Test iOS data recovery: data recovery from metricKit crash data
+Test iOS data recovery: data recovery from metricKit disk write data
+Test iOS data recovery: data recovery from metricKit CPU exception data
+Test iOS data recovery: data recovery from system log entries
+Test iOS data recovery: data recovery from os_log persistent entries
+Test iOS data recovery: data recovery from unified log system data
+Test iOS data recovery: data recovery from sysdiagnose output
+Test iOS data recovery: data recovery from console log capture
+Test iOS data recovery: data recovery from network extension data
+Test iOS data recovery: data recovery from VPN configuration residue
+Test iOS data recovery: data recovery from WiFi known networks
+Test iOS data recovery: data recovery from Bluetooth paired devices
+Test iOS data recovery: data recovery from NFC tag session data
+Test iOS data recovery: data recovery from CoreLocation visited places
+Test iOS data recovery: data recovery from significant location changes
+Test iOS data recovery: data recovery from location services cache
+Test iOS data recovery: data recovery from Maps route history
+Test iOS data recovery: data recovery from Siri interaction history
+Test iOS data recovery: data recovery from Dictation history data
+Test iOS data recovery: data recovery from Spotlight index data
+Test iOS data recovery: data recovery from Safari bookmarks residue
+Test iOS data recovery: data recovery from Safari history database
+Test iOS data recovery: data recovery from Safari cache directory
+Test iOS data recovery: data recovery from Safari WebKit local storage
+Test iOS data recovery: data recovery from Safari WebKit session storage
+Test iOS data recovery: data recovery from Safari WebKit indexedDB
+Test iOS data recovery: data recovery from photo library thumbnail cache
+Test iOS data recovery: data recovery from camera roll deleted items
+Test iOS data recovery: data recovery from recently deleted photos album
+Test iOS data recovery: data recovery from iCloud photo stream residue
+Test iOS data recovery: data recovery from shared album cache data
+Test iOS data recovery: data recovery from HealthKit data residue
+Test iOS data recovery: data recovery from Contacts database residue
+Test iOS data recovery: data recovery from Calendar database residue
+Test iOS data recovery: data recovery from Reminders database residue
+Test iOS data recovery: data recovery from Notes database residue
+Test iOS data recovery: data recovery from Messages attachment cache
+Test iOS data recovery: data recovery from Mail draft cache data
+Test iOS data recovery: data recovery from Keyboard learned words
+Test iOS data recovery: data recovery from Clipboard/Pasteboard history
+Test iOS data recovery: data recovery from Notification Center cache
+Test iOS data recovery: data recovery from Widget data residue
+Test iOS data recovery: data recovery from Apple Watch paired data
+Test iOS data recovery: data recovery from AirDrop transfer cache
+Test iOS data recovery: data recovery from Handoff activity data
+Test iOS data recovery: data recovery from Universal Clipboard data
+Test iOS data recovery: data recovery from Continuity camera data
+Test iOS data recovery: data recovery from Sidecar display data
+Test iOS data recovery: data recovery from AirPlay session data
+Test iOS data recovery: data recovery from HomeKit configuration data
+Test iOS data recovery: data recovery from Wallet pass data residue
+Test iOS data recovery: data recovery from Apple Pay transaction cache
+Test iOS data recovery: data recovery from Face ID enrollment data
+Test iOS data recovery: data recovery from Touch ID configuration data
+Test iOS data recovery: data recovery from Secure Enclave key metadata
+Test iOS data recovery: data recovery from DeviceCheck attestation data
+Test iOS data recovery: data recovery from App Attest token data
+Test iOS data recovery: data recovery from push notification cache
+Test iOS data recovery: data recovery from background refresh data
+Test iOS data recovery: data recovery from background transfer cache
+Test iOS data recovery: data recovery from URL session cache data
+Test iOS data recovery: data recovery from URL credential storage data
+Test iOS data recovery: data recovery from cookie storage data
+Test iOS data recovery: data recovery from HTTP cache directory data
+Test iOS data recovery: data recovery from network extension cache
+Test iOS data recovery: data recovery from CallKit call history
+Test iOS data recovery: data recovery from MessageKit message cache

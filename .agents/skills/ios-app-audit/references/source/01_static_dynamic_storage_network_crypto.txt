@@ -1,0 +1,214 @@
+# Source checklist (part 1). Read by scripts/build_ios_checklists.py.
+# Directives: @skill <name>   |   ## <section title>   |   @prefix <text>   |   @prefix (clears)
+# A line may end with "::passive|bounded|authorized-only|not-tested" to set its class explicitly.
+
+@skill ios-static-audit
+## Static Analysis
+Decompile IPA with class-dump for Objective-C header analysis
+Use Hopper/IDA for disassembly and control flow analysis ::passive
+Check Info.plist for sensitive configuration and URL schemes
+Check for ATS (App Transport Security) exceptions and bypasses ::passive
+Analyze URL schemes and deep links for hijacking potential ::passive
+Check for hardcoded secrets in binary strings
+Analyze encryption key management and storage
+Check for debug symbols in binary (stripped or not)
+Check for NSLog/NSAssert statements with sensitive data output
+Analyze third-party frameworks and libraries for vulnerabilities
+Check for insecure data storage in Documents/Library directories
+Analyze CoreData model for sensitive entity attributes
+Check for Firebase/GoogleService-Info.plist configuration exposure
+Analyze entitlements for dangerous permissions and capabilities
+Check for background modes security (location, audio, VOIP)
+Analyze app extensions security (share, today, keyboard)
+Check for universal links configuration (apple-app-site-association) ::passive
+Analyze WKWebView configuration and security settings
+Check for JavaScript enabled in WKWebView
+Check for file access in WKWebView (allowFileAccessFromFileURLs)
+Analyze Keychain access groups and sharing between apps
+Check for pasteboard (clipboard) usage with sensitive data
+Analyze encryption implementation (CommonCrypto, CryptoKit)
+Check for insecure random number generation (arc4random vs SecRandomCopyBytes)
+Look for format string vulnerabilities in NSLog/printf calls
+Check for stack buffer overflow possibilities in C/C++ code
+Analyze Objective-C runtime manipulation potential (method swizzling) ::passive
+Check for app group container security between host and extensions
+Analyze SiriKit intent handling for unauthorized actions ::passive
+Check for widget extension data leakage to other apps
+
+@skill ios-dynamic-audit
+## Dynamic Analysis
+Use Frida for runtime hooking on jailbroken iOS device ::authorized-only
+Use Objection for runtime exploration and data access ::authorized-only
+Hook SSL pinning bypass with Frida/Objection scripts ::authorized-only
+Hook jailbreak detection bypass with Frida/Objection scripts ::authorized-only
+Monitor network traffic with Burp Suite proxy ::authorized-only
+Use Cycript for runtime manipulation on jailbroken device ::authorized-only
+Use LLDB for debugging and memory analysis ::authorized-only
+Test for Touch ID/Face ID bypass via Frida hooking ::authorized-only
+Monitor Keychain access with Keychain dumper tool ::authorized-only
+Test for pasteboard data leakage between apps ::bounded
+Monitor UserDefaults for sensitive data storage ::bounded
+Test for screenshot prevention on sensitive screens ::bounded
+Test for app backgrounding behavior and data exposure ::bounded
+Monitor IPC between app and extensions ::authorized-only
+Test for URL scheme hijacking from malicious app ::authorized-only
+Test for deep link injection and parameter manipulation ::authorized-only
+Analyze background fetch behavior for data leakage ::bounded
+Test for push notification content security in alerts ::bounded
+Monitor file system access patterns during app usage ::authorized-only
+Test for clipboard data persistence after app exit ::bounded
+
+@skill ios-data-storage-audit
+## Data Storage
+Check Keychain for insecure data storage (kSecAttrAccessible always) ::bounded
+Check UserDefaults for sensitive data (credentials, tokens) ::bounded
+Check CoreData database for sensitive data in plaintext ::bounded
+Check SQLite databases for sensitive data without encryption ::bounded
+Check for plaintext credentials in plist files ::bounded
+Check for sensitive data in cache directories (Library/Caches) ::bounded
+Check for sensitive data in tmp directories ::bounded
+Test for backup inclusion of sensitive data (iTunes/Finder) ::authorized-only
+Check for iCloud backup of sensitive app data ::bounded
+Test for secure deletion of temporary files on logout ::bounded
+Check for data encryption at rest using iOS Data Protection ::bounded
+Test for data persistence after app deletion and reinstall ::bounded
+Check for keyboard cache leakage of sensitive input ::bounded
+Test for pasteboard data leakage between applications ::bounded
+Check for sensitive data in crash logs and diagnostic reports ::bounded
+
+@skill ios-network-audit
+## Network Communication
+Test for cleartext HTTP traffic (ATS bypass or exception)
+Check for certificate pinning implementation and bypass
+Test for SSL/TLS version and cipher suite security ::bounded
+Check for custom certificate validation bypass vulnerability
+Test for ATS exception domains security and justification ::passive
+Check for API communication security (HTTPS, token handling)
+Test for sensitive data in network request parameters ::authorized-only
+Check for proper OAuth token handling in network calls
+Test for WebSocket security (wss vs ws protocol)
+Check for network proxy detection and prevention
+
+@skill ios-crypto-keychain-audit
+## Cryptography
+Check for weak encryption algorithms (DES, RC4, ECB mode)
+Check for hardcoded encryption keys in binary
+Test for proper key derivation (PBKDF2, Argon2 with sufficient iterations)
+Check for IV/nonce reuse in encryption operations
+Test for insecure random number generation ::passive
+Check for proper key storage in Keychain with access control
+Test for cryptographic key derivation weaknesses
+Check for CommonCrypto vs CryptoKit usage and security
+Test for timing attacks in cryptographic comparison operations ::passive
+Check for Secure Enclave usage for key operations and biometrics
+
+@skill ios-reverse-protection-audit
+## Jailbreak Detection & Anti-Tampering
+Test for jailbreak detection implementation and effectiveness
+Test for jailbreak detection bypass methods via Frida ::authorized-only
+Check for file-based jailbreak detection (/Applications/Cydia.app)
+Check for URL scheme-based jailbreak detection (cydia://)
+Test for dylib injection detection via DYLD_INSERT_LIBRARIES
+Check for code signing verification and integrity
+Test for runtime integrity checks and method swizzling detection
+Check for anti-debugging mechanisms (sysctl P_TRACED check)
+Test for reverse engineering protection effectiveness
+Check for app integrity verification using code signing
+
+@skill ios-deeplink-audit
+## iOS URL Scheme Deep Testing
+Test for custom URL scheme hijacking by malicious apps ::authorized-only
+Test for URL scheme parameter injection and manipulation ::authorized-only
+Test for URL scheme deep link to internal feature access ::authorized-only
+Test for universal links verification bypass ::authorized-only
+Test for apple-app-site-association file security ::bounded
+Test for URL scheme callback data leakage ::authorized-only
+Test for URL scheme authentication bypass ::authorized-only
+Test for URL scheme to internal API endpoint access ::authorized-only
+Test for URL scheme JavaScript execution in WebView ::authorized-only
+Test for URL scheme file access vulnerability ::authorized-only
+Test for URL scheme SQL injection in parameters ::authorized-only
+Test for URL scheme path traversal in parameters ::authorized-only
+Test for URL scheme XSS via parameter reflection ::authorized-only
+Test for URL scheme open redirect vulnerability ::authorized-only
+Test for URL scheme denial of service via malformed URLs ::authorized-only
+
+@skill ios-crypto-keychain-audit
+## iOS Keychain Deep Testing
+Test for Keychain items with kSecAttrAccessibleAlways
+Test for Keychain items with kSecAttrAccessibleAfterFirstUnlock
+Test for Keychain items without kSecAttrAccessControl
+Test for Keychain access group sharing between apps
+Test for Keychain item protection level appropriateness
+Test for Keychain data extraction on jailbroken device ::authorized-only
+Test for Keychain data persistence after app deletion ::bounded
+Test for Keychain biometric access control implementation
+Test for Keychain item migration between devices
+Test for Keychain item backup inclusion in iTunes/Finder ::authorized-only
+
+@skill ios-privacy-permission-audit
+## iOS Privacy & Permissions
+Test for camera access without proper permission request
+Test for microphone access without proper permission request
+Test for location access with improper usage description
+Test for contacts access without legitimate need
+Test for photos access without proper authorization
+Test for calendar access without proper justification
+Test for reminder access without proper justification
+Test for health kit data access security
+Test for home kit data access security
+Test for motion and fitness data access security
+Test for Siri data access and intent handling security
+Test for Bluetooth access and data leakage
+Test for local network access permission security
+Test for tracking permission (App Tracking Transparency)
+Test for focus and Do Not Disturb access security
+
+@skill ios-network-audit
+## iOS Network Deep Testing
+Test for ATS (App Transport Security) exception domains ::passive
+Test for NSAllowsArbitraryLoads in Info.plist ::passive
+Test for NSAllowsLocalNetworking in Info.plist ::passive
+Test for certificate pinning implementation (AFNetworking/Alamofire)
+Test for SSL/TLS protocol version enforcement ::bounded
+Test for custom URL session delegate security
+Test for URLCredentialStorage security
+Test for cookie handling security in URLSession
+Test for WebSocket connection security
+Test for proxy configuration security
+Test for network extension security (VPN, content filter)
+Test for DNS resolution security and DNS over HTTPS
+Test for multipart form upload security
+Test for background URL session security
+Test for server trust evaluation customization
+
+@skill ios-extension-ipc-audit
+## iOS App Extensions
+Test for Share extension data handling security
+Test for Today widget data access security
+Test for custom keyboard extension data leakage
+Test for Photo editing extension data access
+Test for Document provider extension security
+Test for Action extension data handling
+Test for File provider extension security
+Test for Audio unit extension security
+Test for Broadcast upload extension security
+Test for Call directory extension security
+Test for Intents extension (Siri) security
+Test for Message filter extension security
+Test for Network extension security
+Test for Notification content extension security
+Test for Sticker pack extension security
+
+@skill ios-data-storage-audit
+## iOS Data Protection
+Test for NSFileProtectionComplete on sensitive files
+Test for NSFileProtectionCompleteUnlessOpen on files
+Test for NSFileProtectionCompleteUntilFirstUserAuthentication
+Test for NSFileProtectionNone on sensitive data
+Test for Data Protection class verification on device ::bounded
+Test for file protection after device lock ::bounded
+Test for data protection on backup data ::bounded
+Test for data protection on cached data
+Test for data protection on temporary files
+Test for data protection on SQLite WAL files

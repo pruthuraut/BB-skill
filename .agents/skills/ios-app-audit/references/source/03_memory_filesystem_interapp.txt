@@ -1,0 +1,160 @@
+# Source checklist (part 3). Read by scripts/build_ios_checklists.py.
+
+@skill ios-memory-audit
+## Memory Security
+Test if application clears sensitive data from memory after use
+Check if application uses secure zeroing for password buffers in memory
+Test if application prevents sensitive data from being paged to disk ::not-tested
+Verify if application uses malloc_zone for secure memory allocation of sensitive data ::passive
+Test if application prevents memory dumping via debuggers on jailbroken devices
+Check if application uses objc_destructInstance to clear object data on dealloc ::passive
+Test if application handles memory pressure without exposing sensitive data
+Verify if application marks sensitive memory pages as non-cacheable ::passive
+Test if application prevents memory inspection via Frida or similar tools
+Check if application uses Data object instead of NSString for sensitive data ::passive
+Test if application properly clears autorelease pool containing sensitive objects
+Verify if application prevents sensitive data from appearing in crash dumps ::bounded
+Test if application uses secure deallocation for cryptographic key material
+Check if application prevents memory mapping of sensitive file contents ::passive
+Test if application properly handles secure enclave data in memory
+Verify if application uses Address Space Layout Randomization effectively ::passive
+Test if application prevents memory content leakage via uninitialized variables ::passive
+Check if application properly handles stack canary for buffer overflow protection ::passive
+Test if application prevents format string attacks via memory manipulation ::passive
+Verify if application uses Data.withUnsafeBytes for secure memory access ::passive
+Test if application clears clipboard data containing sensitive information ::bounded
+Check if application prevents heap spray attacks for code execution ::passive
+Test if application properly handles memory deallocation in error paths ::passive
+Verify if application prevents use-after-free vulnerabilities in native code ::passive
+Test if application uses memory guard pages to detect buffer overruns ::passive
+Check if application prevents double-free vulnerabilities in memory management ::passive
+Test if application properly secures memory during background transitions
+Verify if application clears memory before returning to system on termination ::not-tested
+Test if application prevents memory content exposure via task_for_pid ::not-tested
+Check if application validates memory buffer sizes before copy operations ::passive
+Test if application properly handles memory alignment for security-critical operations ::passive
+Verify if application uses stack protection flags in compiled code ::passive
+Test if application prevents memory content leakage via core dumps ::bounded
+Check if application properly handles memory-mapped files for sensitive data ::passive
+Test if application prevents integer overflow in memory allocation calculations ::passive
+Verify if application uses secure coding practices for pointer arithmetic ::passive
+Test if application prevents memory disclosure via timing side channels ::passive
+Check if application properly handles memory fragmentation for security ::not-tested
+Test if application validates memory region permissions before access ::passive
+Verify if application prevents return-oriented programming attacks ::passive
+Test if application uses Control Flow Integrity for native code protection ::passive
+Check if application properly handles memory when processing large inputs ::authorized-only
+Test if application prevents memory content exposure via swap file ::not-tested
+Verify if application uses position-independent executable for ASLR ::passive
+Test if application prevents memory disclosure via uninitialized struct padding ::passive
+Check if application properly handles ARC weak references without dangling pointers ::passive
+Test if application prevents memory content leakage via exception handling ::bounded
+Verify if application uses secure memory comparison for cryptographic operations ::passive
+Test if application prevents memory exhaustion attacks via resource limits ::authorized-only
+Check if application properly handles memory during inter-process communication
+
+@skill ios-data-storage-audit
+## File System Deep
+Test if application stores sensitive files with NSFileProtectionComplete attribute
+Check if temporary files are securely deleted after use ::bounded
+Test if application files in Documents directory are excluded from iCloud backup appropriately
+Verify if application validates file paths to prevent directory traversal attacks
+Test if application uses secure file deletion that overwrites data before removal ::passive
+Check if application properly handles file protection level changes on lock/unlock ::bounded
+Test if application prevents unauthorized access to files in shared app group containers
+Verify if application validates file types before processing uploaded files
+Test if application properly handles symbolic links to prevent file system escape ::authorized-only
+Check if application files have restrictive POSIX permissions set correctly ::bounded
+Test if application prevents data leakage via file coordination notifications
+Verify if application uses NSFileCoordinator for thread-safe file access ::passive
+Test if application properly handles file download integrity verification
+Check if application prevents unauthorized file access via document picker
+Test if application validates file size limits to prevent disk space exhaustion ::authorized-only
+Verify if application properly handles file encryption key management
+Test if application prevents file metadata leakage via extended attributes ::bounded
+Check if application uses URL bookmarks securely for persistent file access
+Test if application properly handles file protection when device is locked ::bounded
+Verify if application prevents unauthorized file sharing via UIActivityViewController
+Test if application validates file URL scheme before accessing local files
+Check if application properly handles file write atomicity for data integrity ::passive
+Test if application prevents file system race conditions in file operations ::passive
+Verify if application handles file system errors without exposing internal paths ::bounded
+Test if application properly manages cache directory eviction of sensitive data ::bounded
+Check if application prevents unauthorized file access via iTunes file sharing
+Test if application validates file content before opening with system handlers
+Verify if application properly handles file system snapshot backups ::bounded
+Test if application prevents unauthorized file monitoring via dispatch source ::passive
+Check if application uses proper file protection for SQLite database files
+Test if application prevents file descriptor leakage to child processes ::not-tested
+Verify if application handles file system full scenarios gracefully ::not-tested
+Test if application properly secures files exported to external storage
+Check if application prevents unauthorized file access via print service ::passive
+Test if application validates file names for illegal characters and length
+Verify if application properly handles file system case sensitivity differences ::passive
+Test if application prevents file access via hard link exploitation ::not-tested
+Check if application uses secure file provider extension for cloud storage
+Test if application properly handles file versioning for data recovery ::passive
+Verify if application prevents file system metadata leakage via stat operations ::passive
+Test if application validates file ownership before performing operations ::passive
+Check if application properly handles file system encoding for Unicode names ::passive
+Test if application prevents unauthorized file creation in system directories ::bounded
+Verify if application uses Data Protection API consistently for all file types
+Test if application properly handles file system access during device encryption ::not-tested
+Check if application prevents file leakage via Spotlight indexing
+Test if application validates file checksums for downloaded resources
+Verify if application properly handles file system junction points ::not-tested
+Test if application prevents unauthorized file observation via kqueue ::passive
+Check if application properly secures configuration files in application bundle
+
+@skill ios-extension-ipc-audit
+## Inter-App Security
+Test if application properly validates data received via URL schemes from other apps ::authorized-only
+Check if application prevents unauthorized data sharing via UIPasteboard
+Test if application properly restricts custom URL scheme access
+Verify if application uses app group containers securely for data sharing
+Test if application prevents inter-app communication interception ::authorized-only
+Check if application validates the source of incoming XPC messages ::passive
+Test if application properly handles data received via AirDrop ::authorized-only
+Verify if application restricts share extension data access appropriately
+Test if application prevents unauthorized access to shared keychain items
+Check if application validates intent data received from SiriKit
+Test if application properly handles data received via Handoff
+Verify if application restricts activity continuation to trusted sources
+Test if application prevents data leakage via Universal Clipboard
+Check if application properly validates document provider interactions
+Test if application restricts file provider extension data access
+Verify if application prevents unauthorized inter-app audio session access ::passive
+Test if application properly handles call directory extension data
+Check if application validates message extension data integrity
+Test if application prevents photo editing extension data leakage
+Verify if application properly restricts custom keyboard data access
+Test if application prevents data exfiltration via sharing activities
+Check if application validates shared container data from other apps in group
+Test if application properly handles widget extension data sharing
+Verify if application prevents watch connectivity data interception ::passive
+Test if application validates nearby interaction data from other devices ::passive
+Check if application properly restricts NFC tag reading data sharing
+Test if application prevents unauthorized inter-process communication via Darwin notifications
+Verify if application validates data received via Core Data shared store
+Test if application properly handles CloudKit shared record access ::authorized-only
+Check if application prevents unauthorized Game Center data access ::passive
+Test if application validates AdSupport identifier sharing consent
+Verify if application properly restricts contact store access from extensions
+Test if application prevents unauthorized event kit data sharing
+Check if application validates health kit data sharing with other apps
+Test if application properly handles HomeKit accessory data sharing
+Verify if application prevents unauthorized Maps data sharing ::passive
+Test if application validates Sign in with Apple data integrity ::authorized-only
+Check if application properly restricts App Clips data sharing with full app
+Test if application prevents unauthorized Spotlight index data access
+Verify if application properly handles focus configuration sharing ::passive
+Test if application validates shortcut action data from other apps
+Check if application properly restricts group activity sharing ::passive
+Test if application prevents unauthorized CarPlay data access ::passive
+Verify if application validates driver kit inter-app communication ::not-tested
+Test if application properly handles shared with you data presentation ::passive
+Check if application prevents unauthorized live activity data access
+Test if application validates widget configuration data integrity
+Verify if application properly restricts photo picker shared access
+Test if application prevents unauthorized communication via local network
+Check if application validates Bluetooth sharing data integrity

@@ -1,0 +1,266 @@
+# Source checklist (part 2). Read by scripts/build_ios_checklists.py.
+
+@skill ios-deeplink-audit
+## Deep Link Deep
+Test if custom URL schemes are properly validated before processing deep link data
+Check if universal links validate the associated domain apple-app-site-association file ::bounded
+Test if deep link parameters can be manipulated for unauthorized access to app features
+Verify if deep links properly sanitize input before passing to internal handlers
+Test if deep links can bypass authentication requirements for protected views
+Check if application handles deep link callback URLs to prevent open redirect attacks
+Test if deep link URL parsing handles malformed URLs without crashing or leaking data ::authorized-only
+Verify if universal link validation prevents hijacking by malicious applications
+Test if deep link parameters are validated for type and length constraints ::authorized-only
+Check if deep link handlers enforce authorization before executing sensitive operations
+Test if deep links can be used to inject JavaScript into WKWebView instances
+Verify if application validates the source of deep link navigation requests
+Test if deep links can manipulate application state via URL fragment parameters
+Check if deep link registered schemes do not conflict with system or other app schemes ::passive
+Test if deep link handlers prevent path traversal to access protected app resources
+Verify if application properly handles deep link requests from other apps ::authorized-only
+Test if deep links can be used to enumerate internal application functionality
+Check if universal links AASA file is served over HTTPS with proper content-type ::bounded
+Test if deep link parameters are logged without sanitization exposing sensitive data ::bounded
+Verify if deep link handlers validate URL scheme before processing
+Test if deep links can access sensitive user data through URL parameter injection
+Check if application properly handles multiple deep link requests in rapid succession ::authorized-only
+Test if deep links can bypass app Transport Security settings
+Verify if deep link navigation enforces proper view controller initialization ::authorized-only
+Test if deep links can trigger in-app purchases without user confirmation
+Check if application prevents deep link phishing via visually similar URL schemes ::passive
+Test if deep link handlers properly validate URL encoding and decoding ::authorized-only
+Verify if application prevents deep link abuse for account takeover via token theft
+Test if deep links can bypass biometric authentication for protected features
+Check if application validates deep link continueUserActivity restoration state ::passive
+Test if deep links can be used to exfiltrate data via custom scheme callbacks
+Verify if application properly handles deep link cancellation and cleanup ::authorized-only
+Test if deep links can modify shared UserDefaults or app group data
+Check if universal links properly handle multiple matching patterns ::bounded
+Test if deep link handlers validate calling application bundle identifier ::passive
+Verify if application prevents deep link injection via pasteboard or clipboard
+Test if deep links can exploit scene lifecycle for unauthorized access
+Check if deep link parameters can override security-critical app settings ::authorized-only
+Test if application handles deep links with excessive parameter sizes securely ::authorized-only
+Verify if deep link routing does not expose internal view controller hierarchy ::passive
+Test if deep links can trigger background URL sessions with malicious endpoints
+Check if application validates deep link redirect chains to prevent SSRF ::authorized-only
+Test if deep links can bypass content filtering or parental controls
+Verify if application prevents deep link abuse for privilege escalation within app
+Test if deep link handlers properly isolate web content from native functionality ::authorized-only
+Check if deep links can access CloudKit or iCloud data without proper authorization ::authorized-only
+Test if application handles deep link scheme confusion attacks
+Verify if deep links enforce rate limiting to prevent automated abuse ::authorized-only
+Test if application prevents deep link data persistence across app sessions ::bounded
+Check if universal links validate app ID in AASA file matches the requesting app ::bounded
+
+@skill ios-notification-audit
+## Notification Security
+Test if push notifications contain sensitive data visible on lock screen ::bounded
+Check if notification content extension validates data before display
+Test if notification service extension properly handles encrypted payloads
+Verify if remote notification registration uses proper device token handling
+Test if notification actions can be triggered without proper authentication ::authorized-only
+Check if notification categories properly group sensitive vs non-sensitive alerts
+Test if application handles notification receipt while in foreground securely ::bounded
+Verify if notification content does not leak information via preview text ::bounded
+Test if critical alert notifications require proper authorization entitlement ::passive
+Check if notification attachments are validated before rendering
+Test if mutable content notifications can be tampered with in transit
+Verify if application properly handles notification deletion events
+Test if notification service extension does not expose data to other processes
+Check if notification response handling validates user identity before action
+Test if application prevents notification content spoofing from malicious servers
+Verify if notification payload size limits are enforced to prevent DoS
+Test if application handles background notification processing securely
+Check if notification actions require biometric confirmation for sensitive operations
+Test if silent notifications cannot be abused for unauthorized background activity
+Verify if notification content extension properly isolates rendered content
+Test if application validates APNs certificate pinning for push connections ::not-tested
+Check if notification scheduling prevents unauthorized future action execution
+Test if notification settings respect user privacy preferences ::bounded
+Verify if application handles notification failure without retrying sensitive data
+Test if notification custom sounds do not reveal information about notification type ::passive
+Check if notification badge count manipulation is protected from unauthorized apps ::passive
+Test if application properly handles notification when device is locked ::bounded
+Verify if notification thread identifier is not used to correlate sensitive data
+Test if notification target content identifier prevents unauthorized content access
+Check if application prevents notification data exfiltration via accessibility features
+Test if notification summary text does not expose sensitive message content ::bounded
+Verify if application handles communication notification permissions properly ::passive
+Test if notification relevance score cannot be manipulated to prioritize malicious content
+Check if application filters notification content based on Focus mode settings
+Test if notification filter criteria do not expose user behavior patterns
+Verify if application prevents notification interception by malicious keyboards ::not-tested
+Test if notification handling does not create temporary files with sensitive data ::bounded
+Check if application properly validates notification source before processing actions
+Test if notification launching behavior properly authenticates user in app ::authorized-only
+Verify if application handles notification rate limiting to prevent spam abuse
+Test if notification content extension prevents cross-site scripting in web views
+Check if application prevents notification data persistence in system databases ::bounded
+Test if notification alert configuration does not leak data to other apps ::passive
+Verify if application handles notification when app is in different authentication states ::bounded
+Test if notification icon and color cannot be used to spoof system notifications ::not-tested
+Check if application properly handles notification while VPN is active ::bounded
+Test if critical notification entitlement is not abused for non-critical purposes ::passive
+Verify if application handles notification service extension crash without data loss ::bounded
+Test if notification action authentication prevents unauthorized response submission ::authorized-only
+Check if application properly secures notification channel communication
+
+@skill ios-sandbox-audit
+## Sandbox Deep
+Test if application properly isolates data within its sandbox container ::bounded
+Check if application accesses files outside its designated container ::bounded
+Test if temporary files are created with proper permissions in sandbox ::bounded
+Verify if application properly uses app group containers for shared data
+Test if sandbox escape is possible via URL scheme handler exploitation ::authorized-only
+Check if application handles file coordination with other apps securely
+Test if application prevents access to other apps' container directories ::bounded
+Verify if application uses security-scoped bookmarks for external file access
+Test if application properly handles sandbox extension revocation ::not-tested
+Check if application prevents data exfiltration via pasteboard from sandbox
+Test if application file provider extension operates within sandbox constraints
+Verify if application handles XPC services with proper sandbox entitlements
+Test if application sandbox profile restricts network access appropriately ::passive
+Check if application properly sanitizes file paths to prevent sandbox escape
+Test if application prevents symbolic link attacks that escape sandbox ::authorized-only
+Verify if application uses hardening runtime entitlement for additional protection ::passive
+Test if application handles keychain access within sandbox restrictions
+Check if application prevents unauthorized Darwin notification observation
+Test if application properly isolates web content in WKWebView within sandbox
+Verify if application share extension operates within sandbox boundary
+Test if application prevents IPC-based sandbox escape via Mach messages ::not-tested
+Check if application handles document picker within sandbox constraints
+Test if application photo library access is properly sandboxed
+Verify if application prevents data leakage via UIActivityViewController
+Test if application properly handles iCloud container sandbox boundaries
+Check if application prevents unauthorized access to /tmp directory across apps ::bounded
+Test if application handles background fetch within sandbox restrictions
+Verify if application prevents sandbox escape via custom keyboard extension ::not-tested
+Test if application properly restricts network extensions within sandbox
+Check if application prevents unauthorized inter-app communication via Darwin ports
+Test if application properly handles callkit integration within sandbox
+Verify if application prevents data exfiltration via handoff between devices
+Test if application properly handles universal links within sandbox constraints
+Check if application prevents exploit of XPC service for sandbox escape ::not-tested
+Test if application properly restricts SiriKit intent handling within sandbox
+Verify if application prevents unauthorized access to shared framework data
+Test if application properly handles Core Data store within sandbox container ::bounded
+Check if application prevents exploitation of NSFileCoordinator for sandbox escape ::not-tested
+Test if application properly restricts NSURLSession background transfers in sandbox
+Verify if application prevents unauthorized access to app group containers
+Test if application properly handles intent extension sandbox restrictions
+Check if application prevents exploitation of MapKit for sandbox data exfiltration ::not-tested
+Test if application properly restricts notification service extension sandbox
+Verify if application prevents exploit of IPC via NSXPCConnection for sandbox escape ::not-tested
+Test if application properly handles action extension within sandbox boundary
+Check if application prevents data leakage via UIPasteboard between sandboxed apps
+Test if application properly restricts network multicast within sandbox ::passive
+Verify if application prevents exploitation of OpenSSH or remote services ::not-tested
+Test if application properly handles photo editing extension sandbox constraints
+Check if application prevents sandbox escape via IOKit framework exploitation ::not-tested
+
+@skill ios-crypto-keychain-audit
+## Keychain Deep 2
+Test if keychain items use appropriate access control with biometric protection
+Check if keychain items are stored with kSecAttrAccessible policy appropriate for sensitivity
+Test if application uses kSecAccessControlUserPresence for sensitive keychain items
+Verify if keychain items are properly deleted when user logs out ::bounded
+Test if keychain item access groups properly isolate data between apps
+Check if application uses kSecAttrSynchronizable appropriately for iCloud keychain
+Test if keychain items are protected with device passcode requirement
+Verify if application properly handles keychain migration to new device
+Test if keychain items have unique service identifiers to prevent collision
+Check if application validates keychain item before using stored credentials
+Test if keychain items are encrypted with application-specific keys
+Verify if application handles keychain item update without data exposure
+Test if application uses Secure Enclave for keychain key operations when available
+Check if keychain item attributes do not expose sensitive metadata
+Test if application properly handles keychain access in background state
+Verify if application uses kSecAttrAccessibleWhenUnlockedThisDeviceOnly for device-bound items
+Test if application properly handles keychain data protection class changes
+Check if keychain search queries use specific attributes to prevent data leakage
+Test if application handles keychain quota limits without data exposure ::not-tested
+Verify if application properly invalidates keychain items on passcode change
+Test if application prevents keychain item access from compromised processes ::not-tested
+Check if application uses authentication context for biometric-gated keychain access
+Test if keychain items are properly scoped with kSecAttrAccount uniqueness
+Verify if application handles keychain error codes without information leakage
+Test if application properly rotates keychain encryption keys
+Check if keychain items are protected against cold boot attacks on device ::not-tested
+Test if application uses kSecAttrAccessibleAfterFirstUnlock appropriately for background access
+Verify if application prevents keychain data from being included in backups
+Test if application handles concurrent keychain access from multiple threads ::passive
+Check if keychain items are invalidated on device unenrollment from MDM ::not-tested
+Test if application properly handles keychain item sharing via access groups
+Verify if application uses kSecAttrTokenID for hardware-backed keychain items
+Test if application properly handles keychain authentication UI context
+Check if keychain items have appropriate creation and modification dates tracked
+Test if application prevents keychain access during device lock state ::bounded
+Verify if application properly validates keychain item integrity before use
+Test if application uses kSecAttrPersistentReference for stable keychain references
+Check if application handles keychain migration during app version updates
+Test if application prevents keychain data leakage via backup extraction ::authorized-only
+Verify if application properly handles keychain access with multiple fingerprints enrolled
+Test if application uses kSecAttrApplicationLabel for key identification without data leakage
+Check if application properly secures keychain access when device is jailbroken
+Test if application handles keychain operation timeout gracefully ::passive
+Verify if application uses different access levels for different keychain item types
+Test if application prevents unauthorized keychain item modification by extensions
+Check if keychain access group entitlements match between app and extensions
+Test if application properly validates LAContext before keychain operation
+Verify if application handles keychain data recovery after device restore ::bounded
+Test if application prevents keychain brute force via repeated biometric attempts ::not-tested
+Check if application properly isolates keychain items between app and share extension
+
+@skill ios-coredata-audit
+## CoreData Security
+Test if CoreData store files are encrypted using NSPersistentStoreFileProtectionKey
+Check if CoreData migration handles schema changes without data exposure
+Verify if CoreData queries prevent injection via predicate format strings
+Test if application uses NSFileProtectionComplete for CoreData store files
+Check if CoreData persistent store is properly secured in shared app group containers
+Test if application validates fetched CoreData objects before processing
+Verify if CoreData CloudKit integration uses proper encryption for synced data
+Test if application prevents unauthorized access to CoreData SQLite files ::bounded
+Check if CoreData lightweight migration preserves data protection levels
+Test if application properly handles CoreData merge conflicts without data loss ::passive
+Verify if CoreData queries use parameterized predicates to prevent injection
+Test if application secures CoreData WAL and SHM files alongside main database
+Check if application properly handles CoreData store corruption scenarios ::passive
+Test if CoreData relationships do not expose unauthorized related objects
+Verify if application uses NSPersistentCloudKitContainer with proper scope restrictions
+Test if application validates CoreData entity data types before persistence
+Check if CoreData fetch request limits prevent data enumeration attacks
+Test if application properly handles CoreData store in backup exclusion
+Verify if application secures CoreData journal files from unauthorized access
+Test if application prevents CoreData query performance degradation attacks ::authorized-only
+Check if CoreData transformable attributes use secure encoding and decoding
+Test if application validates batch update operations on CoreData entities
+Verify if application uses CoreData history tracking without exposing change logs
+Test if application properly handles CoreData store file permissions ::bounded
+Check if application prevents unauthorized CoreData delete operations
+Test if CoreData unique constraints prevent data corruption from duplicate entries ::passive
+Verify if application properly validates NSManagedObject subclass data access
+Test if application handles CoreData faulting without exposing unloaded data ::passive
+Check if application uses NSPersistentStoreDescription for proper store configuration
+Test if CoreData delete rules prevent orphaned sensitive data records
+Verify if application properly handles CoreData store migration failure rollback ::passive
+Test if application prevents CoreData data exfiltration via query string manipulation ::authorized-only
+Check if CoreData cached objects are properly cleared on logout ::bounded
+Test if application validates iCloud CoreData sync destination access
+Verify if application handles CoreData save conflict resolution securely ::passive
+Test if application prevents unauthorized read access to CoreData entities via queries ::authorized-only
+Check if application properly secures CoreData external storage records ::bounded
+Test if application validates object ID stability across store migrations ::passive
+Verify if CoreData derived data does not expose sensitive information
+Test if application properly handles multiple CoreData store configurations
+Check if application prevents unauthorized access via CoreData Spotlight indexing
+Test if application uses proper transaction isolation for CoreData operations ::passive
+Verify if application handles CoreData store compaction without data leakage ::bounded
+Test if application prevents data tampering via direct SQLite manipulation ::authorized-only
+Check if CoreData fetched properties respect access control requirements
+Test if application validates custom value transformers for transformable attributes
+Verify if application properly handles CoreData asynchronous fetch without blocking UI ::passive
+Test if application prevents CoreData query plan information disclosure
+Check if application secures CoreData metadata from unauthorized access ::bounded
+Verify if application handles NSFetchedResultsController data exposure in UI ::bounded

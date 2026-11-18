@@ -562,6 +562,40 @@ if [ "${#ANDROID_FAILED[@]}" -gt 0 ]; then
   echo -e "${RED}[!] Android Python installs failed: ${ANDROID_FAILED[*]}${NC}"
 fi
 
+# ------------------------------------------------------------------------------
+# iOS app testing toolchain (best effort). Used by .agents/skills/ios-*.
+# Static: built-in Mach-O reader (no Apple tools needed), radare2 (rabin2), ipsw class-dump, Ghidra.
+# Device (jailbroken test device only): libimobiledevice, ideviceinstaller, iproxy, ssh, frida, objection.
+echo -e "\n${YELLOW}[iOS] Installing iOS app testing tools...${NC}"
+if command -v apt-get &>/dev/null; then
+  for pkg in radare2 libimobiledevice-utils ideviceinstaller usbmuxd libusbmuxd-tools ifuse sqlite3 openssh-client sslscan testssl.sh ghidra; do
+    sudo apt-get install -y "$pkg" >/dev/null 2>&1 || echo -e "${YELLOW}  -> apt package not available: ${pkg}${NC}"
+  done
+fi
+IOS_FAILED=()
+for ptool in "frida-tools" "objection"; do
+  "$PYTHON_VENV/bin/python" -m pip show "$ptool" >/dev/null 2>&1 && continue
+  if "$PYTHON_VENV/bin/python" -m pip install "$ptool" >/tmp/bb_ios_${ptool}.log 2>&1; then
+    echo -e "${GREEN}  -> ${ptool} installed in project virtual environment.${NC}"
+  else
+    echo -e "${RED}  -> FAILED: ${ptool} (see /tmp/bb_ios_${ptool}.log)${NC}"
+    IOS_FAILED+=("$ptool")
+  fi
+done
+if command -v go &>/dev/null && ! command -v ipsw &>/dev/null; then
+  go install github.com/blacktop/ipsw/cmd/ipsw@latest >/tmp/bb_ipsw.log 2>&1 || echo -e "${YELLOW}  -> ipsw not installed (see /tmp/bb_ipsw.log); class-dump step will be skipped${NC}"
+fi
+echo -e "${CYAN}  -> Optional: decrypt your own install with bagbak (npm i -g bagbak) or frida-ios-dump; frida-server must run on the jailbroken test device${NC}"
+echo -e "${CYAN}  -> iOS matrix:${NC}"
+for t in rabin2 ipsw idevice_id ideviceinfo ideviceinstaller idevicesyslog idevicecrashreport idevicebackup2 iproxy ssh sqlite3 sslscan frida objection ghidra; do
+  if command -v "$t" &>/dev/null; then printf "    %-18s ${GREEN}%s${NC}\n" "$t" "INSTALLED"; else printf "    %-18s ${RED}%s${NC}\n" "$t" "MISSING"; fi
+done
+if [ "${#IOS_FAILED[@]}" -gt 0 ]; then
+  echo -e "${RED}[!] iOS Python installs failed: ${IOS_FAILED[*]}${NC}"
+fi
+"$PYTHON_VENV/bin/python" -I "$SCRIPT_DIR/.agents/skills/ios-app-audit/scripts/selftest.py" >/tmp/bb_ios_selftest.log 2>&1 \
+  && echo -e "${GREEN}  -> iOS audit selftest passed${NC}" || echo -e "${RED}  -> iOS audit selftest failed (see /tmp/bb_ios_selftest.log)${NC}"
+
 # Optional tools (only when cargo is available; others are manual, see SETUP.md)
 if command -v cargo &>/dev/null; then
   command -v noseyparker &>/dev/null || cargo install --git https://github.com/praetorian-inc/noseyparker >/tmp/bb_noseyparker.log 2>&1 || echo -e "${YELLOW}  -> noseyparker not installed (see /tmp/bb_noseyparker.log)${NC}"

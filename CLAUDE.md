@@ -90,6 +90,24 @@ This repository contains multi-agent skills implementing Jason Haddix's *The Bug
 70. **`android-accessibility-audit`:** `.agents/skills/android-accessibility-audit/SKILL.md` (98 checks, defensive only: FLAG_SECURE, password and card fields, overlay and tapjacking defences)
 71. **`android-forensic-audit`:** `.agents/skills/android-forensic-audit/SKILL.md` (92 checks: residue of the app's own data on the owner's test device after uninstall or clearing)
 
+72. **`ios-app-audit`:** `.agents/skills/ios-app-audit/SKILL.md` (orchestrator for iOS app testing: 16 category skills, 955 checklist rows `IOS-0001`..`IOS-0955`, `ios_static.py` with a built-in Mach-O reader, `ios_container_audit.py`, `ios_device.py` (libimobiledevice + SSH, gated), `ios_deeplink.py` (scope-gated AASA), `ios_checklist.py` (0/N to N/N tracker), 19 Frida hooks, `selftest.py`; setup.sh installs radare2, libimobiledevice, ideviceinstaller, frida, objection, ipsw)
+73. **`ios-static-audit`:** `.agents/skills/ios-static-audit/SKILL.md` (30 checks: class dump, Info.plist, ATS, URL schemes, secrets, entitlements, Mach-O hardening, SDKs, WebView, keychain and crypto API use)
+74. **`ios-dynamic-audit`:** `.agents/skills/ios-dynamic-audit/SKILL.md` (20 checks: Frida, Objection, pinning and jailbreak bypass, Burp, LLDB, biometrics, pasteboard, UserDefaults, snapshots (jailbroken test device, approval for active checks))
+75. **`ios-reverse-protection-audit`:** `.agents/skills/ios-reverse-protection-audit/SKILL.md` (10 checks: jailbreak detection, dylib injection, anti-debugging, code signing and integrity)
+76. **`ios-data-storage-audit`:** `.agents/skills/ios-data-storage-audit/SKILL.md` (75 checks: keychain, UserDefaults, plists, SQLite, caches, tmp, backups, iCloud, Data Protection classes, file system)
+77. **`ios-coredata-audit`:** `.agents/skills/ios-coredata-audit/SKILL.md` (50 checks: store protection, WAL/SHM, predicate injection, transformables, CloudKit, Spotlight, logout cleanup)
+78. **`ios-network-audit`:** `.agents/skills/ios-network-audit/SKILL.md` (25 checks: ATS exceptions, cleartext, pinning, trust evaluation, cookies, credential storage, WebSockets, background sessions)
+79. **`ios-crypto-keychain-audit`:** `.agents/skills/ios-crypto-keychain-audit/SKILL.md` (70 checks: weak algorithms, ECB, hardcoded keys, PBKDF2, IV reuse, RNG, Secure Enclave, keychain accessibility, access control, access groups)
+80. **`ios-deeplink-audit`:** `.agents/skills/ios-deeplink-audit/SKILL.md` (65 checks: URL schemes, universal links, AASA (scope-gated), parameter injection, open redirect, WebView loading, auth on link handlers)
+81. **`ios-privacy-permission-audit`:** `.agents/skills/ios-privacy-permission-audit/SKILL.md` (15 checks: usage descriptions vs imported APIs and entitlements, ATT, local network, HealthKit, HomeKit)
+82. **`ios-extension-ipc-audit`:** `.agents/skills/ios-extension-ipc-audit/SKILL.md` (65 checks: share, widget, keyboard, notification, intents, file provider and network extensions; app groups, Handoff, Darwin notifications, XPC)
+83. **`ios-sandbox-audit`:** `.agents/skills/ios-sandbox-audit/SKILL.md` (50 checks: container isolation, app group and iCloud containers, bookmarks, symlinks; platform escapes not tested)
+84. **`ios-notification-audit`:** `.agents/skills/ios-notification-audit/SKILL.md` (50 checks: lock-screen content, extensions, action authentication, critical alerts, silent pushes)
+85. **`ios-memory-audit`:** `.agents/skills/ios-memory-audit/SKILL.md` (143 checks: PIE, canary, ARC, PAC, unsafe C, secret retention in memory via marker scan)
+86. **`ios-sdk-payment-audit`:** `.agents/skills/ios-sdk-payment-audit/SKILL.md` (100 checks: SDK inventory and data flows, StoreKit receipts and subscriptions, Apple Pay, card forms, wallet limits)
+87. **`ios-accessibility-audit`:** `.agents/skills/ios-accessibility-audit/SKILL.md` (97 checks, defensive only: secure text entry, keyboard cache, third-party keyboards, accessibility values, screen capture; OS features not tested)
+88. **`ios-forensic-audit`:** `.agents/skills/ios-forensic-audit/SKILL.md` (90 checks: the app's own residue after logout, clearing, uninstall and reinstall; system data not tested)
+
 Existing skills gained an "Extended checklist (added)" section that points to a `references/` file. Each row carries an ID, product, check, class, and safe verification.
 
 ## Environment Setup & Tooling
