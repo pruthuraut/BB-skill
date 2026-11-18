@@ -224,6 +224,32 @@ scripts/scope_check.sh TARGET_DOMAIN
 - If the gate fails, stop the active steps and report the failure. Passive, offline, and read-only analysis of artifacts already collected may continue.
 - Runners that take `--target` run the same gate and refuse to start otherwise.
 
+## Extended toolchain (added, rix4uni and ProjectDiscovery helpers)
+
+Run each stage once. The stages below are ordered so the output of one feeds the next and no source is queried twice.
+
+| Stage | Tool | Role | Traffic | Run only when |
+|---|---|---|---|---|
+| Passive | `subfinder -all`, `amass enum -passive`, `chaos`, `cero`, crt.sh | Primary passive sources (Phase 01 of recon-hunter) | None against the target | Always first |
+| Passive | `subdog` | Passive fan-out across extra sources, merges into a single list | None against the target | After the primary sources, for extra coverage only |
+| Dedupe | `unew` | Prints only lines not already in the master list. Use it on every merge so each stage adds only new hosts | None | Between every stage |
+| Scope exclusion | `oosexclude` | Removes out-of-scope hosts from a list before any probe. Feed it the program's out-of-scope lines | None | Before DNS or HTTP steps |
+| Hidden hosts | `certinfo` | Reads certificate SANs and organisation fields from a cert the host presents. Reveals sibling hosts | One TLS handshake per host | Bounded, in scope only |
+| Hidden hosts | `favinfo` | Fetches a favicon, hashes it (Shodan-style mmh3), and lists other hosts sharing it | One GET of `/favicon.ico` per host | Bounded, in scope only |
+| Scope discovery | `tldscan` | Enumerates TLDs and country domains for a brand (`.com`, `.net`, `.org`, ccTLDs) to find owned domains | DNS lookups only | Only for "any asset of the organisation" scopes, and each hit must be confirmed as owned before it is added to `scope.txt` |
+| Active | `alterx` | Generates permutations from known subdomains | None (generation only) | After passive lists exist |
+| Active | `subdomainfuzz` | Wraps ffuf: brute-forces `FUZZ.<domain>` with a DNS wordlist, or runs ffuf over a list of hosts | DNS queries, plus HTTP only when `-ffuf` is used | Only with explicit approval, and only at the program's rate limit |
+| Active | `whoxysubs` | Subdomain lookup through the WHOIS-reverse API | Third-party API queries only | When a WHOXY key is configured; never sent to the target |
+| Active | `ffuf` (DNS mode) | Raw DNS brute-force (`ffuf -u https://FUZZ.domain`) | HTTP to the target | Only with explicit approval and a rate cap (`-rate`) |
+
+Overlap rules:
+- Passive: `subfinder`, `amass`, `chaos`, `cero` and `subdog` are separate sources and may return the same names. Merge them through `unew`, not by concatenation.
+- Active brute-force (`subdomainfuzz`, `ffuf` DNS mode) and permutation (`alterx`) both create candidate names. Run `alterx` once, then feed its output to a single brute-force tool, not both.
+- HTTP probes (`httpx`, `subdomainfuzz -ffuf`) run once per host list. Do not repeat `httpx` on a list that `subdomainfuzz` has already probed.
+- `certinfo` and `favinfo` are pivots. Run them only on hosts already confirmed in scope, then add any new in-scope host through `unew`.
+
+Scope tiers (from the program page): large (`any asset of the organisation`), medium (`*.domain`), small (a single host). For a large scope, `tldscan` finds candidates and each one needs ownership proof before it is added. For a small scope, skip `tldscan`, `alterx` and brute-force.
+
 ## Extended checklist (added)
 
 - File: `references/status_triage_and_dns.md` (Status-code triage (403/404/301/302/200), enumeration methodology, DNS and zone checks).

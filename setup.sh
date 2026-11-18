@@ -427,6 +427,13 @@ echo -e "\n${YELLOW}[Step 8b] Installing GitHub-hosted tools (findomain, knockpy
 mkdir -p "$HOME/.local/bin" "$HOME/tools"
 export PATH="$HOME/.local/bin:$HOME/go/bin:$PATH"
 
+# Subdomain / scope helpers (rix4uni): passive dedupe, active permutation, hidden-host pivots, scope exclusion
+for gotool in github.com/rix4uni/subdog@latest github.com/rix4uni/unew@latest github.com/rix4uni/subdomainfuzz@latest github.com/rix4uni/whoxysubs@latest github.com/rix4uni/favinfo@latest github.com/rix4uni/certinfo@latest github.com/rix4uni/oosexclude@latest github.com/rix4uni/tldscan@latest; do
+  bin=$(basename "$gotool" | cut -d'@' -f1)
+  command -v "$bin" &>/dev/null && continue
+  go install -v "$gotool" >/tmp/bb_go_"$bin".log 2>&1 || { echo -e "${RED}  -> FAILED: $bin${NC}"; GO_FAILED+=("$bin"); }
+done
+
 # Go tools not in the list above: cloudlist and shosubgo
 for gotool in github.com/projectdiscovery/cloudlist/cmd/cloudlist@latest github.com/incogbyte/shosubgo@latest; do
   bin=$(basename "$gotool" | cut -d'@' -f1)
