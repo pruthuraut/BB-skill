@@ -18,3 +18,6 @@ __pycache__/
 .tools/
 .env
 node_modules/
+
+# /brag video build files
+brag-output/

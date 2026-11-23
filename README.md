@@ -2,6 +2,10 @@
 
 A production-grade offensive reconnaissance, technology fingerprinting, content discovery, and vulnerability auditing framework. Built on Jason Haddix's *The Bug Hunter's Methodology (TBHM v4)*, real-world bug bounty research, and automated multi-agent task distribution.
 
+[![Watch the BBskill launch video (21s)](media/bbskill-launch.jpg)](media/bbskill-launch.mp4)
+
+*Click the image to watch the 21-second launch video.*
+
 ---
 
 ## 1. System Architecture Overview
